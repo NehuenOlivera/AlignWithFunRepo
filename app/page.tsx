@@ -18,13 +18,11 @@ export default function HomePage() {
 
   useEffect(() => {
     async function load() {
-      const { data, error } = await supabase
-        .from("events")
-        .select("*")
-        .eq("is_cancelled", false)
-        .gte("start_at", new Date().toISOString())
-        .order("start_at", { ascending: true });
-      if (error) console.error(error);
+      const { data, error } = await supabase.rpc("get_events_with_spots");
+      if (error) {
+        console.error("Supabase RPC error:", error);
+        return;
+      }
       setEvents((data as Event[]) || []);
       setLoading(false);
     }

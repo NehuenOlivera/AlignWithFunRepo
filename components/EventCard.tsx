@@ -23,7 +23,7 @@ export default function EventCard({ event, onJoin }: Props) {
           {event.suggested_price ? `Donate: ${event.suggested_price}` : "Free"}
         </p>
         <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold bg-green-100 text-green-800 rounded-full">
-          Spots left: {event.max_participants - (event as any).booked_count}
+          Spots left: {event.spots_left}
         </span>
       </div>
 
