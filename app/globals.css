@@ -1,26 +1,141 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+  /* Paleta de colores */
+  --color-dark-green: #0b3d2e;
+  --color-beige: #f5f1e6;
+  --color-black: #171717;
+  --color-white: #ffffff;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  /* Fondos y tipografías */
+  --background: linear-gradient(to bottom, var(--color-beige), var(--color-dark-green));
+  --foreground: var(--color-black);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Sombras para glassmorphism */
+  --glass-shadow: rgba(255, 255, 255, 0.2);
+  --glass-blur: 10px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Glassmorphism card */
+.card {
+  background: rgba(255, 255, 255, 0.1); /* semi-transparente */
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: 16px;
+  box-shadow: 0 4px 30px var(--glass-shadow);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 40px var(--glass-shadow);
+}
+
+/* Botones */
+.button {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.button-blue {
+  background-color: var(--color-dark-green);
+  color: var(--color-white);
+}
+
+.button-blue:hover {
+  background-color: #06532a;
+}
+
+.button-green {
+  background-color: #1fa15f;
+  color: var(--color-white);
+}
+
+.button-green:hover {
+  background-color: #138a48;
+}
+
+/* Formulario */
+.form-input {
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 0.5rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-input:focus {
+  border-color: var(--color-dark-green);
+}
+
+/* Títulos */
+h1, h2 {
+  font-family: var(--font-sans);
+  color: var(--color-dark-green);
+  margin: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+/* Mensajes de feedback */
+.message {
+  font-size: 0.9rem;
+  color: var(--color-black);
+  margin-top: 0.5rem;
+}
+
+/* Lista de eventos */
+.event-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Para modal del formulario */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+  box-shadow: 0 8px 40px var(--glass-shadow);
 }
