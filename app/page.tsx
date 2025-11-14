@@ -8,7 +8,7 @@ type Event = {
   id: string;
   name: string;
   description: string | null;
-  start_at: string; // <-- correct column name
+  start_at: string;
   duration_minutes: number;
   max_participants: number;
   suggested_price: number | null;
@@ -30,7 +30,6 @@ export default function Page() {
         .gte("start_at", new Date().toISOString())
         .order("start_at", { ascending: true });
 
-      // Better logging so you can see Supabase responses clearly
       if (error) {
         console.error("Supabase error:", JSON.stringify(error, Object.getOwnPropertyNames(error)));
       } else {
