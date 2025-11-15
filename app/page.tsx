@@ -11,9 +11,6 @@ export default function HomePage() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -23,20 +20,17 @@ export default function HomePage() {
         console.error("Supabase RPC error:", error);
         return;
       }
-      setEvents((data as Event[]) || []);
+      if (!error) setEvents((data as Event[]) || []);
       setLoading(false);
     }
     load();
 
-    // Subscribe to Realtime changes on attendees
     const channel = supabase
       .channel("attendees-updates")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "attendees" },
-        () => {
-          load(); // refresh events with updated spots_left
-        }
+        () => load()
       )
       .subscribe();
 
@@ -45,29 +39,19 @@ export default function HomePage() {
     };
   }, []);
 
-  const handleJoinSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleJoinSubmit = async () => {
     if (!selectedEvent) return;
-    try {
-      const res = await fetch("/api/join", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          event_id: selectedEvent.id,
-          name,
-          email,
-          phone,
-        }),
-      });
-      const data = await res.json();
-      if (data.error) setMessage("Error: " + data.error);
-      else setMessage(data.message || "Successfully joined!");
-      setName("");
-      setEmail("");
-      setPhone("");
-    } catch {
-      setMessage("Unexpected error joining event.");
-    }
+
+    const res = await fetch("/api/join", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event_id: selectedEvent.id }),
+    });
+
+    const data = await res.json();
+
+    if (data.error) setMessage("Error: " + data.error);
+    else setMessage(data.message || "Successfully joined!");
   };
 
   const handleCloseModal = () => {
@@ -86,16 +70,11 @@ export default function HomePage() {
           onJoin={setSelectedEvent}
         />
       </section>
+
       {selectedEvent && (
         <JoinModal
           event={selectedEvent}
-          name={name}
-          email={email}
-          phone={phone}
           message={message}
-          setName={setName}
-          setEmail={setEmail}
-          setPhone={setPhone}
           handleSubmit={handleJoinSubmit}
           handleClose={handleCloseModal}
         />
