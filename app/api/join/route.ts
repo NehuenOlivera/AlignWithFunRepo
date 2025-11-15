@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { event_id, name, email, phone } = body;
 
-    // Validar que todos los campos requeridos estén presentes
+    // Validate required fields
     if (!event_id || !name || !email || !phone) {
       return NextResponse.json(
         { error: "event_id, name, email, and phone are required" },
@@ -15,7 +15,6 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Llamada al RPC 'book_attendee'
     const { data, error } = await supabase.rpc("book_attendee", {
       p_event_id: event_id,
       p_name: name,
@@ -48,6 +47,9 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     console.error("Join API error:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

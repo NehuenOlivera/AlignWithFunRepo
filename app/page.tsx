@@ -27,6 +27,22 @@ export default function HomePage() {
       setLoading(false);
     }
     load();
+
+    // Subscribe to Realtime changes on attendees
+    const channel = supabase
+      .channel("attendees-updates")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "attendees" },
+        () => {
+          load(); // refresh events with updated spots_left
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const handleJoinSubmit = async (e: React.FormEvent) => {
