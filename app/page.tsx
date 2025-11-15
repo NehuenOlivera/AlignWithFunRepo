@@ -62,7 +62,9 @@ export default function HomePage() {
       const data = await res.json();
       if (data.error) setMessage("Error: " + data.error);
       else setMessage(data.message || "Successfully joined!");
-      setName(""); setEmail(""); setPhone("");
+      setName("");
+      setEmail("");
+      setPhone("");
     } catch {
       setMessage("Unexpected error joining event.");
     }
@@ -78,7 +80,11 @@ export default function HomePage() {
       <Hero />
       <section className="py-12 px-6 max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold mb-6">Upcoming Classes</h2>
-        <UpcomingClasses events={events} loading={loading} onJoin={setSelectedEvent} />
+        <UpcomingClasses
+          events={events}
+          loading={loading}
+          onJoin={setSelectedEvent}
+        />
       </section>
       {selectedEvent && (
         <JoinModal
