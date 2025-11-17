@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -11,12 +13,14 @@ import { Input } from "@/components/ui/input";
 import { emailLogin, signup } from "./actions";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
-// import { OAuthButtons } from "./oauth-signin";
 
-export default async function Login({}: // searchParams,
-{
-  searchParams: { message: string };
+export default async function Login({
+  searchParams,
+}: {
+  searchParams: Promise<{ message?: string }>;
 }) {
+  const resolvedParams = await searchParams;
+
   const supabase = await createClient();
 
   const {
@@ -60,11 +64,13 @@ export default async function Login({}: // searchParams,
                 required
               />
             </div>
-            {/* {searchParams.message && (
+
+            {resolvedParams.message && (
               <div className="text-sm font-medium text-destructive">
-                {searchParams.message}
+                {resolvedParams.message}
               </div>
-            )} */}
+            )}
+
             <Button formAction={emailLogin} className="w-full">
               Login
             </Button>
