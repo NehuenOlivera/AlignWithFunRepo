@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { createClient } from "@/utils/supabase/client";
 import Hero from "../components/Hero";
 import UpcomingClasses from "../components/UpcomingClasses";
 import JoinModal from "../components/JoinModal";
@@ -15,6 +15,7 @@ export default function HomePage() {
 
   useEffect(() => {
     async function load() {
+      const supabase = createClient();
       const { data, error } = await supabase.rpc("get_events_with_spots");
       if (error) {
         console.error("Supabase RPC error:", error);
@@ -25,6 +26,7 @@ export default function HomePage() {
     }
     load();
 
+    const supabase = createClient();
     const channel = supabase
       .channel("attendees-updates")
       .on(

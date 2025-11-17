@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import { createClient } from "@/utils/supabase/client";
 
 export default function ProtectedLayout({
   children,
@@ -13,6 +13,7 @@ export default function ProtectedLayout({
 
   useEffect(() => {
     async function checkSession() {
+      const supabase = createClient();
       const {
         data: { session },
       } = await supabase.auth.getSession();

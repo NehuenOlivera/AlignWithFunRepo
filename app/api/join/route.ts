@@ -1,5 +1,5 @@
+import { createClient } from "@/utils/supabase/server";
 import { NextRequest, NextResponse } from "next/server";
-import { supabase } from "../../../lib/supabaseClient";
 
 export async function POST(req: NextRequest) {
   try {
@@ -13,30 +13,34 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { data, error } = await supabase.rpc("book_attendee", {
+    const supabase = createClient();
+    const { data, error } = await (
+      await supabase
+    ).rpc("book_attendee", {
       p_event_id: event_id,
     });
 
     if (error) {
+      console.error("RPC error:", error);
       return NextResponse.json({ error: error.message }, { status: 400 });
     }
 
-    const result = Array.isArray(data) && data.length > 0 ? data[0] : null;
-
-    if (!result) {
+    if (!data) {
       return NextResponse.json(
-        { error: "No data returned from booking function" },
+        { error: "RPC returned no data" },
         { status: 500 }
       );
     }
 
+    const row = Array.isArray(data) ? data[0] : data;
+
     return NextResponse.json({
       success: true,
-      user_id: result.user_id,
-      event_id: result.event_id,
-      booking_status: result.final_status,
+      user_id: row.r_user_id,
+      event_id: row.r_event_id,
+      booking_status: row.r_status,
       message:
-        result.final_status === "booked"
+        row.r_status === "booked"
           ? "You are successfully booked!"
           : "The class is full. You have been added to the waitlist.",
     });
