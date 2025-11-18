@@ -7,5 +7,8 @@ export type Event = {
   max_participants: number;
   suggested_price: number | null;
   post_schedule_message: string | null;
+  // location: string | null;
+  // booked_count: number;
   spots_left: number;
+  user_status: boolean;
 };

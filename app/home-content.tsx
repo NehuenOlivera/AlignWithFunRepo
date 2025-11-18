@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { createClient } from "@/utils/supabase/client";
 import Hero from "../components/Hero";
 import UpcomingClasses from "../components/UpcomingClasses";
@@ -13,30 +13,41 @@ export default function HomeContent() {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const [message, setMessage] = useState("");
 
+  const supabase = createClient();
+
+  const loadEvents = useCallback(async () => {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
+    const userId = session?.user?.id ?? null;
+
+    const { data, error } = await supabase.rpc("get_events_with_spots", {
+      p_user_id: userId,
+    });
+
+    if (!error) setEvents((data as Event[]) || []);
+    setLoading(false);
+  }, [supabase]);
+
   useEffect(() => {
-    async function load() {
-      const supabase = createClient();
-      const { data, error } = await supabase.rpc("get_events_with_spots");
-      if (!error) setEvents((data as Event[]) || []);
-      setLoading(false);
-    }
+    (async () => {
+      await loadEvents();
+    })();
 
-    load();
-
-    const supabase = createClient();
     const channel = supabase
       .channel("attendees-updates")
       .on(
         "postgres_changes",
         { event: "*", schema: "public", table: "attendees" },
-        load
+        () => loadEvents()
       )
       .subscribe();
 
     return () => {
       supabase.removeChannel(channel);
     };
-  }, []);
+  }, [loadEvents, supabase]);
 
   const handleJoinSubmit = async () => {
     if (!selectedEvent) return;
@@ -49,11 +60,14 @@ export default function HomeContent() {
 
     const data = await res.json();
     setMessage(data.error ? "Error: " + data.error : data.message);
+
+    await loadEvents();
   };
 
   return (
     <main className="min-h-screen bg-gray-50 font-sans">
       <Hero />
+
       <section className="py-12 px-6 max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold mb-6">Upcoming Classes</h2>
 

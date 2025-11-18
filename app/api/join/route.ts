@@ -1,53 +1,40 @@
+import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
-import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const body = await req.json();
-    const { event_id } = body;
-
-    if (!event_id) {
-      return NextResponse.json(
-        { error: "event_id is required" },
-        { status: 400 }
-      );
-    }
-
+    const { event_id } = await req.json();
     const supabase = createClient();
-    const { data, error } = await (
-      await supabase
-    ).rpc("book_attendee", {
-      p_event_id: event_id,
-    });
 
-    if (error) {
-      console.error("RPC error:", error);
-      return NextResponse.json({ error: error.message }, { status: 400 });
-    }
+    // get user
+    const {
+      data: { user },
+    } = await (await supabase).auth.getUser();
 
-    if (!data) {
+    if (!user) {
       return NextResponse.json(
-        { error: "RPC returned no data" },
-        { status: 500 }
+        { error: "You must be logged in to join." },
+        { status: 401 }
       );
     }
 
-    const row = Array.isArray(data) ? data[0] : data;
-
-    return NextResponse.json({
-      success: true,
-      user_id: row.r_user_id,
-      event_id: row.r_event_id,
-      booking_status: row.r_status,
-      message:
-        row.r_status === "booked"
-          ? "You are successfully booked!"
-          : "The class is full. You have been added to the waitlist.",
+    // insert attendee
+    const { error } = await (await supabase).from("attendees").insert({
+      event_id,
+      user_id: user.id,
+      status: "booked",
     });
+
+    if (error) return NextResponse.json({ error: error.message });
+
+    return NextResponse.json({ message: "Successfully joined!" });
   } catch (err) {
-    console.error("Join API error:", err);
     return NextResponse.json(
-      { error: "Internal server error" },
+      {
+        error:
+          "Internal server error: " +
+          (err instanceof Error ? err.message : String(err)),
+      },
       { status: 500 }
     );
   }
