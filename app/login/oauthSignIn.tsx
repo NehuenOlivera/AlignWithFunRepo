@@ -17,22 +17,22 @@ export function OAuthButtons() {
     {
       name: "google",
       displayName: "Google",
-      icon: <FcGoogle size={24} className="shrink-0" />,
+      icon: <FcGoogle size={20} className="shrink-0" />,
     },
   ];
   return (
-    <>
+    <div className="space-y-3">
       {providers.map((provider) => (
         <Button
           key={provider.name}
-          className="flex items-center justify-center gap-2 bg-blue-500 text-white"
+          className="w-full flex items-center justify-center gap-3 bg-white text-[#101010] hover:bg-white/90 border border-[#101010]/10 rounded-10 font-semibold h-11 transition-all"
           variant="outline"
           onClick={async () => await oAuthSignIn(provider.name)}
         >
           {provider.icon}
-          Log in with {provider.displayName}
+          Continue with {provider.displayName}
         </Button>
       ))}
-    </>
+    </div>
   );
 }

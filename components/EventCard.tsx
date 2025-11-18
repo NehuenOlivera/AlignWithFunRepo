@@ -1,4 +1,4 @@
-import { formatDistanceToNow, format } from "date-fns";
+import { format } from "date-fns";
 import { Event } from "../types";
 
 type Props = {
@@ -11,60 +11,82 @@ export default function EventCard({ event, onJoin }: Props) {
   const alreadyJoined = event.user_status;
 
   return (
-    <li className="card flex flex-col justify-between p-6">
-      <div>
-        <h3 className="text-xl font-semibold mb-1">{event.name}</h3>
+    <li className="card md:w-full max-w-md group">
+      <div className="flex flex-col justify-between h-full">
+        {/* Header */}
+        <div>
+          <h3 className="text-xl font-semibold mb-3 text-[#022e14] group-hover:text-[#022e14]/80 transition-colors">
+            {event.name}
+          </h3>
 
-        {event.description && (
-          <p className="text-sm mb-2">{event.description}</p>
-        )}
+          {/* Description */}
+          {event.description && (
+            <p className="text-sm text-[#101010]/70 mb-4 leading-relaxed">
+              {event.description}
+            </p>
+          )}
 
-        <p className="text-sm">
-          {format(new Date(event.start_at), "PPPp")} (
-          {formatDistanceToNow(new Date(event.start_at), { addSuffix: true })})
-        </p>
+          {/* Info Grid */}
+          <div className="space-y-2 mb-4">
+            <div className="flex items-center gap-2 text-sm text-[#101010]/80">
+              <span className="text-lg">📅</span>
+              <span>{format(new Date(event.start_at), "PPPp")}</span>
+            </div>
 
-        <p className="text-sm">Duration: {event.duration_minutes} min</p>
+            <div className="flex items-center gap-2 text-sm text-[#101010]/80">
+              <span className="text-lg">⏱️</span>
+              <span>{event.duration_minutes} minutes</span>
+            </div>
 
-        <p className="text-sm">
-          {event.suggested_price ? `Price: $${event.suggested_price}` : "Free"}
-        </p>
+            <div className="flex items-center gap-2 text-sm text-[#101010]/80">
+              <span className="text-lg">💰</span>
+              <span>
+                {event.suggested_price ? `$${event.suggested_price}` : "Free"}
+              </span>
+            </div>
+          </div>
 
-        {alreadyJoined ? (
-          <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold bg-blue-200 text-blue-800 rounded-full">
-            Joined
-          </span>
-        ) : isFull ? (
-          <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold text-gray-900 rounded-full bg-gray-300">
-            FULL
-          </span>
+          {/* Status Badge */}
+          <div className="mb-6">
+            {alreadyJoined ? (
+              <span className="inline-flex items-center px-3 py-1 text-xs font-semibold bg-[#022e14]/15 text-[#022e14] rounded-full border border-[#022e14]/30">
+                ✓ You&apos;re in!
+              </span>
+            ) : isFull ? (
+              <span className="inline-flex items-center px-3 py-1 text-xs font-semibold bg-[#101010]/10 text-[#101010]/60 rounded-full border border-[#101010]/20">
+                Class Full
+              </span>
+            ) : (
+              <span className="inline-flex items-center px-3 py-1 text-xs font-semibold bg-[#022e14]/10 text-[#022e14] rounded-full border border-[#022e14]/20">
+                {event.spots_left} {event.spots_left === 1 ? "spot" : "spots"}{" "}
+                left
+              </span>
+            )}
+          </div>
+        </div>
+
+        {/* Action Button */}
+        {!alreadyJoined ? (
+          <button
+            disabled={isFull}
+            onClick={() => onJoin(event)}
+            className={`w-full py-3 px-4 rounded-12 font-semibold transition-all text-sm ${
+              isFull
+                ? "bg-[#101010]/10 text-[#101010]/50 cursor-not-allowed"
+                : "bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 active:scale-95"
+            }`}
+          >
+            {isFull ? "Class Full" : "Join Class"}
+          </button>
         ) : (
-          <span className="inline-block mt-2 px-2 py-1 text-xs font-semibold bg-green-200 text-green-800 rounded-full">
-            {event.spots_left} spots left
-          </span>
+          <button
+            disabled
+            className="w-full py-3 px-4 rounded-12 font-semibold bg-[#022e14]/10 text-[#022e14] cursor-default text-sm"
+          >
+            Class Booked
+          </button>
         )}
       </div>
-
-      {!alreadyJoined ? (
-        <button
-          disabled={isFull}
-          onClick={() => onJoin(event)}
-          className={`button mt-4 text-white ${
-            isFull
-              ? "bg-gray-400 cursor-not-allowed"
-              : "bg-green-700 hover:bg-green-800"
-          }`}
-        >
-          {isFull ? "Full" : "Join Class"}
-        </button>
-      ) : (
-        <button
-          disabled
-          className="button mt-4 bg-green-700 text-white cursor-default"
-        >
-          You&apos;re in!
-        </button>
-      )}
     </li>
   );
 }

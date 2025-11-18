@@ -8,14 +8,22 @@ type Props = {
 };
 
 export default function UpcomingClasses({ events, loading, onJoin }: Props) {
-  if (loading) return <p>Loading...</p>;
-  if (!events.length) return <p>No upcoming classes.</p>;
+  if (loading)
+    return <div className="text-center py-8 text-[#f5ece5]/70">Loading...</div>;
+  if (!events.length)
+    return (
+      <div className="text-center py-8 text-[#f5ece5]/70">
+        No upcoming classes available.
+      </div>
+    );
 
   return (
-    <ul className="grid gap-6 md:grid-cols-2 mt-2">
-      {events.map((event) => (
-        <EventCard key={event.id} event={event} onJoin={onJoin} />
-      ))}
-    </ul>
+    <div className="flex justify-center w-full">
+      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-9/10 md:w-full">
+        {events.map((event) => (
+          <EventCard key={event.id} event={event} onJoin={onJoin} />
+        ))}
+      </ul>
+    </div>
   );
 }

@@ -6,55 +6,192 @@
   --color-black: #101010;
   --color-white: #ffffff;
 
-  --background: var(--color-dark-green);
-  --foreground: var(--color-black);
+  --background: var(--color-black);
+  --foreground: var(--color-white);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 
-  --glass-shadow: rgba(255, 255, 255, 0.2);
-  --glass-blur: 10px;
+  --glass-shadow: rgba(2, 46, 20, 0.15);
+  --glass-blur: 8px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
-  margin: 0;
-  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  letter-spacing: -0.3px;
+  overflow-x: hidden;
 }
 
-/* GLASS CARD */
+/* GLASS CARD - Minimalista y elegante */
 .card {
-  background: var(--color-beige);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px var(--glass-shadow);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: linear-gradient(
+    135deg,
+    rgba(245, 236, 229, 0.95) 0%,
+    rgba(245, 236, 229, 0.88) 100%
+  );
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  border: 1px solid rgba(245, 236, 229, 0.3);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(var(--glass-blur));
 }
 
 .card:hover {
-  box-shadow: 0 8px 40px var(--glass-shadow);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(2, 46, 20, 0.25);
+  border-color: rgba(245, 236, 229, 0.5);
 }
 
-/* BUTTON */
+/* BUTTON - Minimalista con transiciones suaves */
 .button {
-  border-radius: 8px;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  transition: all 0.2s ease;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.5px;
 }
 
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(2, 46, 20, 0.2);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+/* HEADER - Limpio y minimalista */
 .header {
-  background-color: var(--color-dark-green);
+  background-color: rgba(1, 1, 1, 0.8);
   color: var(--color-white);
-  padding: 1rem;
-  text-align: center;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid rgba(245, 236, 229, 0.08);
+  backdrop-filter: blur(var(--glass-blur));
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+.header a {
+  color: var(--color-white);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  font-weight: 500;
+}
+
+.header a:hover {
+  color: var(--color-beige);
+}
+
+/* HERO - Elegante y minimalista */
 .hero {
   color: var(--color-white);
   text-align: center;
-  padding: 2rem 1rem;
+  padding: 4rem 1.5rem;
+  background: linear-gradient(135deg, #0a1f12 0%, rgba(1, 1, 1, 0.95) 100%);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(2, 46, 20, 0.1) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+  letter-spacing: -1px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero p {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+  color: var(--color-beige);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+}
+
+/* Loading y empty states */
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.05rem;
+}
+
+/* Estilos para inputs minimalistas */
+input[type="email"],
+input[type="password"],
+input[type="text"] {
+  background: rgba(245, 236, 229, 0.05);
+  border: 1px solid rgba(245, 236, 229, 0.15);
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  color: var(--color-white);
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  background: rgba(245, 236, 229, 0.1);
+  border-color: var(--color-beige);
+  box-shadow: 0 0 0 3px rgba(2, 46, 20, 0.1);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(245, 236, 229, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(2, 46, 20, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(2, 46, 20, 0.5);
 }

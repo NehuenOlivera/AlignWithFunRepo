@@ -65,17 +65,33 @@ export default function HomeContent() {
   };
 
   return (
-    <main className="min-h-screen font-sans text-black">
+    <main className="min-h-screen">
       <Hero />
 
-      <section className="py-12 px-6 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6 text-white">Upcoming Classes</h2>
+      <section className="py-16 px-6 mx-auto">
+        <div className="mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#f5ece5] !mb-4 justify-center flex">
+            Upcoming Classes
+          </h2>
+        </div>
 
-        <UpcomingClasses
-          events={events}
-          loading={loading}
-          onJoin={setSelectedEvent}
-        />
+        {loading ? (
+          <div className="text-center py-12">
+            <div className="text-[#f5ece5]/70">Loading your classes...</div>
+          </div>
+        ) : events.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-[#f5ece5]/70">
+              No upcoming classes available at the moment.
+            </p>
+          </div>
+        ) : (
+          <UpcomingClasses
+            events={events}
+            loading={loading}
+            onJoin={setSelectedEvent}
+          />
+        )}
       </section>
 
       {selectedEvent && (
