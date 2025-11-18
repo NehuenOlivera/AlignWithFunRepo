@@ -28,7 +28,7 @@ export default async function Header() {
             </form>
           ) : (
             <Button asChild>
-              <Link href="/login">Sign In</Link>
+              <Link href="/login">Login</Link>
             </Button>
           )}
         </div>
