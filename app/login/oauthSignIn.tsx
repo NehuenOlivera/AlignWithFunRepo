@@ -17,7 +17,7 @@ export function OAuthButtons() {
     {
       name: "google",
       displayName: "Google",
-      icon: <FcGoogle />,
+      icon: <FcGoogle size={24} className="shrink-0" />,
     },
   ];
   return (
@@ -25,12 +25,12 @@ export function OAuthButtons() {
       {providers.map((provider) => (
         <Button
           key={provider.name}
-          className="flex items-center justify-center gap-2"
+          className="flex items-center justify-center gap-2 bg-blue-500 text-white"
           variant="outline"
           onClick={async () => await oAuthSignIn(provider.name)}
         >
           {provider.icon}
-          Login with {provider.displayName}
+          Log in with {provider.displayName}
         </Button>
       ))}
     </>

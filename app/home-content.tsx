@@ -65,11 +65,11 @@ export default function HomeContent() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 font-sans">
+    <main className="min-h-screen font-sans text-black">
       <Hero />
 
       <section className="py-12 px-6 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold mb-6">Upcoming Classes</h2>
+        <h2 className="text-2xl font-bold mb-6 text-white">Upcoming Classes</h2>
 
         <UpcomingClasses
           events={events}
