@@ -72,7 +72,11 @@ export default async function Login({
               </div>
             )}
 
-            <Button formAction={emailLogin} className="w-full">
+            <Button
+              formAction={emailLogin}
+              className="w-full"
+              variant="outline"
+            >
               Login
             </Button>
           </form>
