@@ -10,19 +10,6 @@ export default async function Header() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  let userName: string | null = null;
-  if (user) {
-    const { data, error } = await supabase
-      .from("users")
-      .select("first_name")
-      .eq("id", user.id)
-      .single();
-
-    if (!error && data) {
-      userName = data.first_name;
-    }
-  }
-
   return (
     <header className="header z-50 sticky top-0 w-full">
       <div className="container max-w-6xl mx-auto px-6 py-4">
@@ -50,7 +37,7 @@ export default async function Header() {
                   )}
                 </nav>
                 <Button
-                  className="text-sm !px-2 py-2 bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 rounded-10 font-semibold"
+                  className="text-sm px-2! py-2 bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 rounded-10 font-semibold"
                   variant="outline"
                 >
                   Sign Out
@@ -59,7 +46,7 @@ export default async function Header() {
             ) : (
               <Button
                 asChild
-                className="text-sm !px-4 py-2 bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 rounded-10 font-semibold"
+                className="text-sm px-4! py-2 bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 rounded-10 font-semibold"
                 variant="outline"
               >
                 <Link href="/login">Login</Link>
