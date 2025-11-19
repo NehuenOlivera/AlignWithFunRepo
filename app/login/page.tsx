@@ -79,7 +79,7 @@ export default async function Login({
                 </div>
               )}
 
-              <div className="!mt-6">
+              <div className="mt-6!">
                 <Button
                   formAction={emailLogin}
                   className="w-full bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 rounded-10 font-semibold h-11"
@@ -90,7 +90,7 @@ export default async function Login({
             </form>
 
             {/* Divider */}
-            <div className="relative !my-2">
+            <div className="relative my-2!">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-[#101010]/10"></div>
               </div>

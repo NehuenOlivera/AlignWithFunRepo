@@ -35,28 +35,20 @@ export default async function Header() {
             <span className="font-bold text-lg text-[#f5ece5]">AWF</span>
           </a>
 
-          {/* Navigation */}
-          <nav className="flex items-center space-x-8">
-            {user && (
-              <Link
-                href="/dashboard"
-                className="text-sm font-medium text-[#f5ece5]/80 hover:text-[#f5ece5] transition-colors"
-              >
-                Dashboard
-              </Link>
-            )}
-          </nav>
-
           {/* Auth Section */}
           <div className="flex items-center space-x-4">
             {user !== null ? (
               <form action={signOut} className="flex items-center gap-4">
-                <span className="text-sm text-[#f5ece5]/80">
-                  Welcome,{" "}
-                  <span className="font-semibold text-[#f5ece5]">
-                    {userName}
-                  </span>
-                </span>
+                <nav className="flex items-center space-x-8">
+                  {user && (
+                    <Link
+                      href="/profile"
+                      className="text-sm font-medium text-[#f5ece5]/80 hover:text-[#f5ece5] transition-colors"
+                    >
+                      My Profile
+                    </Link>
+                  )}
+                </nav>
                 <Button
                   className="text-sm !px-2 py-2 bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 rounded-10 font-semibold"
                   variant="outline"
