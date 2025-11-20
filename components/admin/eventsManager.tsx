@@ -79,7 +79,7 @@ export default function EventsManager({
       suggested_price: suggestedPrice ? Number(suggestedPrice) : null,
     };
 
-    const res = await fetch("/api/join/events/create", {
+    const res = await fetch("/api/events/create", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
