@@ -203,9 +203,9 @@ export default function EventsManager({
         onOpenChange={setIsDialogOpen}
         title="Create New Event"
       >
-        <form className="space-y-6" onSubmit={handleNewEventSubmit}>
-          <div className="space-y-4">
-            <div className="space-y-2">
+        <form className="space-y-6!" onSubmit={handleNewEventSubmit}>
+          <div className="space-y-4!">
+            <div>
               <Label>Class Name *</Label>
               <Input
                 value={name}
@@ -215,7 +215,7 @@ export default function EventsManager({
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+              <div>
                 <Label>Start Date *</Label>
                 <Input
                   type="date"
@@ -224,7 +224,7 @@ export default function EventsManager({
                   required
                 />
               </div>
-              <div className="space-y-2">
+              <div>
                 <Label>Start Time *</Label>
                 <Input
                   type="time"
@@ -236,7 +236,7 @@ export default function EventsManager({
             </div>
 
             <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
+              <div>
                 <Label>Duration (minutes) *</Label>
                 <Input
                   type="number"
@@ -245,7 +245,7 @@ export default function EventsManager({
                   required
                 />
               </div>
-              <div className="space-y-2">
+              <div>
                 <Label>Max Participants *</Label>
                 <Input
                   type="number"
@@ -256,7 +256,7 @@ export default function EventsManager({
               </div>
             </div>
 
-            <div className="space-y-2">
+            <div>
               <Label>Description</Label>
               <Textarea
                 rows={3}
@@ -265,7 +265,7 @@ export default function EventsManager({
               />
             </div>
 
-            <div className="space-y-2">
+            <div>
               <Label>Location</Label>
               <Input
                 value={location}
@@ -273,7 +273,7 @@ export default function EventsManager({
               />
             </div>
 
-            <div className="space-y-2">
+            <div>
               <Label>Suggested Price ($)</Label>
               <Input
                 type="number"
