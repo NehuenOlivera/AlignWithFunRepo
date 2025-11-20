@@ -115,6 +115,10 @@ body {
   align-items: center;
   position: relative;
   overflow: hidden;
+  @media (max-width: 768px) {
+    padding: 2rem 1.5rem;
+    min-height: 250px;
+  }
 }
 
 .hero::before {

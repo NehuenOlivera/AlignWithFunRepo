@@ -144,7 +144,7 @@ export default function UserData() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div>
-                <label className="block text-sm font-medium text-[#f5ece5]/80 mb-1!">
+                <label className="block text-sm font-medium text-amber-20 mb-1!">
                   First Name
                 </label>
                 <input
@@ -158,7 +158,7 @@ export default function UserData() {
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#f5ece5]/80 mb-1!">
+                <label className="block text-sm font-medium text-amber-20 mb-1!">
                   Last Name
                 </label>
                 <input
@@ -172,14 +172,14 @@ export default function UserData() {
               </div>
 
               <div className="space-y-2 sm:col-span-2">
-                <label className="block text-sm font-medium text-[#f5ece5]/80 mb-1!">
+                <label className="block text-sm font-medium text-amber-20 mb-1!">
                   Email
                 </label>
                 <input
                   type="email"
                   value={formData.email || ""}
                   disabled
-                  className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5]/50 cursor-not-allowed"
+                  className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5]/50! cursor-not-allowed"
                 />
                 <p className="text-xs text-[#f5ece5]/50">
                   Email cannot be changed
@@ -187,7 +187,7 @@ export default function UserData() {
               </div>
 
               <div className="space-y-2 sm:col-span-2">
-                <label className="block text-sm font-medium text-[#f5ece5]/80 mb-1!">
+                <label className="block text-sm font-medium text-amber-20 mb-1!">
                   Phone
                 </label>
                 <input
@@ -197,7 +197,7 @@ export default function UserData() {
                   onChange={handleInputChange}
                   disabled={!isEditing}
                   placeholder="+1 (555) 000-0000"
-                  className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                  className="w-full px-4! py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                 />
               </div>
             </div>
@@ -213,7 +213,7 @@ export default function UserData() {
 
             <div className="space-y-4">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#f5ece5]/80">
+                <label className="block text-sm font-medium text-amber-20 mb-1!">
                   Contact Name
                 </label>
                 <input
@@ -222,12 +222,12 @@ export default function UserData() {
                   value={formData.emergency_contact_name || ""}
                   onChange={handleInputChange}
                   disabled={!isEditing}
-                  className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                  className="w-full px-4 py-2! mb-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#f5ece5]/80">
+                <label className="block text-sm font-medium text-amber-20 mb-1!">
                   Relationship
                 </label>
                 <input
@@ -237,12 +237,12 @@ export default function UserData() {
                   onChange={handleInputChange}
                   disabled={!isEditing}
                   placeholder="e.g. Mother, Father, Spouse"
-                  className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                  className="w-full px-4 py-2! mb-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                 />
               </div>
 
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-[#f5ece5]/80">
+                <label className="block text-sm font-medium text-amber-20 mb-1!">
                   Contact Phone
                 </label>
                 <input
@@ -252,7 +252,7 @@ export default function UserData() {
                   onChange={handleInputChange}
                   disabled={!isEditing}
                   placeholder="+1 (555) 000-0000"
-                  className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                  className="w-full px-4! py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                 />
               </div>
             </div>
@@ -263,16 +263,16 @@ export default function UserData() {
               <button
                 type="button"
                 onClick={() => setIsEditing(true)}
-                className="px-6 py-3 bg-[#022e14] hover:bg-[#022e14]/90 text-[#f5ece5] rounded-lg font-semibold transition-all hover:shadow-lg active:scale-95"
+                className="px-6 py-3! bg-[#022e14] hover:bg-[#022e14]/90 text-[#f5ece5] rounded-lg font-semibold transition-all hover:shadow-lg active:scale-95"
               >
-                Edit Profile
+                Edit Info
               </button>
             ) : (
               <>
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 py-3 bg-white/10 hover:bg-white/20 text-[#f5ece5] rounded-lg font-semibold transition-all"
+                  className="px-6 py-2! bg-white/10 hover:bg-white/20 text-[#f5ece5] rounded-lg font-semibold transition-all"
                 >
                   Cancel
                 </button>
@@ -280,7 +280,7 @@ export default function UserData() {
                   type="button"
                   onClick={handleSave}
                   disabled={saving}
-                  className="px-6 py-3 bg-[#022e14] hover:bg-[#022e14]/90 text-[#f5ece5] rounded-lg font-semibold transition-all hover:shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-2! bg-[#022e14] hover:bg-[#022e14]/90 text-[#f5ece5] rounded-lg font-semibold transition-all hover:shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {saving ? "Saving..." : "Save Changes"}
                 </button>
