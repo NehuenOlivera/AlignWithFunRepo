@@ -5,6 +5,8 @@
   --color-beige: #f5ece5;
   --color-black: #101010;
   --color-white: #ffffff;
+  --color-grey: #808080;
+  --color-orange: #ff7f50;
 
   --background: var(--color-black);
   --foreground: var(--color-white);
@@ -36,7 +38,7 @@ body {
   overflow-x: hidden;
 }
 
-.card {
+.joinClassModal {
   background: linear-gradient(
     135deg,
     rgba(245, 236, 229, 0.95) 0%,
@@ -48,12 +50,6 @@ body {
   padding: 1.5rem;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(var(--glass-blur));
-}
-
-.card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(2, 46, 20, 0.25);
-  border-color: rgba(245, 236, 229, 0.5);
 }
 
 .button {
@@ -190,4 +186,90 @@ input[type="text"]:focus {
 
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(2, 46, 20, 0.5);
+}
+
+.eventCard {
+  background: linear-gradient(135deg, var(--color-beige), var(--color-white));
+  border-radius: 20px;
+  box-shadow: 0 8px 32px var(--glass-shadow);
+  border: 1px solid rgba(245, 236, 229, 0.3);
+  padding: 1.25rem;
+  backdrop-filter: blur(var(--glass-blur));
+
+  width: 100%;
+  max-width: 28rem; /* equiv a max-w-md */
+  display: block;
+}
+
+/* ---------- Title ---------- */
+.eventCard-title {
+  font-size: 1.5rem; /* text-xl */
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  color: var(--color-dark-green);
+}
+
+/* ---------- Text row ---------- */
+.eventCard-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem; /* text-sm */
+  color: var(--color-black);
+}
+
+/* ---------- Badge ---------- */
+.eventCard-badge-available {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: #022e141a;
+  border: 1px solid rgba(2, 46, 20, 0.2);
+  color: var(--color-dark-green);
+}
+
+.eventCard-badge-joined {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--color-beige);
+  border: 1px solid rgba(2, 46, 20, 0.2);
+  color: var(--color-black);
+}
+
+.eventCard-badge-full {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: var(--color-black);
+  border: 1px solid rgba(2, 46, 20, 0.2);
+  color: var(--color-white);
+}
+
+/* ---------- Button ---------- */
+.eventCard-button-available {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  /* background: var(--color-dark-green); */
+  color: var(--color-beige);
+  border: none;
+  cursor: pointer;
+}
+
+.eventCard-button:active {
+  transform: scale(0.95);
 }

@@ -113,75 +113,75 @@ export default function EventsManager({
   return (
     <>
       {/* Page Title */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6!">
         <div>
           <h1 className="text-3xl font-bold text-[#f5ece5] mb-1">
             Event Management
           </h1>
-          <p className="text-[#f5ece5]/70">
-            Create and manage your pilates classes
-          </p>
+          <p className="text-[#f5ece5]/70">Create and manage your classes</p>
         </div>
 
-        <Button className="gap-2" onClick={() => setIsDialogOpen(true)}>
+        <Button
+          className="gap-2 border-2 pr-3! pl-2!"
+          onClick={() => setIsDialogOpen(true)}
+        >
           <Plus className="h-4 w-4" />
-          Create Event
+          New
         </Button>
       </div>
 
+      {/* // Align items to the right */}
       {/* Filter */}
-      <div className="flex items-center gap-2 mb-6">
+      <div className="flex items-center gap-2 mb-6! justify-end">
+        <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
+          Show past events
+        </Label>
         <Switch
           id="show-past"
           checked={showPastEvents}
           onCheckedChange={setShowPastEvents}
         />
-        <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
-          Show past events
-        </Label>
       </div>
 
       {/* Events Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredEvents.map((ev) => (
-          <Card key={ev.id} className="hover:shadow-md transition-shadow">
+          <Card key={ev.id} className="eventCard">
             <CardHeader>
-              <CardTitle className="text-[#f5ece5] flex justify-between">
-                {ev.name}
-              </CardTitle>
+              <CardTitle className="eventCard-title">{ev.name}</CardTitle>
 
               {ev.description && (
-                <CardDescription className="text-[#f5ece5]/70">
+                <CardDescription className="eventCard-text">
                   {ev.description}
                 </CardDescription>
               )}
             </CardHeader>
 
             <CardContent className="space-y-3">
-              <div className="flex items-center gap-2 text-sm text-[#f5ece5]/70">
+              <div className="eventCard-text">
                 <Calendar className="h-4 w-4" />
                 <span>{formatDateTime(ev.start_at)}</span>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-[#f5ece5]/70">
+              <div className="eventCard-text">
                 <Clock className="h-4 w-4" />
                 <span>{ev.duration_minutes} minutes</span>
               </div>
 
-              <div className="flex items-center gap-2 text-sm text-[#f5ece5]/70">
+              <div className="eventCard-text">
                 <Users className="h-4 w-4" />
                 <span>Max {ev.max_participants}</span>
               </div>
 
               {ev.location && (
-                <div className="flex items-center gap-2 text-sm text-[#f5ece5]/70">
+                <div className="eventCard-text">
                   <MapPin className="h-4 w-4" />
                   <span>{ev.location}</span>
                 </div>
               )}
 
               {ev.suggested_price && (
-                <div className="flex items-center gap-2 text-sm text-[#f5ece5]/70">
+                <div className="eventCard-text">
                   <DollarSign className="h-4 w-4" />
                   <span>${ev.suggested_price}</span>
                 </div>

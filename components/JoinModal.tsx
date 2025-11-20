@@ -21,7 +21,7 @@ export default function JoinModal({
       onClick={handleClose}
     >
       <div
-        className="card max-w-md w-full p-8 shadow-2xl"
+        className="joinClassModal max-w-md w-full p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
