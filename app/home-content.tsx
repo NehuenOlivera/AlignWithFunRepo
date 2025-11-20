@@ -70,7 +70,7 @@ export default function HomeContent() {
 
       <section className="py-16 px-6 mx-auto">
         <div className="mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#f5ece5] !mb-4 justify-center flex">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#f5ece5] mb-4! justify-center flex">
             Upcoming Classes
           </h2>
         </div>

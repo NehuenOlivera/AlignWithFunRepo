@@ -3,12 +3,15 @@ import { signOut } from "@/app/login/actions";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
+import { getUserWithRole } from "@/utils/supabase/getUserWithRole";
 
 export default async function Header() {
   const supabase = await createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  const userWithRole = await getUserWithRole();
 
   return (
     <header className="header z-50 sticky top-0 w-full">
@@ -20,6 +23,13 @@ export default async function Header() {
             href="/"
           >
             <span className="font-bold text-lg text-[#f5ece5]">AWF</span>
+          </a>
+          <a href="/adminPage">
+            {user !== null && userWithRole?.role === "admin" && (
+              <span className="font-medium text-sm text-amber-20 hover:opacity-80 transition-opacity">
+                Admin Panel
+              </span>
+            )}
           </a>
 
           {/* Auth Section */}

@@ -134,6 +134,7 @@ export type Database = {
           id: string;
           last_name: string;
           phone: string | null;
+          role: string;
         };
         Insert: {
           created_at?: string | null;
@@ -145,6 +146,7 @@ export type Database = {
           id: string;
           last_name: string;
           phone?: string | null;
+          role?: string;
         };
         Update: {
           created_at?: string | null;
@@ -156,6 +158,7 @@ export type Database = {
           id?: string;
           last_name?: string;
           phone?: string | null;
+          role?: string;
         };
         Relationships: [];
       };
@@ -172,8 +175,25 @@ export type Database = {
           r_user_id: string;
         }[];
       };
+      get_events_with_info: {
+        Args: { p_user_id?: string };
+        Returns: {
+          booked_count: number;
+          description: string;
+          duration_minutes: number;
+          id: string;
+          location: string;
+          max_participants: number;
+          name: string;
+          post_schedule_message: string;
+          spots_left: number;
+          start_at: string;
+          suggested_price: number;
+          user_joined: boolean;
+        }[];
+      };
       get_events_with_spots: {
-        Args: never;
+        Args: { p_user_id: string };
         Returns: {
           description: string;
           duration_minutes: number;
@@ -185,6 +205,7 @@ export type Database = {
           spots_left: number;
           start_at: string;
           suggested_price: number;
+          user_status: string;
         }[];
       };
     };
