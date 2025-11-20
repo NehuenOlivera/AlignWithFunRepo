@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { Event } from "../types";
+import { Calendar, Clock, DollarSign } from "lucide-react";
 
 type Props = {
   event: Event;
@@ -29,17 +30,17 @@ export default function EventCard({ event, onJoin }: Props) {
           {/* Info Grid */}
           <div className="space-y-2 mb-4">
             <div className="flex items-center gap-2 text-sm text-[#101010]/80">
-              <span className="text-lg">📅</span>
+              <Calendar className="h-4 w-4" />
               <span>{format(new Date(event.start_at), "PPPp")}</span>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-[#101010]/80">
-              <span className="text-lg">⏱️</span>
+              <Clock className="h-4 w-4" />
               <span>{event.duration_minutes} minutes</span>
             </div>
 
             <div className="flex items-center gap-2 text-sm text-[#101010]/80">
-              <span className="text-lg">💰</span>
+              <DollarSign className="h-4 w-4" />
               <span>
                 {event.suggested_price ? `$${event.suggested_price}` : "Free"}
               </span>

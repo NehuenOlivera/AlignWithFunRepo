@@ -36,7 +36,6 @@ body {
   overflow-x: hidden;
 }
 
-/* GLASS CARD - Minimalista y elegante */
 .card {
   background: linear-gradient(
     135deg,
@@ -57,7 +56,6 @@ body {
   border-color: rgba(245, 236, 229, 0.5);
 }
 
-/* BUTTON - Minimalista con transiciones suaves */
 .button {
   border-radius: 12px;
   padding: 0.75rem 1.5rem;
@@ -78,7 +76,6 @@ body {
   transform: translateY(0);
 }
 
-/* HEADER - Limpio y minimalista */
 .header {
   background-color: rgba(1, 1, 1, 0.8);
   color: var(--color-white);
@@ -102,12 +99,10 @@ body {
   color: var(--color-beige);
 }
 
-/* HERO - Elegante y minimalista */
 .hero {
   color: var(--color-white);
   text-align: center;
   padding: 4rem 1.5rem;
-  /* background: linear-gradient(135deg, #0a1f12 0%, rgba(1, 1, 1, 0.95) 100%); */
   min-height: 400px;
   display: flex;
   flex-direction: column;
@@ -151,7 +146,6 @@ body {
   z-index: 1;
 }
 
-/* Loading y empty states */
 .empty-state {
   text-align: center;
   padding: 3rem 1rem;
@@ -159,7 +153,6 @@ body {
   font-size: 1.05rem;
 }
 
-/* Estilos para inputs minimalistas */
 input[type="email"],
 input[type="password"],
 input[type="text"] {
@@ -181,7 +174,6 @@ input[type="text"]:focus {
   box-shadow: 0 0 0 3px rgba(2, 46, 20, 0.1);
 }
 
-/* Scrollbar personalizada */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
