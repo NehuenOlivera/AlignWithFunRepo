@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
+import { Pen } from "lucide-react";
 
 interface UserProfile {
   id: string;
@@ -135,11 +136,29 @@ export default function UserData() {
       <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6! sm:p-8! md:p-10!">
         <form className="space-y-8!">
           <div>
-            <div className="flex items-center gap-3 mb-6!">
-              <div className="w-1 h-6 bg-[#022e14]"></div>
-              <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
-                Personal Information
-              </h2>
+            <div
+              className="flex justify-between items-start mb-2!"
+              style={{ alignItems: "center" }}
+            >
+              {/* A div that contains one div and one h2, should be one next to the other */}
+              <div className="flex items-center gap-3">
+                <div className="w-1 h-6 bg-[#022e14]"></div>
+                <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
+                  Personal Information
+                </h2>
+              </div>
+              {!isEditing && (
+                <div>
+                  <button
+                    type="button"
+                    onClick={() => setIsEditing(true)}
+                    className="px-6! py-3! bg-[#022e14] rounded-lg font-semibold border border-white/10"
+                  >
+                    <Pen className="inline-block h-4 w-4 mr-2!" />
+                    Edit
+                  </button>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
@@ -259,20 +278,12 @@ export default function UserData() {
           </div>
 
           <div className="pt-6 flex flex-col sm:flex-row gap-3 justify-end">
-            {!isEditing ? (
-              <button
-                type="button"
-                onClick={() => setIsEditing(true)}
-                className="px-6 py-3! bg-[#022e14] hover:bg-[#022e14]/90 text-[#f5ece5] rounded-lg font-semibold transition-all hover:shadow-lg active:scale-95"
-              >
-                Edit Info
-              </button>
-            ) : (
+            {isEditing && (
               <>
                 <button
                   type="button"
                   onClick={handleCancel}
-                  className="px-6 py-2! bg-white/10 hover:bg-white/20 text-[#f5ece5] rounded-lg font-semibold transition-all"
+                  className="px-6! py-2! bg-white/10 rounded-lg font-semibold"
                 >
                   Cancel
                 </button>
@@ -280,7 +291,7 @@ export default function UserData() {
                   type="button"
                   onClick={handleSave}
                   disabled={saving}
-                  className="px-6 py-2! bg-[#022e14] hover:bg-[#022e14]/90 text-[#f5ece5] rounded-lg font-semibold transition-all hover:shadow-lg active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6! py-2! bg-[#022e14] rounded-lg font-semibold active:scale-95 disabled:opacity-50 border border-white/10"
                 >
                   {saving ? "Saving..." : "Save Changes"}
                 </button>
