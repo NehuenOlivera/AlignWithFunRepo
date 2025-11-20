@@ -65,7 +65,7 @@ export default function HomeContent() {
   };
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen bg-linear-to-b from-[#0a1f12] to-[#101010]">
       <Hero />
 
       <section className="py-16 px-6 mx-auto">

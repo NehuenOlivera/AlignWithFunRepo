@@ -107,7 +107,7 @@ body {
   color: var(--color-white);
   text-align: center;
   padding: 4rem 1.5rem;
-  background: linear-gradient(135deg, #0a1f12 0%, rgba(1, 1, 1, 0.95) 100%);
+  /* background: linear-gradient(135deg, #0a1f12 0%, rgba(1, 1, 1, 0.95) 100%); */
   min-height: 400px;
   display: flex;
   flex-direction: column;
