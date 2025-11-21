@@ -21,6 +21,7 @@ import {
   MapPin,
   DollarSign,
   Pencil,
+  Trash2,
 } from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
 
@@ -53,11 +54,13 @@ export default function EventsManager({
 }) {
   const [events, setEvents] = useState<Event[]>(initialEvents);
   const [showPastEvents, setShowPastEvents] = useState(true);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+  const [deletingEvent, setDeletingEvent] = useState<Event | null>(null);
   const [cancelEvent, setCancelEvent] = useState(false);
 
   const [name, setName] = useState("");
@@ -82,6 +85,21 @@ export default function EventsManager({
       hour: "2-digit",
       minute: "2-digit",
     });
+  };
+
+  const resetForm = () => {
+    setName("");
+    setStartDate("");
+    setStartTime("");
+    setDuration("");
+    setMaxParticipants("");
+    setDescription("");
+    setLocation("");
+    setSuggestedPrice("");
+    setCancelEvent(false);
+
+    setEditingEvent(null);
+    setDeletingEvent(null);
   };
 
   // CREATE EVENT HANDLER
@@ -120,17 +138,9 @@ export default function EventsManager({
     // add new event to list
     setEvents((prev) => [...prev, data.event]);
 
-    // reset form
-    setName("");
-    setStartDate("");
-    setStartTime("");
-    setDuration("");
-    setMaxParticipants("");
-    setDescription("");
-    setLocation("");
-    setSuggestedPrice("");
+    resetForm();
 
-    setIsDialogOpen(false);
+    setIsCreateDialogOpen(false);
     setLoading(false);
   };
 
@@ -144,6 +154,11 @@ export default function EventsManager({
     setLocation(ev.location || "");
     setSuggestedPrice(ev.suggested_price ? String(ev.suggested_price) : "");
     setCancelEvent(ev.is_cancelled);
+  };
+
+  const populateDeleteForm = (ev: Event) => {
+    setName(ev.name);
+    setDescription(ev.description || "");
   };
 
   const handleEditEventSubmit = async (e: React.FormEvent) => {
@@ -188,10 +203,34 @@ export default function EventsManager({
     setLoading(false);
   };
 
+  const handleDeleteEvent = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!deletingEvent) return;
+
+    const res = await fetch(`/api/events/${deletingEvent.id}/delete`, {
+      method: "DELETE",
+    });
+
+    const data = await res.json();
+
+    // update list
+    setEvents((prev) => prev.filter((ev) => ev.id !== deletingEvent.id));
+
+    if (!res.ok) {
+      alert("Error: " + data.error);
+      setLoading(false);
+      return;
+    }
+    setIsDeleteDialogOpen(false);
+    setLoading(false);
+  };
+
   return (
     <>
       {/* Page Title */}
-      <div className="flex items-center justify-between mb-6!">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-3xl font-bold text-[#f5ece5] mb-1">
             Event Management
@@ -200,8 +239,11 @@ export default function EventsManager({
         </div>
 
         <Button
-          className="gap-2 border-2 pr-3! pl-2!"
-          onClick={() => setIsDialogOpen(true)}
+          className="gap-2 border-2 pr-3 pl-2"
+          onClick={() => {
+            resetForm();
+            setIsCreateDialogOpen(true);
+          }}
         >
           <Plus className="h-4 w-4" />
           New
@@ -209,7 +251,7 @@ export default function EventsManager({
       </div>
 
       {/* Filter */}
-      <div className="flex items-center gap-2 mb-6! justify-end">
+      <div className="flex items-center gap-2 mb-6 justify-end">
         <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
           Show past events
         </Label>
@@ -225,7 +267,7 @@ export default function EventsManager({
         {filteredEvents.map((ev) => (
           <Card key={ev.id} className="eventCard">
             <button
-              className="absolute top-7 right-7 p-1 rounded-md hover:bg-white/10 transition text-black border border-black"
+              className="absolute top-7 right-5 p-1 rounded-md hover:bg-white/10 transition text-green border border-green"
               onClick={() => {
                 setEditingEvent(ev);
                 populateEditForm(ev);
@@ -233,6 +275,16 @@ export default function EventsManager({
               }}
             >
               <Pencil className="h-4 w-4" />
+            </button>
+            <button
+              className="absolute top-7 right-14 p-1 rounded-md hover:bg-white/10 transition text-red-600 border border-red-600"
+              onClick={() => {
+                setDeletingEvent(ev);
+                populateDeleteForm(ev);
+                setIsDeleteDialogOpen(true);
+              }}
+            >
+              <Trash2 className="h-4 w-4" />
             </button>
             <CardHeader>
               <CardTitle className="eventCard-title">{ev.name}</CardTitle>
@@ -286,12 +338,12 @@ export default function EventsManager({
 
       {/* Create Dialog */}
       <BasicDialog
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
+        open={isCreateDialogOpen}
+        onOpenChange={setIsCreateDialogOpen}
         title="Create New Event"
       >
-        <form className="space-y-6!" onSubmit={handleNewEventSubmit}>
-          <div className="space-y-4!">
+        <form className="space-y-6" onSubmit={handleNewEventSubmit}>
+          <div className="space-y-4">
             <div>
               <Label>Class Name *</Label>
               <Input
@@ -375,7 +427,7 @@ export default function EventsManager({
             <button
               type="button"
               className="modalCancelButton"
-              onClick={() => setIsDialogOpen(false)}
+              onClick={() => setIsCreateDialogOpen(false)}
             >
               Cancel
             </button>
@@ -397,9 +449,9 @@ export default function EventsManager({
         onOpenChange={setIsEditDialogOpen}
         title="Edit Event"
       >
-        <form className="space-y-6!" onSubmit={handleEditEventSubmit}>
-          <div className="space-y-4!">
-            <div className="space-y-4!">
+        <form className="space-y-6" onSubmit={handleEditEventSubmit}>
+          <div className="space-y-4">
+            <div className="space-y-4">
               <div>
                 <Label>Class Name *</Label>
                 <Input
@@ -504,6 +556,61 @@ export default function EventsManager({
             <Switch checked={cancelEvent} onCheckedChange={setCancelEvent} />
             <span className="text-sm text-[#f5ece5]/70">Mark as cancelled</span>
           </div>
+        </div>
+      </BasicDialog>
+
+      {/* Delete Dialog */}
+      <BasicDialog
+        open={isDeleteDialogOpen}
+        onOpenChange={setIsDeleteDialogOpen}
+        title="Are you sure you want to delete this event?"
+      >
+        <Label className="mb-4 block text-red-600">
+          This action cannot be undone
+        </Label>
+        <form className="space-y-6" onSubmit={handleDeleteEvent}>
+          <div className="space-y-4">
+            <div className="space-y-4">
+              <div>
+                {/*Populate label with event name */}
+                <Label>Class Name </Label>
+                <Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                  readOnly
+                />
+              </div>
+
+              <div>
+                <Label>Description</Label>
+                <Textarea
+                  rows={3}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  readOnly
+                />
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div className="flex gap-3 justify-end mt-6">
+          <button
+            type="button"
+            className="modalCancelButton"
+            onClick={() => setIsDeleteDialogOpen(false)}
+          >
+            Cancel
+          </button>
+
+          <button
+            className="modalDeleteButton"
+            disabled={loading}
+            onClick={handleDeleteEvent}
+          >
+            {loading ? "Deleting..." : "Delete"}
+          </button>
         </div>
       </BasicDialog>
     </>

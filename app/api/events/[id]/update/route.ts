@@ -5,7 +5,7 @@ export async function PUT(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ) {
-  const { id } = await context.params; // <--- Aquí está el truco
+  const { id } = await context.params;
   if (!id) {
     return NextResponse.json({ error: "No id provided" }, { status: 400 });
   }
@@ -24,7 +24,6 @@ export async function PUT(
     is_cancelled,
   } = body;
 
-  // Validación
   if (!name || !start_at || !duration_minutes || !max_participants) {
     return NextResponse.json(
       { error: "Missing required fields" },

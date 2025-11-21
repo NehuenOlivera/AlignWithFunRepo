@@ -19,7 +19,7 @@ export default function UpcomingClasses({ events, loading, onJoin }: Props) {
 
   return (
     <div className="flex justify-center w-full">
-      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-9/10 md:w-full">
+      <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-9/10 md:w-full justify-items-center">
         {events.map((event) => (
           <EventCard key={event.id} event={event} onJoin={onJoin} />
         ))}

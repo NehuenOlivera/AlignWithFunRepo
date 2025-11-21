@@ -133,18 +133,15 @@ export default function UserData() {
       )}
 
       {/* Main Card */}
-      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6! sm:p-8! md:p-10!">
-        <form className="space-y-8!">
+      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10">
+        <form className="space-y-8">
           <div>
-            <div
-              className="flex justify-between items-start mb-2!"
-              style={{ alignItems: "center" }}
-            >
+            <div className="flex justify-between mb-2 items-center flex-nowrap">
               {/* A div that contains one div and one h2, should be one next to the other */}
               <div className="flex items-center gap-3">
                 <div className="w-1 h-6 bg-[#022e14]"></div>
-                <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
-                  Personal Information
+                <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5] whitespace-nowrap">
+                  Personal Info
                 </h2>
               </div>
               {!isEditing && (
@@ -152,9 +149,9 @@ export default function UserData() {
                   <button
                     type="button"
                     onClick={() => setIsEditing(true)}
-                    className="px-6! py-3! bg-[#022e14] rounded-lg font-semibold border border-white/10"
+                    className="px-4 py-3 bg-[#022e14] rounded-lg font-semibold border border-white/10 whitespace-nowrap"
                   >
-                    <Pen className="inline-block h-4 w-4 mr-2!" />
+                    <Pen className="inline-block h-4 w-4 mr-2" />
                     Edit
                   </button>
                 </div>
