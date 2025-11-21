@@ -16,6 +16,14 @@ import { Switch } from "../ui/switch";
 import { Plus, Calendar, Clock, Users, MapPin, DollarSign } from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
 
+interface Attendee {
+  user_id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone?: string;
+}
+
 interface Event {
   id: string;
   name: string;
@@ -25,6 +33,8 @@ interface Event {
   location?: string;
   description?: string;
   suggested_price?: number;
+  attendees_amount: number;
+  attendees: Attendee[];
 }
 
 export default function EventsManager({
