@@ -28,7 +28,7 @@ export default function EventCard({ event, onJoin }: Props) {
               ) : isFull ? (
                 <span className="eventCard-badge-full">Class Full</span>
               ) : (
-                <span className="eventCard-badge-available bg-[#022e14]/10 text-[#022e14] rounded-full border border-[#022e14]/20">
+                <span className="eventCard-badge-available">
                   {event.spots_left} {event.spots_left === 1 ? "spot" : "spots"}{" "}
                   left
                 </span>

@@ -53,15 +53,12 @@ export default function JoinModal({
         {/* Action Buttons */}
         <div className="flex gap-3 mb-4">
           <button
-            onClick={handleSubmit}
-            className="flex-1 bg-[#022e14] text-[#f5ece5] py-3 rounded-12 font-semibold hover:bg-[#022e14]/90 transition-all active:scale-95"
+            onClick={handleSubmit} //.confirmButton
+            className="joinClassModalConfirmButton"
           >
             Confirm Join
           </button>
-          <button
-            onClick={handleClose}
-            className="flex-1 bg-[#101010]/10 text-[#101010] py-3 rounded-12 font-semibold hover:bg-[#101010]/20 transition-all"
-          >
+          <button onClick={handleClose} className="joinClassModalCancelButton">
             Cancel
           </button>
         </div>

@@ -16,9 +16,9 @@ export default function BasicDialog({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-[#181818] border border-[#333] rounded-xl max-w-xl p-6! shadow-xl animate-in fade-in zoom-in">
-        <div className="flex justify-between items-center mb-4!">
+    <div className="dialog-wrapper">
+      <div className="dialog-card">
+        <div className="dialog-header">
           <h2 className="text-xl font-semibold">{title}</h2>
 
           <button

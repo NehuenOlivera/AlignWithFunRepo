@@ -18,12 +18,6 @@
   --glass-blur: 8px;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -38,6 +32,91 @@ body {
   overflow-x: hidden;
 }
 
+/* Header */
+
+.header {
+  background-color: rgba(1, 1, 1, 0.8);
+  color: var(--color-white);
+  border-bottom: 1px solid rgba(245, 236, 229, 0.08);
+  backdrop-filter: blur(var(--glass-blur));
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  width: 100%;
+}
+
+.header-container {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-beige);
+}
+
+.header-admin-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-beige);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-auth {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.header-profile-link {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-beige);
+}
+
+.header-profile-link:hover {
+  color: var(--color-beige);
+}
+
+.header-login-btn,
+.header-signout-btn {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: #022e14;
+  color: var(--color-beige);
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.header-login-btn:hover,
+.header-signout-btn:hover {
+  background: #022e14e6;
+}
+
+.header-login-btn:active,
+.header-signout-btn:active {
+  transform: scale(0.97);
+}
+
+/* Join Class Modal */
 .joinClassModal {
   background: linear-gradient(
     135deg,
@@ -52,48 +131,27 @@ body {
   backdrop-filter: blur(var(--glass-blur));
 }
 
-.button {
-  border-radius: 12px;
-  padding: 0.75rem 1.5rem;
-  font-weight: 600;
-  font-size: 0.95rem;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  border: none;
-  cursor: pointer;
-  letter-spacing: 0.5px;
-}
-
-.button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(2, 46, 20, 0.2);
-}
-
-.button:active {
-  transform: translateY(0);
-}
-
-.header {
-  background-color: rgba(1, 1, 1, 0.8);
-  color: var(--color-white);
-  padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid rgba(245, 236, 229, 0.08);
-  backdrop-filter: blur(var(--glass-blur));
-  position: sticky;
-  top: 0;
-  z-index: 40;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.header a {
-  color: var(--color-white);
-  text-decoration: none;
-  transition: color 0.2s ease;
-  font-weight: 500;
-}
-
-.header a:hover {
+.joinClassModalConfirmButton {
+  flex: 1;
+  background: var(--color-dark-green);
   color: var(--color-beige);
+  padding: 0.75rem 0;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
+
+.joinClassModalCancelButton {
+  flex: 1;
+  background: var(--color-black);
+  color: var(--color-beige);
+  padding: 0.75rem 0;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
+/* Hero */
 
 .hero {
   color: var(--color-white);
@@ -140,13 +198,6 @@ body {
   line-height: 1.8;
   position: relative;
   z-index: 1;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 3rem 1rem;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.05rem;
 }
 
 input[type="email"],
@@ -264,7 +315,7 @@ input[type="text"]:focus {
   border-radius: 12px;
   font-size: 1.1rem;
   transition: all 0.2s ease;
-  /* background: var(--color-dark-green); */
+  background: var(--color-dark-green);
   color: var(--color-beige);
   border: none;
   cursor: pointer;
@@ -272,4 +323,75 @@ input[type="text"]:focus {
 
 .eventCard-button:active {
   transform: scale(0.95);
+}
+
+.dialog-wrapper {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-black);
+}
+
+.dialog-card {
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border: 1px solid #333;
+  border-radius: 14px;
+  max-width: 40rem;
+  padding: 1.5rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+  animation: dialog-appear 0.25s ease-out;
+}
+
+@keyframes dialog-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.dialog-close {
+  color: rgba(245, 236, 229, 0.7);
+  transition: color 0.2s ease;
+}
+
+.dialog-close:hover {
+  color: var(--color-beige);
+}
+
+.modalCancelButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid rgb(209 213 219);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.modalCancelButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.modalSubmitButton {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  background: rgb(5 150 105);
+  color: white;
+  transition: background 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
 }

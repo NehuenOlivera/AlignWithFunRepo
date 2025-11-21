@@ -130,7 +130,6 @@ export default function EventsManager({
         </Button>
       </div>
 
-      {/* // Align items to the right */}
       {/* Filter */}
       <div className="flex items-center gap-2 mb-6! justify-end">
         <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
@@ -285,16 +284,21 @@ export default function EventsManager({
           </div>
 
           <div className="flex gap-3 justify-end">
-            <Button
+            <button
               type="button"
-              variant="outline"
+              className="modalCancelButton"
               onClick={() => setIsDialogOpen(false)}
             >
               Cancel
-            </Button>
-            <Button type="submit" disabled={loading}>
+            </button>
+
+            <button
+              type="submit"
+              className="modalSubmitButton"
+              disabled={loading}
+            >
               {loading ? "Creating..." : "Create Event"}
-            </Button>
+            </button>
           </div>
         </form>
       </BasicDialog>
