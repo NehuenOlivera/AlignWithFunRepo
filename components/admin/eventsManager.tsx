@@ -13,7 +13,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { Switch } from "../ui/switch";
-import { Plus, Calendar, Clock, Users, MapPin, DollarSign } from "lucide-react";
+import {
+  Plus,
+  Calendar,
+  Clock,
+  Users,
+  MapPin,
+  DollarSign,
+  Pencil,
+} from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
 
 interface Attendee {
@@ -35,6 +43,7 @@ interface Event {
   suggested_price?: number;
   attendees_amount: number;
   attendees: Attendee[];
+  is_cancelled: boolean;
 }
 
 export default function EventsManager({
@@ -46,6 +55,10 @@ export default function EventsManager({
   const [showPastEvents, setShowPastEvents] = useState(true);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState<Event | null>(null);
+  const [cancelEvent, setCancelEvent] = useState(false);
 
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -87,6 +100,7 @@ export default function EventsManager({
       description: description || null,
       location: location || null,
       suggested_price: suggestedPrice ? Number(suggestedPrice) : null,
+      is_cancelled: cancelEvent,
     };
 
     const res = await fetch("/api/events/create", {
@@ -117,6 +131,60 @@ export default function EventsManager({
     setSuggestedPrice("");
 
     setIsDialogOpen(false);
+    setLoading(false);
+  };
+
+  const populateEditForm = (ev: Event) => {
+    setName(ev.name);
+    setStartDate(ev.start_at.slice(0, 10)); // YYYY-MM-DD
+    setStartTime(new Date(ev.start_at).toISOString().slice(11, 16));
+    setDuration(String(ev.duration_minutes));
+    setMaxParticipants(String(ev.max_participants));
+    setDescription(ev.description || "");
+    setLocation(ev.location || "");
+    setSuggestedPrice(ev.suggested_price ? String(ev.suggested_price) : "");
+    setCancelEvent(ev.is_cancelled);
+  };
+
+  const handleEditEventSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!editingEvent) return;
+
+    const start_at = new Date(`${startDate}T${startTime}:00`);
+
+    const payload = {
+      name,
+      start_at,
+      duration_minutes: Number(duration),
+      max_participants: Number(maxParticipants),
+      description: description || null,
+      location: location || null,
+      suggested_price: suggestedPrice ? Number(suggestedPrice) : null,
+      is_cancelled: cancelEvent,
+    };
+
+    const res = await fetch(`/api/events/${editingEvent.id}/update`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert("Error: " + data.error);
+      setLoading(false);
+      return;
+    }
+
+    // update list
+    setEvents((prev) =>
+      prev.map((ev) => (ev.id === editingEvent.id ? data.event : ev))
+    );
+
+    setIsEditDialogOpen(false);
     setLoading(false);
   };
 
@@ -156,6 +224,16 @@ export default function EventsManager({
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredEvents.map((ev) => (
           <Card key={ev.id} className="eventCard">
+            <button
+              className="absolute top-7 right-7 p-1 rounded-md hover:bg-white/10 transition text-black border border-black"
+              onClick={() => {
+                setEditingEvent(ev);
+                populateEditForm(ev);
+                setIsEditDialogOpen(true);
+              }}
+            >
+              <Pencil className="h-4 w-4" />
+            </button>
             <CardHeader>
               <CardTitle className="eventCard-title">{ev.name}</CardTitle>
 
@@ -311,6 +389,122 @@ export default function EventsManager({
             </button>
           </div>
         </form>
+      </BasicDialog>
+
+      {/* Edit Dialog */}
+      <BasicDialog
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        title="Edit Event"
+      >
+        <form className="space-y-6!" onSubmit={handleEditEventSubmit}>
+          <div className="space-y-4!">
+            <div className="space-y-4!">
+              <div>
+                <Label>Class Name *</Label>
+                <Input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Start Date *</Label>
+                  <Input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label>Start Time *</Label>
+                  <Input
+                    type="time"
+                    value={startTime}
+                    onChange={(e) => setStartTime(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Duration (minutes) *</Label>
+                  <Input
+                    type="number"
+                    value={duration}
+                    onChange={(e) => setDuration(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <Label>Max Participants *</Label>
+                  <Input
+                    type="number"
+                    value={maxParticipants}
+                    onChange={(e) => setMaxParticipants(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div>
+                <Label>Description</Label>
+                <Textarea
+                  rows={3}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <Label>Location</Label>
+                <Input
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <Label>Suggested Price ($)</Label>
+                <Input
+                  type="number"
+                  step="0.01"
+                  value={suggestedPrice}
+                  onChange={(e) => setSuggestedPrice(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="flex gap-3 justify-end">
+            <button
+              type="button"
+              className="modalCancelButton"
+              onClick={() => setIsEditDialogOpen(false)}
+            >
+              Close
+            </button>
+
+            <button
+              type="submit"
+              className="modalSubmitButton"
+              disabled={loading}
+            >
+              {loading ? "Saving..." : "Save Changes"}
+            </button>
+          </div>
+        </form>
+        <div>
+          <Label>Cancel Event</Label>
+          <div className="flex items-center gap-2 mt-1">
+            <Switch checked={cancelEvent} onCheckedChange={setCancelEvent} />
+            <span className="text-sm text-[#f5ece5]/70">Mark as cancelled</span>
+          </div>
+        </div>
       </BasicDialog>
     </>
   );
