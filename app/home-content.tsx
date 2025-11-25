@@ -9,13 +9,13 @@ export default function HomeContent() {
       <div className="flex flex-col items-center space-y-4 mt-8 mb-16">
         <a
           href="/classes"
-          className="homePageButton bg-(--color-beige) hover:bg-(--color-beige)/80 transition"
+          className="homePageButton bg-(--color-yellow) hover:bg-(--color-beige)/80 transition"
         >
           Book a Class
         </a>
         <a
           href="/about"
-          className="homePageButton bg-(--color-beige) hover:bg-(--color-beige)/80 transition"
+          className="homePageButton bg-(--color-yellow) hover:bg-(--color-beige)/80 transition"
         >
           Learn About Us
         </a>

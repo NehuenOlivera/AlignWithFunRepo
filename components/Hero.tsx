@@ -13,9 +13,11 @@ export default function Hero() {
         className="mx-auto w-32 h-32 rounded-full object-cover mb-4"
         loading="eager"
       />
-      <h1 className="text-3xl md:text-4xl font-bold mb-2">Align With Fun</h1>
+      <h1 className="text-3xl md:text-4xl font-bold mb-2">
+        Align With <span className="text-(--color-yellow)">Fun</span>
+      </h1>
       <p className="max-w-xl mx-auto">
-        Join our Pilates classes and embrace wellness.
+        Transform Your Body, Elevate Your Spirit
       </p>
     </section>
   );
