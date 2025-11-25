@@ -15,12 +15,12 @@ export default function EventCard({ event, onJoin }: Props) {
     <li className="eventCard md:w-full max-w-md group">
       <div className="flex flex-col justify-between h-full">
         <div>
-          <div className="flex justify-between items-start mb-2">
+          <div className="flex justify-between items-start">
             {/* Header */}
             <h3 className="eventCard-title">{event.name}</h3>
 
             {/* Status Badge */}
-            <div className="mb-6">
+            <div>
               {alreadyJoined ? (
                 <span className="eventCard-badge-joined">
                   ✓ You&apos;re in!
@@ -38,7 +38,7 @@ export default function EventCard({ event, onJoin }: Props) {
 
           {/* Description */}
           {event.description && (
-            <p className="eventCard-text">{event.description}</p>
+            <p className="eventCard-text mb-2">{event.description}</p>
           )}
 
           {/* Info Grid */}
