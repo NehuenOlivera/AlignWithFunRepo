@@ -13,20 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "../ui/textarea";
 import { Switch } from "../ui/switch";
-import {
-  Plus,
-  Calendar,
-  Clock,
-  Users,
-  MapPin,
-  DollarSign,
-  Pencil,
-  Trash2,
-} from "lucide-react";
+import { Plus, Calendar, Clock, Users, Pencil, Trash2 } from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
 
 interface Attendee {
-  user_id: string;
+  id: string;
   first_name: string;
   last_name: string;
   email: string;
@@ -301,18 +292,34 @@ export default function EventsManager({
                 <Calendar className="h-4 w-4" />
                 <span>{formatDateTime(ev.start_at)}</span>
               </div>
-
               <div className="eventCard-text">
                 <Clock className="h-4 w-4" />
                 <span>{ev.duration_minutes} minutes</span>
               </div>
-
               <div className="eventCard-text">
                 <Users className="h-4 w-4" />
-                <span>Max {ev.max_participants}</span>
+                <span>Attendees {ev.attendees_amount}</span>
               </div>
-
-              {ev.location && (
+              {ev.attendees_amount > 0 && (
+                <div className="mt-2">
+                  <details>
+                    <summary className="cursor-pointer text-sm text-black">
+                      View Attendees
+                    </summary>
+                    <ul className="mt-2 max-h-40 overflow-y-auto border border-[#f5ece5]/10 rounded-md p-2 space-y-2">
+                      {ev.attendees.map((att) => (
+                        <li
+                          key={att.id + ev.id}
+                          className="text-sm text-[#101010]"
+                        >
+                          {att.first_name} {att.last_name} - {att.email}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                </div>
+              )}
+              {/* {ev.location && (
                 <div className="eventCard-text">
                   <MapPin className="h-4 w-4" />
                   <span>{ev.location}</span>
@@ -324,7 +331,7 @@ export default function EventsManager({
                   <DollarSign className="h-4 w-4" />
                   <span>${ev.suggested_price}</span>
                 </div>
-              )}
+              )} */}
             </CardContent>
           </Card>
         ))}

@@ -51,7 +51,7 @@ export default async function Login({
                   type="email"
                   placeholder="you@example.com"
                   required
-                  className="bg-white border border-[#022e14]/20 text-[#101010] placeholder-[#101010]/50 rounded-10"
+                  className="bg-white border border-[#022e14]/20 text-[#022e14] placeholder-[#101010]/50 rounded-10"
                 />
               </div>
 
