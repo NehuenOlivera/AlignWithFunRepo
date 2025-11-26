@@ -15,6 +15,7 @@ import { Textarea } from "../ui/textarea";
 import { Switch } from "../ui/switch";
 import { Plus, Calendar, Clock, Users, Pencil, Trash2 } from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
+import { format } from "date-fns";
 
 interface Attendee {
   id: string;
@@ -67,16 +68,6 @@ export default function EventsManager({
   const filteredEvents = showPastEvents
     ? events
     : events.filter((e) => new Date(e.start_at) >= now);
-
-  const formatDateTime = (dateString: string) => {
-    return new Date(dateString).toLocaleString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-    });
-  };
 
   const resetForm = () => {
     setName("");
@@ -290,7 +281,7 @@ export default function EventsManager({
             <CardContent className="space-y-3">
               <div className="eventCard-text">
                 <Calendar className="h-4 w-4" />
-                <span>{formatDateTime(ev.start_at)}</span>
+                <span>{format(new Date(ev.start_at), "EEEE do, LLL - p")}</span>
               </div>
               <div className="eventCard-text">
                 <Clock className="h-4 w-4" />

@@ -43,12 +43,12 @@ export default function AboutPage() {
               </h2>
               <p className="text-lg text-center leading-relaxed mb-6">
                 At Align with Fun, the whole vibe is simple:{" "}
-                <span className="text-(--color-yellow) font-semibold">
-                  movement is for everyone
+                <span className="text-(--color-yellow) font-semibold block">
+                  Movement is for everyone.
                 </span>
-                . Every class is designed so anyone can jump in, find their
-                flow, and move in a way that feels good. Pilates shouldn&apos;t
-                feel exclusive — it should feel fun and welcoming.
+                Every class is designed so anyone can jump in, find their flow,
+                and move in a way that feels good. Pilates shouldn&apos;t feel
+                exclusive — it should feel fun and welcoming.
               </p>
               <p className="text-lg text-center leading-relaxed">
                 We&apos;re all about creating a space where movement feels

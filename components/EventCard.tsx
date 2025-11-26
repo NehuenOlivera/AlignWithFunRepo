@@ -45,7 +45,9 @@ export default function EventCard({ event, onJoin }: Props) {
           <div className="space-y-2 mb-4">
             <div className="eventCard-text">
               <Calendar className="h-4 w-4" />
-              <span>{format(new Date(event.start_at), "PPPp")}</span>
+              <span>
+                {format(new Date(event.start_at), "EEEE do, LLL - p")}
+              </span>
             </div>
 
             <div className="eventCard-text">
@@ -56,7 +58,7 @@ export default function EventCard({ event, onJoin }: Props) {
             <div className="eventCard-text">
               <DollarSign className="h-4 w-4" />
               <span>
-                {event.suggested_price ? `$${event.suggested_price}` : "Free"}
+                {event.suggested_price ? `${event.suggested_price}` : "Free"}
               </span>
             </div>
           </div>
