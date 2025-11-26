@@ -1,9 +1,11 @@
 import { Event } from "../types";
+import { format } from "date-fns";
+import { useState } from "react";
 
 type Props = {
   event: Event;
   message: string;
-  handleSubmit: () => void;
+  handleSubmit: () => Promise<void> | void;
   handleClose: () => void;
 };
 
@@ -13,6 +15,14 @@ export default function JoinModal({
   handleSubmit,
   handleClose,
 }: Props) {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const onConfirm = async () => {
+    setIsLoading(true);
+    await handleSubmit();
+    setIsLoading(false);
+  };
+
   return (
     <div
       className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4"
@@ -32,7 +42,6 @@ export default function JoinModal({
           <button
             onClick={handleClose}
             className="text-[#101010]/50 hover:text-[#101010] transition-colors text-2xl leading-none"
-            aria-label="Close modal"
           >
             ✕
           </button>
@@ -40,6 +49,13 @@ export default function JoinModal({
 
         {/* Event Details */}
         <div className="bg-[#022e14]/5 rounded-12 p-4 mb-6 space-y-2 text-sm text-[#101010]/80">
+          <p>
+            <span className="font-semibold">Date:</span>{" "}
+            {format(new Date(event.start_at), "PP p")}
+          </p>
+          <p>
+            <span className="font-semibold">Location:</span> {event.location}
+          </p>
           <p>
             <span className="font-semibold">Duration:</span>{" "}
             {event.duration_minutes} minutes
@@ -53,11 +69,19 @@ export default function JoinModal({
         {/* Action Buttons */}
         <div className="flex gap-3 mb-4">
           <button
-            onClick={handleSubmit} //.confirmButton
-            className="joinClassModalConfirmButton"
+            onClick={onConfirm}
+            disabled={isLoading}
+            className={`joinClassModalConfirmButton flex items-center justify-center gap-2 ${
+              isLoading ? "opacity-70 cursor-not-allowed" : ""
+            }`}
           >
-            Confirm Join
+            {isLoading ? (
+              <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+            ) : (
+              "Confirm Join"
+            )}
           </button>
+
           <button onClick={handleClose} className="joinClassModalCancelButton">
             Cancel
           </button>

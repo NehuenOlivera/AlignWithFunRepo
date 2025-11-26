@@ -30,6 +30,10 @@ export default function ClassesContent() {
   }, [supabase]);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     (async () => {
       await loadEvents();
     })();
