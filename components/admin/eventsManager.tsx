@@ -377,9 +377,9 @@ export default function EventsManager({
                 <Label>Duration (minutes) *</Label>
                 <Input
                   type="number"
-                  value={duration}
                   onChange={(e) => setDuration(e.target.value)}
                   required
+                  defaultValue={45}
                 />
               </div>
               <div>
@@ -414,8 +414,8 @@ export default function EventsManager({
               <Label>Suggested Price ($)</Label>
               <Input
                 type="number"
-                step="0.01"
-                value={suggestedPrice}
+                step="1"
+                defaultValue={10}
                 onChange={(e) => setSuggestedPrice(e.target.value)}
               />
             </div>
