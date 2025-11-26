@@ -67,7 +67,7 @@ export default function ClassesContent() {
       <section className="py-8 px-6 mx-auto">
         <div className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-[#f5ece5] mb-4! justify-center flex">
-            Available Classes
+            Upcoming Classes
           </h1>
         </div>
 
