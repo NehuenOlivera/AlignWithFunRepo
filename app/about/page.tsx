@@ -12,7 +12,7 @@ export default function AboutPage() {
         <section className="relative overflow-hidden">
           <Image
             src={
-              "https://xtprzolahofaihkihtby.supabase.co/storage/v1/object/sign/Images/ChatGPT%20Image%20Nov%2025,%202025,%2006_36_32%20PM.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMjE5YmQyMy03NDlkLTRlZjItOTEyZi1jZjRmMWVlZTIxNTgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvQ2hhdEdQVCBJbWFnZSBOb3YgMjUsIDIwMjUsIDA2XzM2XzMyIFBNLnBuZyIsImlhdCI6MTc2NDA1OTgyMCwiZXhwIjoxNzk1NTk1ODIwfQ.dw2ZnOC14b-uSTCCnI1wLrsH94EVI2o6WUqN_JDFwQc"
+              "https://xtprzolahofaihkihtby.supabase.co/storage/v1/object/public/Public%20images/Pilates%20studio.png"
             }
             alt="Align With Fun Pilates Studio"
             fill={true}

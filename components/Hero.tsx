@@ -5,7 +5,7 @@ export default function Hero() {
     <section className="hero py-8 px-6">
       <Image
         src={
-          "https://xtprzolahofaihkihtby.supabase.co/storage/v1/object/sign/Images/Foto%20CV.jpeg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yMjE5YmQyMy03NDlkLTRlZjItOTEyZi1jZjRmMWVlZTIxNTgiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJJbWFnZXMvRm90byBDVi5qcGVnIiwiaWF0IjoxNzYzMTE3MzA3LCJleHAiOjE3NjU3MDkzMDd9.TqtEHna60xW73RF-32vv7omWWAiltdP-PHKZ9uFgSyY"
+          "https://xtprzolahofaihkihtby.supabase.co/storage/v1/object/public/Public%20images/Foto%20CV.jpeg"
         }
         alt={"Julia. Pilates Instructor"}
         width={124}
