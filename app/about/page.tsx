@@ -48,8 +48,7 @@ export default function AboutPage() {
                 </span>
                 . Every class is designed so anyone can jump in, find their
                 flow, and move in a way that feels good. Pilates shouldn&apos;t
-                feel exclusive — it should feel fun, welcoming, and totally
-                accessible.
+                feel exclusive — it should feel fun and welcoming.
               </p>
               <p className="text-lg text-center leading-relaxed">
                 We&apos;re all about creating a space where movement feels

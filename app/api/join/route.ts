@@ -24,7 +24,7 @@ async function validateUserProfileFields(user_id: string) {
     !data.emergency_contact_phone
   ) {
     return NextResponse.json({
-      error: "Please complete your profile to join an event",
+      error: "Please complete your profile to join a class",
     });
   } else {
     return null;
