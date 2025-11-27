@@ -46,12 +46,12 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
     >
       {/* Name */}
       <div>
-        <Label htmlFor="name" className="text-[#022e14] font-medium">
+        <Label htmlFor="firstname" className="text-[#022e14] font-medium">
           Name
         </Label>
         <Input
-          id="name"
-          name="name"
+          id="firstname"
+          name="firstname"
           required
           placeholder="First name"
           className="bg-white/60 border border-[#022e14]/20 text-[#022e14] placeholder-[#022e14]/40 rounded-xl h-11"

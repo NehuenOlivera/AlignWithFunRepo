@@ -31,10 +31,14 @@ export default async function Signup({
         <Card className="w-full max-w-md rounded-2xl bg-[#f5ece5] shadow-xl px-5 py-3">
           <CardHeader className="text-center">
             <CardTitle className="text-3xl font-bold text-[#022e14]">
-              Create an Account
+              {resolvedParams.message === "success"
+                ? "Almost done!"
+                : "Create an Account"}
             </CardTitle>
             <p className="text-sm text-[#022e14]/70">
-              Start your pilates journey with us
+              {resolvedParams.message === "success"
+                ? "Just need to verify your email"
+                : "Start your pilates journey with us"}
             </p>
           </CardHeader>
 

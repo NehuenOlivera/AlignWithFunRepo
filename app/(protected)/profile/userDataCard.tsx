@@ -139,7 +139,7 @@ export default function UserData() {
             <div className="flex justify-between mb-2 items-center flex-nowrap">
               {/* A div that contains one div and one h2, should be one next to the other */}
               <div className="flex items-center gap-3">
-                <div className="w-1 h-6 bg-[#022e14]"></div>
+                <div className="w-1 h-6 bg-(--color-yellow)"></div>
                 <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5] whitespace-nowrap">
                   Personal Info
                 </h2>
@@ -149,9 +149,9 @@ export default function UserData() {
                   <button
                     type="button"
                     onClick={() => setIsEditing(true)}
-                    className="px-4 py-3 bg-[#022e14] rounded-lg font-semibold border border-white/10 whitespace-nowrap"
+                    className="px-4 py-3 bg-[#022e14] rounded-lg font-semibold border border-white/10 whitespace-nowrap flex items-center justify-center"
                   >
-                    <Pen className="inline-block h-4 w-4 mr-2" />
+                    <Pen className="inline-block h-4 w-4" />
                   </button>
                 </div>
               )}
@@ -220,7 +220,7 @@ export default function UserData() {
 
           <div>
             <div className="flex items-center gap-3 mb-6! mt-7!">
-              <div className="w-1 h-6 bg-[#022e14]"></div>
+              <div className="w-1 h-6 bg-(--color-yellow)"></div>
               <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
                 Emergency Contact
               </h2>
