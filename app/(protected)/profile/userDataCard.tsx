@@ -152,7 +152,6 @@ export default function UserData() {
                     className="px-4 py-3 bg-[#022e14] rounded-lg font-semibold border border-white/10 whitespace-nowrap"
                   >
                     <Pen className="inline-block h-4 w-4 mr-2" />
-                    Edit
                   </button>
                 </div>
               )}
