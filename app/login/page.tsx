@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { emailLogin, signup } from "./actions";
+import { emailLogin } from "./actions";
 import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { OAuthButtons } from "./oauthSignIn";
 import Header from "@/components/header";
+import Link from "next/link";
 
 export default async function Login({
   searchParams,
@@ -30,20 +31,45 @@ export default async function Login({
   return (
     <>
       <Header />
-      <section className="min-h-[calc(100vh-70px)] flex justify-center items-center px-4 py-8">
-        <Card className="card w-9/10 md:w-full max-w-md bg-[#f5ece5] shadow-lg">
-          <CardHeader className="space-y-2">
-            <CardTitle className="text-3xl text-[#022e14]">Welcome</CardTitle>
-            <p className="text-sm text-[#101010]/70">
-              Sign in to your account to continue
+
+      <section className="min-h-[calc(100vh-70px)] flex items-center justify-center px-4 py-10 bg-linear-to-br from-[#0a1f12] to-[#101010]">
+        <Card
+          className="
+        w-full max-w-md
+        rounded-2xl
+        bg-[#f5ece5]
+        shadow-xl
+        p-6
+      "
+        >
+          <CardHeader className="space-y-1 text-center">
+            <CardTitle className="text-3xl font-bold text-[#022e14]">
+              Welcome Back
+            </CardTitle>
+            <p className="text-sm text-[#022e14]/70">
+              Sign in to continue your journey
             </p>
           </CardHeader>
-          <CardContent className="space-y-6">
+
+          <CardContent className="space-y-8 mt-4">
+            <OAuthButtons />
+            {/* Divider */}
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-[#022e14]/10"></div>
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-3 bg-white/70 text-[#022e14]/60">
+                  Or continue with email
+                </span>
+              </div>
+            </div>
+
             {/* Login Form */}
             <form id="login-form" className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-[#022e14] font-medium">
-                  Email Address
+                  Email
                 </Label>
                 <Input
                   id="email"
@@ -51,7 +77,14 @@ export default async function Login({
                   type="email"
                   placeholder="you@example.com"
                   required
-                  className="bg-white border border-[#022e14]/20 text-[#022e14] placeholder-[#101010]/50 rounded-10"
+                  className="
+                bg-white/60 backdrop-blur-sm
+                border border-(--color-dark-green)
+                text-(--color-dark-green)
+                placeholder-[#022e14]/40
+                rounded-xl h-11
+                focus:ring-2 focus:ring-[#022e14]/30
+              "
                 />
               </div>
 
@@ -63,57 +96,51 @@ export default async function Login({
                   Password
                 </Label>
                 <Input
-                  minLength={6}
-                  name="password"
                   id="password"
+                  name="password"
                   type="password"
+                  minLength={6}
                   placeholder="••••••••"
                   required
-                  className="bg-white border border-[#022e14]/20 text-[#101010] placeholder-[#101010]/50 rounded-10"
+                  className="
+                bg-white/60 backdrop-blur-sm
+                border border-(--color-dark-green)
+                text-(--color-dark-green)
+                placeholder-[#022e14]/40
+                rounded-xl h-11
+                focus:ring-2 focus:ring-[#022e14]/30
+              "
                 />
               </div>
 
               {resolvedParams.message && (
-                <div className="text-sm p-3 bg-red-50 text-red-700 rounded-10 border border-red-200">
+                <div className="text-sm p-3 bg-red-50 text-red-700 rounded-xl border border-red-200">
                   {resolvedParams.message}
                 </div>
               )}
 
-              <div className="mt-6!">
-                <Button
-                  formAction={emailLogin}
-                  className="w-full bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 rounded-10 font-semibold h-11"
-                >
-                  Sign In
-                </Button>
-              </div>
+              <Button
+                formAction={emailLogin}
+                className="
+              w-full h-11
+              rounded-xl
+              bg-[#022e14] text-white font-semibold
+              hover:bg-[#023619]
+              transition-all
+              shadow-md hover:shadow-lg active:scale-[0.98]
+            "
+              >
+                Sign In
+              </Button>
             </form>
-
-            {/* Divider */}
-            <div className="relative my-2!">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#101010]/10"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-2 bg-[#f5ece5] text-[#101010]/60">
-                  Or continue with
-                </span>
-              </div>
-            </div>
-
-            {/* OAuth Buttons */}
-            <OAuthButtons />
-
-            {/* Sign Up Link */}
-            <p className="text-center text-sm text-[#101010]/70">
+            <p className="text-center text-sm text-[#022e14]/70">
               Don&apos;t have an account?{" "}
-              <button
-                formAction={signup}
-                form="login-form"
-                className="text-[#022e14] font-semibold hover:underline transition-colors"
+              <Link
+                href={"/signup"}
+                className="text-[#022e14] font-semibold hover:underline"
               >
                 Create one
-              </button>
+              </Link>
             </p>
           </CardContent>
         </Card>
