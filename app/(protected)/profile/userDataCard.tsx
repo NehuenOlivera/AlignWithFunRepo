@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
 import { Pen } from "lucide-react";
+import WaiverText from "@/components/WaiverText";
 
 interface UserProfile {
   id: string;
@@ -13,6 +14,31 @@ interface UserProfile {
   emergency_contact_name: string | null;
   emergency_contact_relationship: string | null;
   emergency_contact_phone: string | null;
+  waiver_signed: boolean;
+}
+
+function WaiverModal({
+  open,
+  onClose,
+}: {
+  open: boolean;
+  onClose: () => void;
+}) {
+  if (!open) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className="bg-white/10 border border-white/20 rounded-2xl p-6 max-w-2xl w-full max-h-[80vh] overflow-y-auto text-[#f5ece5]">
+        <WaiverText />
+        <button
+          onClick={onClose}
+          className="mt-6 px-6 py-2 bg-[#022e14] rounded-lg border border-white/10 font-semibold w-full active:scale-95"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default function UserData() {
@@ -22,6 +48,8 @@ export default function UserData() {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState("");
   const [formData, setFormData] = useState<Partial<UserProfile>>({});
+  const [initialWaiverSigned, setInitialWaiverSigned] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const supabase = createClient();
 
@@ -39,7 +67,7 @@ export default function UserData() {
       const { data, error } = await supabase
         .from("users")
         .select(
-          "id, first_name, last_name, email, phone, emergency_contact_name, emergency_contact_relationship, emergency_contact_phone"
+          "id, first_name, last_name, email, phone, emergency_contact_name, emergency_contact_relationship, emergency_contact_phone, waiver_signed"
         )
         .eq("id", user.id)
         .single();
@@ -47,6 +75,7 @@ export default function UserData() {
       if (!error && data) {
         setProfile(data as UserProfile);
         setFormData(data);
+        setInitialWaiverSigned(data.waiver_signed);
       }
       setLoading(false);
     };
@@ -56,9 +85,25 @@ export default function UserData() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    console.log("Name: ", name, "Value: ", value);
     setFormData((prev) => ({
       ...prev,
       [name]: value || null,
+    }));
+  };
+
+  const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checked = e.target.checked;
+
+    // If they already signed before -> DO NOT ALLOW ANY CHANGES
+    if (initialWaiverSigned) return;
+
+    // Allow changes only when editing
+    if (!isEditing) return;
+
+    setFormData((prev) => ({
+      ...prev,
+      waiver_signed: checked,
     }));
   };
 
@@ -81,8 +126,10 @@ export default function UserData() {
         emergency_contact_name: formData.emergency_contact_name,
         emergency_contact_relationship: formData.emergency_contact_relationship,
         emergency_contact_phone: formData.emergency_contact_phone,
+        waiver_signed: initialWaiverSigned ? true : formData.waiver_signed,
       })
       .eq("id", user.id);
+    if (formData.waiver_signed) setInitialWaiverSigned(true);
 
     if (error) {
       setMessage("Error updating profile");
@@ -273,6 +320,37 @@ export default function UserData() {
             </div>
           </div>
 
+          <div>
+            <div className="flex items-center gap-3 mb-6! mt-7!">
+              <div className="w-1 h-6 bg-(--color-yellow)"></div>
+              <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
+                Release of Liability Agreement
+              </h2>
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="waiver_signed"
+                  checked={!!formData.waiver_signed}
+                  onChange={handleCheckboxChange}
+                  disabled={!isEditing || initialWaiverSigned}
+                  className="h-5 w-5 text-[#f5ece5] disabled:opacity-60 disabled:cursor-not-allowed mx-4"
+                />
+                <label className="text-sm">
+                  I have read and agree to the{" "}
+                  <button
+                    type="button"
+                    onClick={() => setModalOpen(true)}
+                    className="underline text-(--color-yellow) hover:text-yellow-300 transition"
+                  >
+                    Waiver & Release of Liability
+                  </button>
+                </label>
+              </div>
+            </div>
+          </div>
+
           <div className="pt-6 flex flex-col sm:flex-row gap-3 justify-end">
             {isEditing && (
               <>
@@ -296,6 +374,7 @@ export default function UserData() {
           </div>
         </form>
       </div>
+      <WaiverModal open={modalOpen} onClose={() => setModalOpen(false)} />
     </div>
   );
 }

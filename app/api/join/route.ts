@@ -6,7 +6,7 @@ async function validateUserProfileFields(user_id: string) {
   const { data, error } = await (await supabase)
     .from("users")
     .select(
-      "first_name, last_name, email, phone, emergency_contact_name, emergency_contact_relationship, emergency_contact_phone"
+      "first_name, last_name, email, phone, emergency_contact_name, emergency_contact_relationship, emergency_contact_phone, waiver_signed"
     )
     .eq("id", user_id)
     .single();
@@ -25,6 +25,11 @@ async function validateUserProfileFields(user_id: string) {
   ) {
     return NextResponse.json({
       error: "Please complete your profile to join a class",
+    });
+  } else if (!data.waiver_signed) {
+    return NextResponse.json({
+      error:
+        "Please agree to the Waiver & Release of Liability to join a class",
     });
   } else {
     return null;

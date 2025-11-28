@@ -135,6 +135,7 @@ export type Database = {
           last_name: string;
           phone: string | null;
           role: string;
+          waiver_signed: boolean;
         };
         Insert: {
           created_at?: string | null;
@@ -147,6 +148,7 @@ export type Database = {
           last_name: string;
           phone?: string | null;
           role?: string;
+          waiver_signed?: boolean;
         };
         Update: {
           created_at?: string | null;
@@ -159,6 +161,7 @@ export type Database = {
           last_name?: string;
           phone?: string | null;
           role?: string;
+          waiver_signed?: boolean;
         };
         Relationships: [];
       };
@@ -167,6 +170,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      admin_get_events: { Args: never; Returns: Json };
       book_attendee: {
         Args: { p_event_id: string };
         Returns: {
