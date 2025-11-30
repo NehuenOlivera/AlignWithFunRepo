@@ -1,6 +1,7 @@
 import { format } from "date-fns";
 import { Event } from "../types";
-import { Calendar, Clock, DollarSign } from "lucide-react";
+import { Calendar, Clock } from "lucide-react";
+import { BsStopwatch } from "react-icons/bs";
 
 type Props = {
   event: Event;
@@ -46,20 +47,18 @@ export default function EventCard({ event, onJoin }: Props) {
             <div className="eventCard-text">
               <Calendar className="h-4 w-4" />
               <span>
-                {format(new Date(event.start_at), "EEEE do, LLL - p")}
+                {format(new Date(event.start_at), "EEE, do LLLL yyyy")}
               </span>
             </div>
 
             <div className="eventCard-text">
               <Clock className="h-4 w-4" />
-              <span>{event.duration_minutes} minutes</span>
+              <span>{format(new Date(event.start_at), "p")}</span>
             </div>
 
             <div className="eventCard-text">
-              <DollarSign className="h-4 w-4" />
-              <span>
-                {event.suggested_price ? `${event.suggested_price}` : "Free"}
-              </span>
+              <BsStopwatch className="h-4 w-4" />
+              <span>{event.duration_minutes} minutes</span>
             </div>
           </div>
         </div>

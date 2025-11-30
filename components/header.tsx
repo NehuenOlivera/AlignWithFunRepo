@@ -20,6 +20,9 @@ export default async function Header() {
           <a href="/" className="header-logo">
             AWF
           </a>
+          <a href="/classes" className="header-admin-link">
+            Classes
+          </a>
 
           {user && userWithRole?.role === "admin" && (
             <a href="/adminPage" className="header-admin-link">
