@@ -2,20 +2,13 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "../ui/textarea";
 import { Switch } from "../ui/switch";
-import { Plus, Calendar, Clock, Users, Pencil, Trash2 } from "lucide-react";
+import { Plus } from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
-import { format } from "date-fns";
+import EventCard from "./EventCard";
+import EventForm from "./EventForm";
+import EventDeleteDialog from "./EventDeleteDialog";
 
 interface Attendee {
   id: string;
@@ -248,71 +241,20 @@ export default function EventsManager({
       {/* Events Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {filteredEvents.map((ev) => (
-          <Card key={ev.id} className="eventCard">
-            <button
-              className="absolute top-7 right-5 p-1 rounded-md hover:bg-white/10 transition text-green border border-green"
-              onClick={() => {
-                setEditingEvent(ev);
-                populateEditForm(ev);
-                setIsEditDialogOpen(true);
-              }}
-            >
-              <Pencil className="h-4 w-4" />
-            </button>
-            <button
-              className="absolute top-7 right-14 p-1 rounded-md hover:bg-white/10 transition text-red-600 border border-red-600"
-              onClick={() => {
-                setDeletingEvent(ev);
-                populateDeleteForm(ev);
-                setIsDeleteDialogOpen(true);
-              }}
-            >
-              <Trash2 className="h-4 w-4" />
-            </button>
-            <CardHeader>
-              <CardTitle className="eventCard-title">{ev.name}</CardTitle>
-
-              {ev.description && (
-                <CardDescription className="eventCard-text">
-                  {ev.description}
-                </CardDescription>
-              )}
-            </CardHeader>
-
-            <CardContent className="space-y-3">
-              <div className="eventCard-text">
-                <Calendar className="h-4 w-4" />
-                <span>{format(new Date(ev.start_at), "EEEE do, LLL - p")}</span>
-              </div>
-              <div className="eventCard-text">
-                <Clock className="h-4 w-4" />
-                <span>{ev.duration_minutes} minutes</span>
-              </div>
-              <div className="eventCard-text">
-                <Users className="h-4 w-4" />
-                <span>Attendees {ev.attendees_amount}</span>
-              </div>
-              {ev.attendees_amount > 0 && (
-                <div className="mt-2">
-                  <details>
-                    <summary className="cursor-pointer text-sm text-black">
-                      View Attendees
-                    </summary>
-                    <ul className="mt-2 max-h-40 overflow-y-auto border border-[#f5ece5]/10 rounded-md p-2 space-y-2">
-                      {ev.attendees.map((att) => (
-                        <li
-                          key={att.id + ev.id}
-                          className="text-sm text-[#101010]"
-                        >
-                          {att.first_name} {att.last_name} - {att.email}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                </div>
-              )}
-            </CardContent>
-          </Card>
+          <EventCard
+            key={ev.id}
+            ev={ev}
+            onEdit={() => {
+              setEditingEvent(ev);
+              populateEditForm(ev);
+              setIsEditDialogOpen(true);
+            }}
+            onDelete={() => {
+              setDeletingEvent(ev);
+              populateDeleteForm(ev);
+              setIsDeleteDialogOpen(true);
+            }}
+          />
         ))}
       </div>
 
@@ -329,85 +271,27 @@ export default function EventsManager({
         title="Create New Event"
       >
         <form className="space-y-6" onSubmit={handleNewEventSubmit}>
-          <div className="space-y-4">
-            <div>
-              <Label>Class Name *</Label>
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label>Start Date *</Label>
-                <Input
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  required
-                />
-              </div>
-              <div>
-                <Label>Start Time *</Label>
-                <Input
-                  type="time"
-                  value={startTime}
-                  onChange={(e) => setStartTime(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label>Duration (minutes) *</Label>
-                <Input
-                  type="number"
-                  onChange={(e) => setDuration(e.target.value)}
-                  required
-                  defaultValue={45}
-                />
-              </div>
-              <div>
-                <Label>Max Participants *</Label>
-                <Input
-                  type="number"
-                  value={maxParticipants}
-                  onChange={(e) => setMaxParticipants(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label>Description</Label>
-              <Textarea
-                rows={3}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <Label>Location</Label>
-              <Input
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <Label>Suggested Price ($)</Label>
-              <Input
-                type="number"
-                step="1"
-                defaultValue={10}
-                onChange={(e) => setSuggestedPrice(e.target.value)}
-              />
-            </div>
-          </div>
+          <EventForm
+            name={name}
+            setName={setName}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            startTime={startTime}
+            setStartTime={setStartTime}
+            duration={duration}
+            setDuration={setDuration}
+            maxParticipants={maxParticipants}
+            setMaxParticipants={setMaxParticipants}
+            description={description}
+            setDescription={setDescription}
+            location={location}
+            setLocation={setLocation}
+            suggestedPrice={suggestedPrice}
+            setSuggestedPrice={setSuggestedPrice}
+            cancelEvent={cancelEvent}
+            setCancelEvent={setCancelEvent}
+            showCancelSwitch={false}
+          />
 
           <div className="flex gap-3 justify-end">
             <button
@@ -417,7 +301,6 @@ export default function EventsManager({
             >
               Cancel
             </button>
-
             <button
               type="submit"
               className="modalSubmitButton"
@@ -436,87 +319,27 @@ export default function EventsManager({
         title="Edit Event"
       >
         <form className="space-y-6" onSubmit={handleEditEventSubmit}>
-          <div className="space-y-4">
-            <div className="space-y-4">
-              <div>
-                <Label>Class Name *</Label>
-                <Input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Start Date *</Label>
-                  <Input
-                    type="date"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <Label>Start Time *</Label>
-                  <Input
-                    type="time"
-                    value={startTime}
-                    onChange={(e) => setStartTime(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Label>Duration (minutes) *</Label>
-                  <Input
-                    type="number"
-                    value={duration}
-                    onChange={(e) => setDuration(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <Label>Max Participants *</Label>
-                  <Input
-                    type="number"
-                    value={maxParticipants}
-                    onChange={(e) => setMaxParticipants(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label>Description</Label>
-                <Textarea
-                  rows={3}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <Label>Location</Label>
-                <Input
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                />
-              </div>
-
-              <div>
-                <Label>Suggested Price ($)</Label>
-                <Input
-                  type="number"
-                  step="0.01"
-                  value={suggestedPrice}
-                  onChange={(e) => setSuggestedPrice(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
+          <EventForm
+            name={name}
+            setName={setName}
+            startDate={startDate}
+            setStartDate={setStartDate}
+            startTime={startTime}
+            setStartTime={setStartTime}
+            duration={duration}
+            setDuration={setDuration}
+            maxParticipants={maxParticipants}
+            setMaxParticipants={setMaxParticipants}
+            description={description}
+            setDescription={setDescription}
+            location={location}
+            setLocation={setLocation}
+            suggestedPrice={suggestedPrice}
+            setSuggestedPrice={setSuggestedPrice}
+            cancelEvent={cancelEvent}
+            setCancelEvent={setCancelEvent}
+            showCancelSwitch={true}
+          />
 
           <div className="flex gap-3 justify-end">
             <button
@@ -526,7 +349,6 @@ export default function EventsManager({
             >
               Close
             </button>
-
             <button
               type="submit"
               className="modalSubmitButton"
@@ -536,13 +358,6 @@ export default function EventsManager({
             </button>
           </div>
         </form>
-        <div>
-          <Label>Cancel Event</Label>
-          <div className="flex items-center gap-2 mt-1">
-            <Switch checked={cancelEvent} onCheckedChange={setCancelEvent} />
-            <span className="text-sm text-[#f5ece5]/70">Mark as cancelled</span>
-          </div>
-        </div>
       </BasicDialog>
 
       {/* Delete Dialog */}
@@ -554,50 +369,27 @@ export default function EventsManager({
         <Label className="mb-4 block text-red-600">
           This action cannot be undone
         </Label>
-        <form className="space-y-6" onSubmit={handleDeleteEvent}>
-          <div className="space-y-4">
-            <div className="space-y-4">
-              <div>
-                {/*Populate label with event name */}
-                <Label>Class Name </Label>
-                <Input
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                  readOnly
-                />
-              </div>
 
-              <div>
-                <Label>Description</Label>
-                <Textarea
-                  rows={3}
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  readOnly
-                />
-              </div>
-            </div>
+        <form className="space-y-6" onSubmit={handleDeleteEvent}>
+          <EventDeleteDialog name={name} description={description} />
+
+          <div className="flex gap-3 justify-end">
+            <button
+              type="button"
+              className="modalCancelButton"
+              onClick={() => setIsDeleteDialogOpen(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="modalSubmitButton"
+              disabled={loading}
+            >
+              {loading ? "Deleting..." : "Delete"}
+            </button>
           </div>
         </form>
-
-        <div className="flex gap-3 justify-end mt-6">
-          <button
-            type="button"
-            className="modalCancelButton"
-            onClick={() => setIsDeleteDialogOpen(false)}
-          >
-            Cancel
-          </button>
-
-          <button
-            className="modalDeleteButton"
-            disabled={loading}
-            onClick={handleDeleteEvent}
-          >
-            {loading ? "Deleting..." : "Delete"}
-          </button>
-        </div>
       </BasicDialog>
     </>
   );
