@@ -225,6 +225,7 @@ export default function EventsManager({
           onClick={() => {
             resetForm();
             setIsCreateDialogOpen(true);
+            setDuration("45");
           }}
         >
           <Plus className="h-4 w-4" />
@@ -310,19 +311,6 @@ export default function EventsManager({
                   </details>
                 </div>
               )}
-              {/* {ev.location && (
-                <div className="eventCard-text">
-                  <MapPin className="h-4 w-4" />
-                  <span>{ev.location}</span>
-                </div>
-              )}
-
-              {ev.suggested_price && (
-                <div className="eventCard-text">
-                  <DollarSign className="h-4 w-4" />
-                  <span>${ev.suggested_price}</span>
-                </div>
-              )} */}
             </CardContent>
           </Card>
         ))}

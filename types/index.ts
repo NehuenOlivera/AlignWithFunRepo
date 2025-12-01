@@ -10,5 +10,5 @@ export type Event = {
   location: string | null;
   // booked_count: number;
   spots_left: number;
-  user_status: boolean;
+  user_status: string;
 };

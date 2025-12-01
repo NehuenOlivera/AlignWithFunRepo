@@ -6,11 +6,12 @@ import { BsStopwatch } from "react-icons/bs";
 type Props = {
   event: Event;
   onJoin: (event: Event) => void;
+  onCancelBooking: (event: Event) => void;
 };
 
-export default function EventCard({ event, onJoin }: Props) {
+export default function EventCard({ event, onJoin, onCancelBooking }: Props) {
   const isFull = event.spots_left <= 0;
-  const alreadyJoined = event.user_status;
+  const userStatus = event.user_status;
 
   return (
     <li className="eventCard md:w-full max-w-md group">
@@ -22,7 +23,7 @@ export default function EventCard({ event, onJoin }: Props) {
 
             {/* Status Badge */}
             <div>
-              {alreadyJoined ? (
+              {userStatus === "booked" ? (
                 <span className="eventCard-badge-joined">
                   ✓ You&apos;re in!
                 </span>
@@ -64,24 +65,24 @@ export default function EventCard({ event, onJoin }: Props) {
         </div>
 
         {/* Action Button */}
-        {!alreadyJoined ? (
+        {userStatus === "booked" ? (
+          <button
+            onClick={() => onCancelBooking(event)}
+            className="eventCard-button-cancel-booking"
+          >
+            Cancel Booking
+          </button>
+        ) : (
           <button
             disabled={isFull}
             onClick={() => onJoin(event)}
             className={`eventCard-button-available ${
               isFull
-                ? "bg-[#101010]/10 text-[#101010]/50 cursor-not-allowed visibility: hidden"
-                : "bg-[#022e14] text-[#f5ece5] hover:bg-[#022e14]/90 active:scale-95"
+                ? "bg-[#101010] text-[#101010]/50 cursor-not-allowed"
+                : "bg-(--color-dark-green) text-[#f5ece5] hover:bg-[#022e14]/90 active:scale-95 cursor-pointer"
             }`}
           >
             {isFull ? "Class Full" : "Join Class"}
-          </button>
-        ) : (
-          <button
-            disabled
-            className="w-full py-3 px-4 rounded-12 font-semibold bg-[#022e14]/10 text-[#022e14] cursor-default text-sm"
-          >
-            Class Booked
           </button>
         )}
       </div>

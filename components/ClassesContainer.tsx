@@ -5,11 +5,13 @@ import JoinModal from "./JoinModal";
 import UpcomingClasses from "./UpcomingClasses";
 import { createClient } from "@/utils/supabase/client";
 import { Event } from "@/types";
+import CancelBookingModal from "./CancelBookingModal";
 
 export default function ClassesContent() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+  const [eventToJoin, setEventToJoin] = useState<Event | null>(null);
+  const [eventToCancel, setEventToCancel] = useState<Event | null>(null);
   const [message, setMessage] = useState("");
 
   const supabase = createClient();
@@ -53,12 +55,22 @@ export default function ClassesContent() {
   }, [loadEvents, supabase]);
 
   const handleJoinSubmit = async () => {
-    if (!selectedEvent) return;
+    if (!eventToJoin) return;
+
+    // Validate if user is joining for the first time or it was cancelled and is trying to join again.
+    const resp = await fetch(`/api/join?event_id=${eventToJoin.id}`);
+    const payload = await resp.json();
+    const isCancelled =
+      payload && typeof payload.cancelled === "boolean"
+        ? payload.cancelled
+        : false;
+
+    const method = isCancelled ? "PUT" : "POST";
 
     const res = await fetch("/api/join", {
-      method: "POST",
+      method: method,
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event_id: selectedEvent.id }),
+      body: JSON.stringify({ event_id: eventToJoin.id }),
     });
 
     const data = await res.json();
@@ -66,6 +78,22 @@ export default function ClassesContent() {
 
     await loadEvents();
   };
+
+  const handleCancelBooking = async () => {
+    if (!eventToCancel) return;
+
+    const res = await fetch("/api/cancelBooking", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event_id: eventToCancel.id }),
+    });
+
+    const data = await res.json();
+    setMessage(data.error ? "Error: " + data.error : data.message);
+
+    await loadEvents();
+  };
+
   return (
     <main className="min-h-screen bg-linear-to-b from-[#0a1f12] to-[#101010]">
       <section className="py-8 px-6 mx-auto">
@@ -89,18 +117,31 @@ export default function ClassesContent() {
           <UpcomingClasses
             events={events}
             loading={loading}
-            onJoin={setSelectedEvent}
+            onJoin={setEventToJoin}
+            onCancelBooking={setEventToCancel}
           />
         )}
       </section>
 
-      {selectedEvent && (
+      {eventToJoin && (
         <JoinModal
-          event={selectedEvent}
+          event={eventToJoin}
           message={message}
           handleSubmit={handleJoinSubmit}
           handleClose={() => {
-            setSelectedEvent(null);
+            setEventToJoin(null);
+            setMessage("");
+          }}
+        />
+      )}
+
+      {eventToCancel && (
+        <CancelBookingModal
+          event={eventToCancel}
+          message={message}
+          handleSubmit={handleCancelBooking}
+          handleClose={() => {
+            setEventToCancel(null);
             setMessage("");
           }}
         />

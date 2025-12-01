@@ -85,7 +85,6 @@ export default function UserData() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    console.log("Name: ", name, "Value: ", value);
     setFormData((prev) => ({
       ...prev,
       [name]: value || null,

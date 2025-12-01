@@ -156,6 +156,18 @@ body {
   transition: background 0.2s ease, transform 0.1s ease;
 }
 
+/* Cancel Class Modal */
+
+.cancelClassModalConfirmButton {
+  flex: 1;
+  background: var(--color-red-500);
+  color: var(--color-beige);
+  padding: 0.75rem 0;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background 0.2s ease, transform 0.1s ease;
+}
+
 /* Hero */
 
 .hero {
@@ -302,10 +314,20 @@ body {
   border-radius: 12px;
   font-size: 1.1rem;
   transition: all 0.2s ease;
-  background: var(--color-dark-green);
   color: var(--color-beige);
   border: none;
-  cursor: pointer;
+}
+
+.eventCard-button-cancel-booking {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  margin-top: 0.5rem;
+  font-weight: 600;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  transition: all 0.2s ease;
+  border: none;
+  background: var(--color-red-500);
 }
 
 .eventCard-button:active {

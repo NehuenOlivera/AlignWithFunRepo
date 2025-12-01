@@ -5,9 +5,15 @@ type Props = {
   events: Event[];
   loading: boolean;
   onJoin: (event: Event) => void;
+  onCancelBooking: (event: Event) => void;
 };
 
-export default function UpcomingClasses({ events, loading, onJoin }: Props) {
+export default function UpcomingClasses({
+  events,
+  loading,
+  onJoin,
+  onCancelBooking,
+}: Props) {
   if (loading)
     return <div className="text-center py-8 text-[#f5ece5]/70">Loading...</div>;
   if (!events.length)
@@ -21,7 +27,12 @@ export default function UpcomingClasses({ events, loading, onJoin }: Props) {
     <div className="flex justify-center w-full">
       <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 w-9/10 md:w-full justify-items-center">
         {events.map((event) => (
-          <EventCard key={event.id} event={event} onJoin={onJoin} />
+          <EventCard
+            key={event.id}
+            event={event}
+            onJoin={onJoin}
+            onCancelBooking={onCancelBooking}
+          />
         ))}
       </ul>
     </div>
