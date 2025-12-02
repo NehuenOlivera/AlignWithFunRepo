@@ -4,11 +4,12 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "../ui/switch";
-import { Plus } from "lucide-react";
+import { ChevronDown, ChevronUp, Plus } from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
 import EventCard from "./EventCard";
 import EventForm from "./EventForm";
 import EventDeleteDialog from "./EventDeleteDialog";
+import { Collapse } from "react-collapse";
 
 interface Attendee {
   id: string;
@@ -47,6 +48,7 @@ export default function EventsManager({
   const [editingEvent, setEditingEvent] = useState<Event | null>(null);
   const [deletingEvent, setDeletingEvent] = useState<Event | null>(null);
   const [cancelEvent, setCancelEvent] = useState(false);
+  const [isEventManagementOpen, setIsEventManagementOpen] = useState(false);
 
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -202,67 +204,77 @@ export default function EventsManager({
     setLoading(false);
   };
 
+  const eventsManagerToggleCollapse = () => {
+    setIsEventManagementOpen(!isEventManagementOpen);
+  };
+
   return (
     <>
+      <div
+        className="flex items-center justify-between border-2 rounded-4xl p-3"
+        onClick={eventsManagerToggleCollapse}
+      >
+        <h1 className="text-3xl font-semibold">Event Management</h1>
+        {isEventManagementOpen ? <ChevronUp /> : <ChevronDown />}
+      </div>
       {/* Page Title */}
-      <div className="flex items-center justify-between mb-6">
-        <div>
-          <h1 className="text-3xl font-bold text-[#f5ece5] mb-1">
-            Event Management
-          </h1>
-          <p className="text-[#f5ece5]/70">Create and manage your classes</p>
+      <Collapse isOpened={isEventManagementOpen}>
+        <div className="flex items-center justify-between my-5">
+          <div>
+            <p className="text-[#f5ece5] pl-2 text-2xl">Manage your classes</p>
+          </div>
+
+          <Button
+            className="gap-2 border-2 pr-3 pl-2"
+            onClick={() => {
+              resetForm();
+              setIsCreateDialogOpen(true);
+              setDuration("45");
+            }}
+          >
+            <Plus className="h-4 w-4" />
+            New
+          </Button>
         </div>
 
-        <Button
-          className="gap-2 border-2 pr-3 pl-2"
-          onClick={() => {
-            resetForm();
-            setIsCreateDialogOpen(true);
-            setDuration("45");
-          }}
-        >
-          <Plus className="h-4 w-4" />
-          New
-        </Button>
-      </div>
-
-      {/* Filter */}
-      <div className="flex items-center gap-2 mb-6 justify-end">
-        <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
-          Show past events
-        </Label>
-        <Switch
-          id="show-past"
-          checked={showPastEvents}
-          onCheckedChange={setShowPastEvents}
-        />
-      </div>
-
-      {/* Events Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {filteredEvents.map((ev) => (
-          <EventCard
-            key={ev.id}
-            ev={ev}
-            onEdit={() => {
-              setEditingEvent(ev);
-              populateEditForm(ev);
-              setIsEditDialogOpen(true);
-            }}
-            onDelete={() => {
-              setDeletingEvent(ev);
-              populateDeleteForm(ev);
-              setIsDeleteDialogOpen(true);
-            }}
+        {/* Filter */}
+        <div className="flex items-center gap-2 mb-6 justify-end">
+          <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
+            Show past events
+          </Label>
+          <Switch
+            id="show-past"
+            checked={showPastEvents}
+            onCheckedChange={setShowPastEvents}
           />
-        ))}
-      </div>
-
-      {filteredEvents.length === 0 && (
-        <div className="text-center py-12">
-          <p className="text-[#f5ece5]/50">No events found</p>
         </div>
-      )}
+
+        {/* Events Grid */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {filteredEvents.map((ev) => (
+            <EventCard
+              key={ev.id}
+              ev={ev}
+              onEdit={() => {
+                setEditingEvent(ev);
+                populateEditForm(ev);
+                setIsEditDialogOpen(true);
+              }}
+              onDelete={() => {
+                setDeletingEvent(ev);
+                populateDeleteForm(ev);
+                setIsDeleteDialogOpen(true);
+              }}
+            />
+          ))}
+        </div>
+
+        {filteredEvents.length === 0 && (
+          <div className="text-center py-12">
+            <p className="text-[#f5ece5]/50">No events found</p>
+          </div>
+        )}
+      </Collapse>
 
       {/* Create Dialog */}
       <BasicDialog

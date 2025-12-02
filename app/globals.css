@@ -424,3 +424,7 @@ body {
   font-weight: 600;
   border-radius: 2rem;
 }
+
+.ReactCollapse--collapse {
+  transition: height 500ms ease;
+}
