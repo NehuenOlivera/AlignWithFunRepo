@@ -211,10 +211,10 @@ export default function EventsManager({
   return (
     <>
       <div
-        className="flex items-center justify-between border-2 rounded-4xl p-3"
+        className="flex items-center justify-between border-b-2 p-3"
         onClick={eventsManagerToggleCollapse}
       >
-        <h1 className="text-3xl font-semibold">Event Management</h1>
+        <h1 className="text-3xl font-semibold text-(--color-beige)">Events</h1>
         {isEventManagementOpen ? <ChevronUp /> : <ChevronDown />}
       </div>
       {/* Page Title */}
