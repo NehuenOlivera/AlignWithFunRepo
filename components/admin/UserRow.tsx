@@ -1,6 +1,6 @@
 "use client";
 
-import { Eye } from "lucide-react";
+import { Dot, Eye } from "lucide-react";
 import { User } from "./UsersManager";
 import UserDetailsCard from "./UserDetailsCard";
 import { useState } from "react";
@@ -18,6 +18,11 @@ export default function UserRow({ user }: { user: User }) {
           <p>{user.email}</p>
         </div>
         <div className="flex justify-center">
+          {!user.waiver_signed ? (
+            <Dot size={48} className="text-red-500" />
+          ) : (
+            ""
+          )}
           <button
             className="justify-center rounded-full"
             onClick={() => setIsUserDetailsOpen(true)}
