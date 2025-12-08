@@ -3,7 +3,6 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
 
 interface EventFormProps {
   name: string;
@@ -52,9 +51,6 @@ export default function EventForm({
   setLocation,
   suggestedPrice,
   setSuggestedPrice,
-  showCancelSwitch,
-  cancelEvent,
-  setCancelEvent,
 }: EventFormProps) {
   return (
     <div className="space-y-6">
@@ -138,16 +134,6 @@ export default function EventForm({
           />
         </div>
       </div>
-
-      {showCancelSwitch && (
-        <div>
-          <Label>Cancel Event</Label>
-          <div className="flex items-center gap-2 mt-1">
-            <Switch checked={cancelEvent} onCheckedChange={setCancelEvent} />
-            <span className="text-sm text-[#f5ece5]/70">Mark as cancelled</span>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

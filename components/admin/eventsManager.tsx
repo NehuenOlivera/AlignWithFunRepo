@@ -138,6 +138,14 @@ export default function EventsManager({
     setDescription(ev.description || "");
   };
 
+  async function sendCancelationEmails(ev: Event) {
+    const res = await fetch("/api/sendCancelClassEmail", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event: ev }),
+    });
+  }
+
   const handleEditEventSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -169,6 +177,11 @@ export default function EventsManager({
       alert("Error: " + data.error);
       setLoading(false);
       return;
+    }
+
+    // if event is cancelled, send email to all participants
+    if (!editingEvent.is_cancelled && data.event.is_cancelled) {
+      sendCancelationEmails(data.event);
     }
 
     // update list
@@ -302,7 +315,6 @@ export default function EventsManager({
             setSuggestedPrice={setSuggestedPrice}
             cancelEvent={cancelEvent}
             setCancelEvent={setCancelEvent}
-            showCancelSwitch={false}
           />
 
           <div className="flex gap-3 justify-end">
@@ -350,7 +362,6 @@ export default function EventsManager({
             setSuggestedPrice={setSuggestedPrice}
             cancelEvent={cancelEvent}
             setCancelEvent={setCancelEvent}
-            showCancelSwitch={true}
           />
 
           <div className="flex gap-3 justify-end">
@@ -370,6 +381,13 @@ export default function EventsManager({
             </button>
           </div>
         </form>
+        <div>
+          <Label>Cancel Event</Label>
+          <div className="flex items-center gap-2 mt-1">
+            <Switch checked={cancelEvent} onCheckedChange={setCancelEvent} />
+            <span className="text-sm text-[#f5ece5]/70">Mark as cancelled</span>
+          </div>
+        </div>
       </BasicDialog>
 
       {/* Delete Dialog */}
