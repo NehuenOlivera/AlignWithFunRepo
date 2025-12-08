@@ -10,8 +10,9 @@ import EventCard from "./EventCard";
 import EventForm from "./EventForm";
 import EventDeleteDialog from "./EventDeleteDialog";
 import { Collapse } from "react-collapse";
+import { toast } from "react-toastify";
 
-interface Attendee {
+export interface Attendee {
   id: string;
   first_name: string;
   last_name: string;
@@ -19,7 +20,7 @@ interface Attendee {
   phone?: string;
 }
 
-interface Event {
+export interface Event {
   id: string;
   name: string;
   start_at: string;
@@ -107,7 +108,7 @@ export default function EventsManager({
     const data = await res.json();
 
     if (!res.ok) {
-      alert("Error: " + data.error);
+      toast.error("Error: " + data.error);
       setLoading(false);
       return;
     }
@@ -119,6 +120,8 @@ export default function EventsManager({
 
     setIsCreateDialogOpen(false);
     setLoading(false);
+
+    toast.success("Event created successfully!");
   };
 
   const populateEditForm = (ev: Event) => {
@@ -144,6 +147,11 @@ export default function EventsManager({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ event: ev }),
     });
+    if (!res.ok) {
+      toast.error("Failed to send cancellation emails.");
+    } else {
+      toast.success("Cancellation emails sent.");
+    }
   }
 
   const handleEditEventSubmit = async (e: React.FormEvent) => {
@@ -174,14 +182,14 @@ export default function EventsManager({
     const data = await res.json();
 
     if (!res.ok) {
-      alert("Error: " + data.error);
+      toast.error("Error: " + data.error);
       setLoading(false);
       return;
     }
 
     // if event is cancelled, send email to all participants
     if (!editingEvent.is_cancelled && data.event.is_cancelled) {
-      sendCancelationEmails(data.event);
+      sendCancelationEmails(editingEvent);
     }
 
     // update list
@@ -191,6 +199,8 @@ export default function EventsManager({
 
     setIsEditDialogOpen(false);
     setLoading(false);
+
+    toast.success("Event updated!");
   };
 
   const handleDeleteEvent = async (e: React.FormEvent) => {
@@ -209,12 +219,14 @@ export default function EventsManager({
     setEvents((prev) => prev.filter((ev) => ev.id !== deletingEvent.id));
 
     if (!res.ok) {
-      alert("Error: " + data.error);
+      toast.error("Error: " + data.error);
       setLoading(false);
       return;
     }
     setIsDeleteDialogOpen(false);
     setLoading(false);
+
+    toast.success("Event deleted successfully!");
   };
 
   const eventsManagerToggleCollapse = () => {
@@ -313,8 +325,6 @@ export default function EventsManager({
             setLocation={setLocation}
             suggestedPrice={suggestedPrice}
             setSuggestedPrice={setSuggestedPrice}
-            cancelEvent={cancelEvent}
-            setCancelEvent={setCancelEvent}
           />
 
           <div className="flex gap-3 justify-end">
@@ -360,8 +370,6 @@ export default function EventsManager({
             setLocation={setLocation}
             suggestedPrice={suggestedPrice}
             setSuggestedPrice={setSuggestedPrice}
-            cancelEvent={cancelEvent}
-            setCancelEvent={setCancelEvent}
           />
 
           <div className="flex gap-3 justify-end">

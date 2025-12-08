@@ -28,10 +28,6 @@ interface EventFormProps {
 
   suggestedPrice: string;
   setSuggestedPrice: (v: string) => void;
-
-  showCancelSwitch?: boolean;
-  cancelEvent: boolean;
-  setCancelEvent: (v: boolean) => void;
 }
 
 export default function EventForm({
