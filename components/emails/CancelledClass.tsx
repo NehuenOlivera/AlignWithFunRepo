@@ -1,4 +1,5 @@
 import { Event, Attendee } from "@/components/admin/eventsManager";
+import { format } from "date-fns";
 
 interface CancelClassEmailProps {
   event: Event;
@@ -48,20 +49,42 @@ export function CancelClassEmailTemplate({
 
         {/* Greeting */}
         <p style={{ fontSize: "16px", color: "#333" }}>
-          Hi {attendee.first_name} {attendee.last_name},
+          Hi {attendee.first_name},
         </p>
 
         {/* Message */}
         <p style={{ fontSize: "16px", color: "#333", lineHeight: "24px" }}>
-          We regret to inform you that the event{" "}
-          <strong style={{ color: "#022e14" }}>{event.name}</strong> has been
-          cancelled.
+          We are reaching out to let you know, that{" "}
+          <strong>your upcoming Pilates class has been cancelled.</strong>
         </p>
 
         <p style={{ fontSize: "16px", color: "#333", lineHeight: "24px" }}>
-          We’re sorry for any inconvenience this may cause. You’ll be notified
-          if the event is rescheduled or if any alternative sessions become
-          available.
+          <strong style={{ color: "#022e14" }}>Class: </strong>
+          {event.name}.
+        </p>
+
+        <p style={{ fontSize: "16px", color: "#333", lineHeight: "24px" }}>
+          <strong style={{ color: "#022e14" }}>Date & Time: </strong>{" "}
+          {format(new Date(event.start_at), "PPPP p")}
+        </p>
+
+        <p style={{ fontSize: "16px", color: "#333", lineHeight: "24px" }}>
+          We know how valuable your time is, and We appreciate your
+          understanding.
+        </p>
+        <p style={{ fontSize: "16px", color: "#333", lineHeight: "24px" }}>
+          Your booking has already been updated on our end, and you&apos;re
+          warmly invited to{" "}
+          <a href="https://www.alignwithfun.com/classes">
+            <strong>join any future class that suits your schedule.</strong>
+          </a>{" "}
+          Whenever you&apos;re ready, we would love to welcome you back on the
+          mat.
+        </p>
+
+        <p style={{ fontSize: "16px", color: "#333", lineHeight: "24px" }}>
+          If you need help rescheduling or have any questions at all, please
+          don&apos;t hesitate to reach out — we are always here to support you.
         </p>
 
         {/* Divider */}
@@ -76,7 +99,9 @@ export function CancelClassEmailTemplate({
             marginBottom: 0,
           }}
         >
-          Thank you for your understanding.
+          Thank you again for your kindness and understanding.
+          <br />
+          Warmest regards,
           <br />
           <span style={{ color: "#022e14", fontWeight: "bold" }}>
             The Align With Fun Team
