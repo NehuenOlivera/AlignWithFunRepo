@@ -88,7 +88,7 @@ export function CancelClassEmailTemplate({
         </p>
 
         {/* Divider */}
-        <hr style={{ margin: "32px 0", borderColor: "#e5e5e5" }} />
+        <hr style={{ margin: "34px 0", borderColor: "#e5e5e5" }} />
 
         {/* Footer */}
         <p
