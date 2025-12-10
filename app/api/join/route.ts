@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
+import { sendJoinClassEmail } from "@/utils/sendJoinClassEmail";
+import { getInfoForJoinClassEmail } from "@/utils/getInfoForEmails";
 
 async function getUserAuth() {
   const supabase = createClient();
@@ -107,6 +109,15 @@ export async function POST(req: Request) {
       user_id: user.id,
       status: "booked",
     });
+
+    // get event data (name, start_at, duration_minutes, ) and user data (first_name, email) to send email
+    const emailInfo = await getInfoForJoinClassEmail(
+      supabase,
+      user.id,
+      event_id
+    );
+    console.log(emailInfo);
+    sendJoinClassEmail(emailInfo.event!, emailInfo.user!);
 
     if (error) return NextResponse.json({ error: error.message });
 
