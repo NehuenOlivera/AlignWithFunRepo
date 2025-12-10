@@ -1,24 +1,23 @@
 import Header from "@/components/header";
 import { createClient } from "@/utils/supabase/server";
 import EventsManager from "@/components/admin/eventsManager";
-import UsersManager from "@/components/admin/UsersManager";
+import UsersManager, { User } from "@/components/admin/UsersManager";
 
 export default async function AdminPage() {
   const supabase = await createClient();
 
-  const { data: events, error: eventsError } = await supabase.rpc(
-    "admin_get_events"
-  );
-  const { data: users, error: usersError } = await supabase.rpc(
-    "get_all_users_for_admin"
-  );
+  const { data, error: eventsError } = await supabase
+    .rpc("admin_get_events")
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .returns<any>();
+  const events = Array.isArray(data) ? data : [];
 
-  if (eventsError) {
-    console.error("Error loading events:", eventsError);
-  }
-  if (usersError) {
-    console.error("Error loading users:", usersError);
-  }
+  const { data: users, error: usersError } = await supabase
+    .rpc("get_all_users_for_admin")
+    .returns<User[]>();
+
+  if (eventsError) console.error("Error loading events:", eventsError);
+  if (usersError) console.error("Error loading users:", usersError);
 
   return (
     <>
