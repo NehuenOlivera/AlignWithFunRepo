@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@/utils/supabase/client";
-import { ChevronDown, ChevronUp, Pen } from "lucide-react";
+import { Pen } from "lucide-react";
 import WaiverText from "@/components/WaiverText";
 import { Collapse } from "react-collapse";
+import { ToggableHeader } from "@/components/ui/ToggableHeader";
 
 interface UserProfile {
   id: string;
@@ -171,13 +172,11 @@ export default function UserData() {
 
   return (
     <>
-      <div
-        className="flex items-center justify-between border-b-2 p-3"
-        onClick={profileDetailsToggleCollapse}
-      >
-        <h1 className="text-3xl font-semibold text-(--color-beige)">Profile</h1>
-        {isProfileDetailsOpen ? <ChevronUp /> : <ChevronDown />}
-      </div>
+      <ToggableHeader
+        title="Profile"
+        isOpen={isProfileDetailsOpen}
+        onToggle={profileDetailsToggleCollapse}
+      />
       <Collapse isOpened={isProfileDetailsOpen}>
         <div className="mt-6">
           {/* Message Alert */}

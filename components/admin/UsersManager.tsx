@@ -1,9 +1,9 @@
 "use client";
 
-import { ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import { Collapse } from "react-collapse";
 import UserRow from "./UserRow";
+import { ToggableHeader } from "../ui/ToggableHeader";
 
 export interface User {
   id: string;
@@ -26,13 +26,11 @@ export default function UsersManager({ users }: { users: User[] }) {
 
   return (
     <>
-      <div
-        className="flex items-center justify-between border-b-2 p-3"
-        onClick={usersManagerToggleCollapse}
-      >
-        <h1 className="text-3xl font-semibold text-(--color-beige)">Users</h1>
-        {isUsersManagementOpen ? <ChevronUp /> : <ChevronDown />}
-      </div>
+      <ToggableHeader
+        title="Users"
+        isOpen={isUsersManagementOpen}
+        onToggle={usersManagerToggleCollapse}
+      />
       <Collapse isOpened={isUsersManagementOpen}>
         <div className="mt-4">
           {users.map((user) => (

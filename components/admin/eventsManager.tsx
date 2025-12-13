@@ -4,13 +4,14 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "../ui/switch";
-import { ChevronDown, ChevronUp, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import BasicDialog from "../ui/basicDialog";
 import EventCard from "./EventCard";
 import EventForm from "./EventForm";
 import EventDeleteDialog from "./EventDeleteDialog";
 import { Collapse } from "react-collapse";
 import { toast } from "react-toastify";
+import { ToggableHeader } from "../ui/ToggableHeader";
 
 export interface Attendee {
   id: string;
@@ -235,13 +236,11 @@ export default function EventsManager({
 
   return (
     <>
-      <div
-        className="flex items-center justify-between border-b-2 p-3"
-        onClick={eventsManagerToggleCollapse}
-      >
-        <h1 className="text-3xl font-semibold text-(--color-beige)">Events</h1>
-        {isEventManagementOpen ? <ChevronUp /> : <ChevronDown />}
-      </div>
+      <ToggableHeader
+        title="Events"
+        isOpen={isEventManagementOpen}
+        onToggle={eventsManagerToggleCollapse}
+      />
       {/* Page Title */}
       <Collapse isOpened={isEventManagementOpen}>
         <div className="flex items-center justify-between my-5">

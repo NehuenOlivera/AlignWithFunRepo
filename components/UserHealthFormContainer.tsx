@@ -6,7 +6,7 @@ import {
   defaultMedicalBackground,
 } from "@/types";
 import { createClient } from "@/utils/supabase/client";
-import { ChevronUp, ChevronDown, Pen } from "lucide-react";
+import { Pen } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 import { UserInjuriesForm } from "./UserInjuriesForm";
@@ -17,6 +17,7 @@ import type {
 } from "@/types";
 import { UserMedicalBackgroundForm } from "./UserMedicalBackgroundForm";
 import { UserAcknowledgementOfResponsabilityForm } from "./UserAcknowledgementOfResponsabilityForm";
+import { ToggableHeader } from "./ui/ToggableHeader";
 
 export function UserHealthFormContainer() {
   const [loading, setLoading] = useState(true);
@@ -216,15 +217,11 @@ export function UserHealthFormContainer() {
 
   return (
     <>
-      <div
-        className="flex items-center justify-between border-b-2 p-3 cursor-pointer"
-        onClick={healthFormToggleCollapse}
-      >
-        <h1 className="text-3xl font-semibold text-(--color-beige)">
-          Health form
-        </h1>
-        {isHealthFormOpen ? <ChevronUp /> : <ChevronDown />}
-      </div>
+      <ToggableHeader
+        title="Health form"
+        isOpen={isHealthFormOpen}
+        onToggle={healthFormToggleCollapse}
+      />
 
       <Collapse isOpened={isHealthFormOpen}>
         <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10 mt-4">
