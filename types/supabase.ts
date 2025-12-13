@@ -125,7 +125,7 @@ export type Database = {
       };
       user_health_forms: {
         Row: {
-          acknowledgement: Json;
+          acknowledgement_of_responsability: Json;
           completed_at: string | null;
           created_at: string;
           current_injuries: Json;
@@ -135,7 +135,7 @@ export type Database = {
           user_id: string;
         };
         Insert: {
-          acknowledgement?: Json;
+          acknowledgement_of_responsability?: Json;
           completed_at?: string | null;
           created_at?: string;
           current_injuries?: Json;
@@ -145,7 +145,7 @@ export type Database = {
           user_id: string;
         };
         Update: {
-          acknowledgement?: Json;
+          acknowledgement_of_responsability?: Json;
           completed_at?: string | null;
           created_at?: string;
           current_injuries?: Json;

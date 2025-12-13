@@ -1,4 +1,8 @@
-import { CurrentInjuries, MedicalBackground } from "@/types";
+import {
+  AcknowledgementOfResponsability,
+  CurrentInjuries,
+  MedicalBackground,
+} from "@/types";
 
 export const EMPTY_CURRENT_INJURIES = {
   no_injuries: false,
@@ -51,4 +55,30 @@ export const MEDICAL_BACKGROUND_OPTIONS: Array<{
   { key: "dizziness", label: "Dizziness or fainting" },
   { key: "hypermobility", label: "Hypermobility" },
   { key: "osteoporosis", label: "Osteoporosis" },
+];
+
+export const ACKNOWLEDGEMENT_OPTIONS: Array<{
+  key: keyof AcknowledgementOfResponsability;
+  label: string;
+}> = [
+  {
+    key: "physical_activity_risk",
+    label:
+      "I acknowledge that Pilates involves physical activity and carries a risk of injury.",
+  },
+  {
+    key: "notify_changes",
+    label:
+      "I understand that it is my responsibility to notify the instructor before class if anything changes.",
+  },
+  {
+    key: "instructor_guidance",
+    label:
+      "I understand that the instructor will guide me safely, but ultimately I am responsible for my own body.",
+  },
+  {
+    key: "follow_instructions",
+    label:
+      "I agree to follow instructions and practice within my personal limits.",
+  },
 ];

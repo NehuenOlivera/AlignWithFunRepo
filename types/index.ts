@@ -41,10 +41,10 @@ export type MedicalBackground = {
   other_diagnosed_condition_text: string;
 };
 
-export type Acknowledgement = {
-  understands_risk: boolean;
+export type AcknowledgementOfResponsability = {
+  physical_activity_risk: boolean;
   notify_changes: boolean;
-  responsible_for_body: boolean;
+  instructor_guidance: boolean;
   follow_instructions: boolean;
 };
 
@@ -52,7 +52,7 @@ export type UserHealthForm = {
   user_id: string;
   current_injuries: CurrentInjuries;
   medical_background: MedicalBackground;
-  acknowledgement: Acknowledgement;
+  acknowledgement: AcknowledgementOfResponsability;
   other_injuries?: string | null;
   completed_at?: string | null;
   created_at?: string;
@@ -95,9 +95,10 @@ export const defaultMedicalBackground: MedicalBackground = {
   none_apply: false,
 };
 
-export const defaultAcknowledgement: Acknowledgement = {
-  understands_risk: false,
-  notify_changes: false,
-  responsible_for_body: false,
-  follow_instructions: false,
-};
+export const defaultAcknowledgementOfResponsability: AcknowledgementOfResponsability =
+  {
+    physical_activity_risk: false,
+    notify_changes: false,
+    instructor_guidance: false,
+    follow_instructions: false,
+  };

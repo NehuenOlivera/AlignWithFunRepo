@@ -1,13 +1,22 @@
 "use client";
 
-import { defaultCurrentInjuries, defaultMedicalBackground } from "@/types";
+import {
+  defaultAcknowledgementOfResponsability,
+  defaultCurrentInjuries,
+  defaultMedicalBackground,
+} from "@/types";
 import { createClient } from "@/utils/supabase/client";
 import { ChevronUp, ChevronDown, Pen } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 import { UserInjuriesForm } from "./UserInjuriesForm";
-import type { CurrentInjuries, MedicalBackground } from "@/types";
+import type {
+  AcknowledgementOfResponsability,
+  CurrentInjuries,
+  MedicalBackground,
+} from "@/types";
 import { UserMedicalBackgroundForm } from "./UserMedicalBackgroundForm";
+import { UserAcknowledgementOfResponsabilityForm } from "./UserAcknowledgementOfResponsabilityForm";
 
 export function UserHealthFormContainer() {
   const [loading, setLoading] = useState(true);
@@ -19,6 +28,11 @@ export function UserHealthFormContainer() {
   const [medicalBackground, setMedicalBackground] = useState<MedicalBackground>(
     defaultMedicalBackground
   );
+  const [acknowledgement, setAcknowledgement] =
+    useState<AcknowledgementOfResponsability>(
+      defaultAcknowledgementOfResponsability
+    );
+  const [saving, setSaving] = useState(false);
 
   const supabase = createClient();
 
@@ -91,6 +105,59 @@ export function UserHealthFormContainer() {
     }));
   };
 
+  const handleToggleAcknowledgement = (
+    key: keyof AcknowledgementOfResponsability
+  ) => {
+    setAcknowledgement((prev) => ({
+      ...prev,
+      [key]: !prev[key],
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!isAcknowledgementComplete) {
+      alert("You must acknowledge all statements before saving the form.");
+      return;
+    }
+
+    setSaving(true);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      setSaving(false);
+      return;
+    }
+
+    const { error } = await supabase.from("user_health_forms").upsert(
+      {
+        user_id: user.id,
+        current_injuries: currentInjuries,
+        medical_background: medicalBackground,
+        acknowledgement_of_responsability: acknowledgement,
+        completed_at: new Date().toISOString(),
+      },
+      { onConflict: "user_id" }
+    );
+
+    setSaving(false);
+
+    if (error) {
+      console.error(error);
+      alert("Something went wrong while saving the form.");
+      return;
+    }
+
+    setIsEditing(false);
+  };
+
+  const isAcknowledgementComplete =
+    Object.values(acknowledgement).every(Boolean);
+
   useEffect(() => {
     const fetchProfile = async () => {
       const {
@@ -104,7 +171,9 @@ export function UserHealthFormContainer() {
 
       const { data, error } = await supabase
         .from("user_health_forms")
-        .select("current_injuries, medical_background")
+        .select(
+          "current_injuries, medical_background, acknowledgement_of_responsability"
+        )
         .eq("user_id", user.id)
         .maybeSingle();
 
@@ -120,6 +189,13 @@ export function UserHealthFormContainer() {
           setMedicalBackground({
             ...defaultMedicalBackground,
             ...data.medical_background,
+          });
+        }
+
+        if (data.acknowledgement_of_responsability) {
+          setAcknowledgement({
+            ...defaultAcknowledgementOfResponsability,
+            ...data.acknowledgement_of_responsability,
           });
         }
       }
@@ -164,7 +240,7 @@ export function UserHealthFormContainer() {
             </div>
           )}
 
-          <form>
+          <form onSubmit={handleSubmit}>
             <UserInjuriesForm
               currentInjuries={currentInjuries}
               isEditing={isEditing}
@@ -180,6 +256,30 @@ export function UserHealthFormContainer() {
                 handleOtherDiagnosedConditionTextChange
               }
             />
+
+            <UserAcknowledgementOfResponsabilityForm
+              acknowledgement={acknowledgement}
+              isEditing={isEditing}
+              onToggle={handleToggleAcknowledgement}
+            />
+
+            {isEditing && (
+              <div className="flex justify-end mt-8">
+                <button
+                  type="submit"
+                  disabled={!isAcknowledgementComplete || saving}
+                  className={`px-6 py-3 rounded-lg font-semibold transition
+        ${
+          !isAcknowledgementComplete || saving
+            ? "bg-gray-500 cursor-not-allowed opacity-60"
+            : "bg-(--color-yellow) text-black hover:opacity-90"
+        }
+      `}
+                >
+                  {saving ? "Saving..." : "Save"}
+                </button>
+              </div>
+            )}
           </form>
         </div>
       </Collapse>
