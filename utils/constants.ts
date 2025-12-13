@@ -1,4 +1,4 @@
-import { CurrentInjuries } from "@/types";
+import { CurrentInjuries, MedicalBackground } from "@/types";
 
 export const EMPTY_CURRENT_INJURIES = {
   no_injuries: false,
@@ -17,7 +17,10 @@ export const EMPTY_CURRENT_INJURIES = {
 };
 
 export const INJURY_OPTIONS: Array<{
-  key: Exclude<keyof CurrentInjuries, "no_injuries" | "other_injury_text">;
+  key: Exclude<
+    keyof CurrentInjuries,
+    "no_injuries" | "other_injury" | "other_injury_text"
+  >;
   label: string;
 }> = [
   { key: "back_pain", label: "Back pain" },
@@ -31,5 +34,21 @@ export const INJURY_OPTIONS: Array<{
   { key: "pregnancy", label: "Pregnancy" },
   { key: "pelvic_floor", label: "Pelvic floor issues" },
   { key: "chronic_pain", label: "Chronic pain" },
-  { key: "other_injury", label: "Other injury" },
+];
+
+export const MEDICAL_BACKGROUND_OPTIONS: Array<{
+  key: Exclude<
+    keyof MedicalBackground,
+    | "none_apply"
+    | "other_diagnosed_condition"
+    | "other_diagnosed_condition_text"
+  >;
+  label: string;
+}> = [
+  { key: "asthma", label: "Asthma" },
+  { key: "heart_condition", label: "Heart condition" },
+  { key: "diabetes", label: "Diabetes" },
+  { key: "dizziness", label: "Dizziness or fainting" },
+  { key: "hypermobility", label: "Hypermobility" },
+  { key: "osteoporosis", label: "Osteoporosis" },
 ];

@@ -8,7 +8,6 @@ export type Event = {
   suggested_price: number | null;
   post_schedule_message: string | null;
   location: string | null;
-  // booked_count: number;
   spots_left: number;
   user_status: string;
 };
@@ -31,14 +30,15 @@ export type CurrentInjuries = {
 };
 
 export type MedicalBackground = {
+  none_apply: boolean;
   asthma: boolean;
   heart_condition: boolean;
   diabetes: boolean;
   dizziness: boolean;
   hypermobility: boolean;
   osteoporosis: boolean;
-  diagnosed_condition: boolean;
-  none_apply: boolean;
+  other_diagnosed_condition: boolean;
+  other_diagnosed_condition_text: string;
 };
 
 export type Acknowledgement = {
@@ -90,7 +90,8 @@ export const defaultMedicalBackground: MedicalBackground = {
   dizziness: false,
   hypermobility: false,
   osteoporosis: false,
-  diagnosed_condition: false,
+  other_diagnosed_condition: false,
+  other_diagnosed_condition_text: "",
   none_apply: false,
 };
 

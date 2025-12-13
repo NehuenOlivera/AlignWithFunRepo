@@ -2,6 +2,7 @@
 
 import type { CurrentInjuries } from "@/types";
 import { INJURY_OPTIONS } from "@/utils/constants";
+import { Collapse } from "react-collapse";
 
 type UserInjuriesFormProps = {
   currentInjuries: CurrentInjuries;
@@ -38,41 +39,44 @@ export function UserInjuriesForm({
         <label>I currently have no injuries or conditions.</label>
       </div>
 
-      <hr className="my-3" />
+      <Collapse isOpened={!currentInjuries.no_injuries}>
+        <hr className="my-3" />
 
-      <div className="space-y-2.5">
-        {INJURY_OPTIONS.map(({ key, label }) => (
-          <div className="flex space-x-2 items-center" key={key}>
+        <div className="space-y-2.5">
+          {INJURY_OPTIONS.map(({ key, label }) => (
+            <div className="flex space-x-2 items-center" key={key}>
+              <input
+                type="checkbox"
+                className="size-6"
+                checked={currentInjuries[key]}
+                disabled={!isEditing}
+                onChange={() => onToggle(key)}
+              />
+              <label>{label}</label>
+            </div>
+          ))}
+
+          <div className="flex space-x-2 items-center">
             <input
               type="checkbox"
               className="size-6"
-              checked={currentInjuries[key]}
+              checked={currentInjuries.other_injury}
               disabled={!isEditing}
-              onChange={() => onToggle(key)}
+              onChange={() => onToggle("other_injury")}
             />
-            <label>{label}</label>
-          </div>
-        ))}
+            <label>Other injury</label>
 
-        <div className="flex space-x-2 items-center">
-          <input
-            type="checkbox"
-            className="size-6"
-            checked={currentInjuries.other_injury}
-            disabled={!isEditing}
-            onChange={() => onToggle("other_injury")}
-          />
-          <label>Others:</label>
-          <input
-            type="text"
-            className="border-b bg-transparent flex-1"
-            disabled={!isEditing || !currentInjuries.other_injury}
-            value={currentInjuries.other_injury_text}
-            onChange={(e) => onOtherInjuryTextChange(e.target.value)}
-            placeholder={currentInjuries.other_injury ? "Please specify" : ""}
-          />
+            <input
+              type="text"
+              className="border-b bg-transparent flex-1"
+              disabled={!isEditing || !currentInjuries.other_injury}
+              value={currentInjuries.other_injury_text}
+              onChange={(e) => onOtherInjuryTextChange(e.target.value)}
+              placeholder={currentInjuries.other_injury ? "Please specify" : ""}
+            />
+          </div>
         </div>
-      </div>
+      </Collapse>
     </>
   );
 }

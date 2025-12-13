@@ -1,12 +1,13 @@
 "use client";
 
-import { defaultCurrentInjuries } from "@/types";
+import { defaultCurrentInjuries, defaultMedicalBackground } from "@/types";
 import { createClient } from "@/utils/supabase/client";
 import { ChevronUp, ChevronDown, Pen } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Collapse } from "react-collapse";
 import { UserInjuriesForm } from "./UserInjuriesForm";
-import type { CurrentInjuries } from "@/types";
+import type { CurrentInjuries, MedicalBackground } from "@/types";
+import { UserMedicalBackgroundForm } from "./UserMedicalBackgroundForm";
 
 export function UserHealthFormContainer() {
   const [loading, setLoading] = useState(true);
@@ -14,6 +15,9 @@ export function UserHealthFormContainer() {
   const [isHealthFormOpen, setIsHealthFormOpen] = useState(false);
   const [currentInjuries, setCurrentInjuries] = useState<CurrentInjuries>(
     defaultCurrentInjuries
+  );
+  const [medicalBackground, setMedicalBackground] = useState<MedicalBackground>(
+    defaultMedicalBackground
   );
 
   const supabase = createClient();
@@ -53,6 +57,40 @@ export function UserHealthFormContainer() {
     }));
   };
 
+  const handleToggleMedicalBackground = (key: keyof MedicalBackground) => {
+    setMedicalBackground((prev) => {
+      // none_apply selected → reset everything
+      if (key === "none_apply") {
+        return prev.none_apply
+          ? { ...prev, none_apply: false }
+          : { ...defaultMedicalBackground, none_apply: true };
+      }
+
+      const next = {
+        ...prev,
+        none_apply: false,
+        [key]: !prev[key],
+      };
+
+      // Clear text if unchecked
+      if (
+        key === "other_diagnosed_condition" &&
+        prev.other_diagnosed_condition
+      ) {
+        next.other_diagnosed_condition_text = "";
+      }
+
+      return next;
+    });
+  };
+
+  const handleOtherDiagnosedConditionTextChange = (value: string) => {
+    setMedicalBackground((prev) => ({
+      ...prev,
+      other_diagnosed_condition_text: value,
+    }));
+  };
+
   useEffect(() => {
     const fetchProfile = async () => {
       const {
@@ -66,15 +104,24 @@ export function UserHealthFormContainer() {
 
       const { data, error } = await supabase
         .from("user_health_forms")
-        .select("current_injuries")
+        .select("current_injuries, medical_background")
         .eq("user_id", user.id)
         .maybeSingle();
 
-      if (!error && data?.current_injuries) {
-        setCurrentInjuries({
-          ...defaultCurrentInjuries,
-          ...data.current_injuries,
-        });
+      if (!error && data) {
+        if (data.current_injuries) {
+          setCurrentInjuries({
+            ...defaultCurrentInjuries,
+            ...data.current_injuries,
+          });
+        }
+
+        if (data.medical_background) {
+          setMedicalBackground({
+            ...defaultMedicalBackground,
+            ...data.medical_background,
+          });
+        }
       }
 
       setLoading(false);
@@ -123,6 +170,15 @@ export function UserHealthFormContainer() {
               isEditing={isEditing}
               onToggle={handleToggleInjury}
               onOtherInjuryTextChange={handleOtherInjuryTextChange}
+            />
+
+            <UserMedicalBackgroundForm
+              medicalBackground={medicalBackground}
+              isEditing={isEditing}
+              onToggle={handleToggleMedicalBackground}
+              onOtherConditionTextChange={
+                handleOtherDiagnosedConditionTextChange
+              }
             />
           </form>
         </div>
