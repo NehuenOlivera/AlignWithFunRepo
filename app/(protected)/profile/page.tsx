@@ -1,24 +1,17 @@
 import Header from "@/components/header";
 import UserData from "./userDataCard";
+import { UserHealthFormContainer } from "@/components/UserHealthFormContainer";
 
 export default function ProfilePage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-linear-to-b from-[#0a1f12] to-[#101010] flex items-center justify-center py-8 sm:py-4! px-4">
-        <div className="w-full max-w-4xl mx-4! sm:mx-0!">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-[#f5ece5] mb-1">
-                My Profile
-              </h1>
-              <p className="text-sm sm:text-base text-[#f5ece5]/70 mb-3!">
-                View and manage your account information
-              </p>
-            </div>
-          </div>
-
+      <main className="min-h-screen bg-linear-to-b from-[#0a1f12] to-[#101010] py-4! px-4!">
+        <div className="container mx-auto max-w-6xl mb-5">
           <UserData />
+        </div>
+        <div className="container mx-auto max-w-6xl">
+          <UserHealthFormContainer />
         </div>
       </main>
     </>

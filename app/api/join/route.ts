@@ -1,27 +1,7 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@/utils/supabase/server";
 import { sendJoinClassEmail } from "@/utils/sendJoinClassEmail";
 import { getInfoForJoinClassEmail } from "@/utils/getInfoForEmails";
-
-async function getUserAuth() {
-  const supabase = createClient();
-  const sb = await supabase;
-  const {
-    data: { user },
-  } = await sb.auth.getUser();
-
-  if (!user) {
-    return {
-      user: null,
-      response: NextResponse.json(
-        { error: "You must be logged in." },
-        { status: 401 }
-      ),
-    };
-  }
-
-  return { user, supabase: sb };
-}
+import { getUserAuth } from "@/utils/getUserFromSupabase";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function validateUserProfileFields(user_id: string, supabase: any) {
