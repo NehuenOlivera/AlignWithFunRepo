@@ -6,18 +6,7 @@ import { Pen } from "lucide-react";
 import WaiverText from "@/components/WaiverText";
 import { Collapse } from "react-collapse";
 import { ToggableHeader } from "@/components/ui/ToggableHeader";
-
-interface UserProfile {
-  id: string;
-  first_name: string;
-  last_name: string;
-  email: string;
-  phone: string | null;
-  emergency_contact_name: string | null;
-  emergency_contact_relationship: string | null;
-  emergency_contact_phone: string | null;
-  waiver_signed: boolean;
-}
+import { UserProfile, REQUIRED_PROFILE_FIELDS } from "@/utils/constants";
 
 function WaiverModal({
   open,
@@ -79,7 +68,15 @@ export default function UserData() {
         setProfile(data as UserProfile);
         setFormData(data);
         setInitialWaiverSigned(data.waiver_signed);
+
+        const hasMissingFields = REQUIRED_PROFILE_FIELDS.some((field) => {
+          const value = data[field];
+          return value === null || value === "";
+        });
+
+        if (hasMissingFields || !data.waiver_signed) setIsEditing(true);
       }
+
       setLoading(false);
     };
 

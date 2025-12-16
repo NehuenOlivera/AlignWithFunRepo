@@ -82,3 +82,25 @@ export const ACKNOWLEDGEMENT_OPTIONS: Array<{
       "I agree to follow instructions and practice within my personal limits.",
   },
 ];
+
+export const REQUIRED_PROFILE_FIELDS: (keyof UserProfile)[] = [
+  "first_name",
+  "last_name",
+  "email",
+  "phone",
+  "emergency_contact_name",
+  "emergency_contact_relationship",
+  "emergency_contact_phone",
+];
+
+export interface UserProfile {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  phone: string | null;
+  emergency_contact_name: string | null;
+  emergency_contact_relationship: string | null;
+  emergency_contact_phone: string | null;
+  waiver_signed: boolean;
+}

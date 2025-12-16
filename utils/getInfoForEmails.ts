@@ -43,7 +43,5 @@ export async function getInfoForJoinClassEmail(
 }> {
   const user = await getUserInfoForEmail(supabase, userId);
   const event = await getEventInfoForEmail(supabase, eventId);
-  console.log("usuario: ", user);
-  console.log("Evento: ", event);
   return { user, event };
 }

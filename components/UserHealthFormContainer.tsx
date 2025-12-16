@@ -35,6 +35,35 @@ export function UserHealthFormContainer() {
     );
   const [saving, setSaving] = useState(false);
 
+  const isCurrentInjuriesValid = (() => {
+    if (currentInjuries.no_injuries) return true;
+
+    return Object.entries(currentInjuries).some(
+      ([key, value]) =>
+        key !== "no_injuries" && key !== "other_injury_text" && value === true
+    );
+  })();
+
+  const isMedicalBackgroundValid = (() => {
+    if (medicalBackground.none_apply) return true;
+
+    return Object.entries(medicalBackground).some(
+      ([key, value]) =>
+        key !== "none_apply" &&
+        key !== "other_diagnosed_condition_text" &&
+        value === true
+    );
+  })();
+
+  const isAcknowledgementComplete =
+    Object.values(acknowledgement).every(Boolean);
+
+  const canSave =
+    isAcknowledgementComplete &&
+    isCurrentInjuriesValid &&
+    isMedicalBackgroundValid &&
+    !saving;
+
   const supabase = createClient();
 
   const healthFormToggleCollapse = () => {
@@ -156,9 +185,6 @@ export function UserHealthFormContainer() {
     setIsEditing(false);
   };
 
-  const isAcknowledgementComplete =
-    Object.values(acknowledgement).every(Boolean);
-
   useEffect(() => {
     const fetchProfile = async () => {
       const {
@@ -199,6 +225,10 @@ export function UserHealthFormContainer() {
             ...data.acknowledgement_of_responsability,
           });
         }
+      }
+
+      if (!data) {
+        setIsEditing(true);
       }
 
       setLoading(false);
@@ -264,10 +294,10 @@ export function UserHealthFormContainer() {
               <div className="flex justify-end mt-8">
                 <button
                   type="submit"
-                  disabled={!isAcknowledgementComplete || saving}
+                  disabled={!canSave}
                   className={`px-6 py-3 rounded-lg font-semibold transition
         ${
-          !isAcknowledgementComplete || saving
+          !canSave
             ? "bg-gray-500 cursor-not-allowed opacity-60"
             : "bg-(--color-yellow) text-black hover:opacity-90"
         }

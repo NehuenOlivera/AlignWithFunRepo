@@ -38,6 +38,27 @@ async function validateUserProfileFields(user_id: string, supabase: any) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function validateUserHealthFormComplete(user_id: string, supabase: any) {
+  const { data, error } = await (await supabase)
+    .from("user_health_forms")
+    .select("completed_at")
+    .eq("user_id", user_id)
+    .not("completed_at", "is", null)
+    .maybeSingle();
+
+  if (error) {
+    throw new Error("Error fetching user health form: " + error.message);
+  }
+  if (!data) {
+    return NextResponse.json({
+      error: "Please complete the health form to join a class",
+    });
+  } else {
+    return null;
+  }
+}
+
 async function checkIfCancelled(
   event_id: string,
   user_id: string,
@@ -80,8 +101,16 @@ export async function POST(req: Request) {
     const { user, supabase, response } = await getUserAuth();
     if (!user) return response;
 
-    const validationResult = await validateUserProfileFields(user.id, supabase);
-    if (validationResult) return validationResult;
+    const profileValidationResult = await validateUserProfileFields(
+      user.id,
+      supabase
+    );
+    const healthFormValidationResult = await validateUserHealthFormComplete(
+      user.id,
+      supabase
+    );
+    if (profileValidationResult) return profileValidationResult;
+    if (healthFormValidationResult) return healthFormValidationResult;
 
     // insert attendee
     const { error } = await (await supabase).from("attendees").insert({
@@ -123,6 +152,12 @@ export async function PUT(req: Request) {
 
     const validationResult = await validateUserProfileFields(user.id, supabase);
     if (validationResult) return validationResult;
+
+    const healthFormValidationResult = await validateUserHealthFormComplete(
+      user.id,
+      supabase
+    );
+    if (healthFormValidationResult) return healthFormValidationResult;
 
     const result = await checkIfCancelled(event_id, user.id, supabase);
     if (result.error)
