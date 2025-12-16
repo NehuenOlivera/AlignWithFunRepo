@@ -13,6 +13,7 @@ export default function ClassesContent() {
   const [eventToJoin, setEventToJoin] = useState<Event | null>(null);
   const [eventToCancel, setEventToCancel] = useState<Event | null>(null);
   const [message, setMessage] = useState("");
+  const [isLogged, setIsLogged] = useState(false);
 
   const supabase = createClient();
 
@@ -22,6 +23,7 @@ export default function ClassesContent() {
     } = await supabase.auth.getSession();
 
     const userId = session?.user?.id ?? null;
+    setIsLogged(userId !== null);
 
     const { data, error } = await supabase.rpc("get_events_with_spots", {
       p_user_id: userId,
@@ -127,6 +129,7 @@ export default function ClassesContent() {
         <JoinModal
           event={eventToJoin}
           message={message}
+          isLoggedIn={isLogged}
           handleSubmit={handleJoinSubmit}
           handleClose={() => {
             setEventToJoin(null);

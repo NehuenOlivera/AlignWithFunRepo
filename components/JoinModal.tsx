@@ -1,10 +1,12 @@
 import { Event } from "../types";
 import { format } from "date-fns";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Props = {
   event: Event;
   message: string;
+  isLoggedIn: boolean;
   handleSubmit: () => Promise<void> | void;
   handleClose: () => void;
 };
@@ -12,9 +14,11 @@ type Props = {
 export default function JoinModal({
   event,
   message,
+  isLoggedIn,
   handleSubmit,
   handleClose,
 }: Props) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const onConfirm = async () => {
@@ -67,25 +71,41 @@ export default function JoinModal({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex gap-3 mb-4">
-          <button
-            onClick={onConfirm}
-            disabled={isLoading}
-            className={`joinClassModalConfirmButton flex items-center justify-center gap-2 ${
-              isLoading ? "opacity-70 cursor-not-allowed" : ""
-            }`}
-          >
-            {isLoading ? (
-              <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
-            ) : (
-              "Confirm Join"
-            )}
-          </button>
+        {!isLoggedIn ? (
+          <>
+            <div>
+              <button
+                className="w-full p-2 rounded-full bg-(--color-dark-green) cursor-pointer"
+                onClick={() => router.push("/login")}
+              >
+                Log in to join the class
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="flex gap-3 mb-4">
+            <button
+              onClick={onConfirm}
+              disabled={isLoading}
+              className={`joinClassModalConfirmButton flex items-center justify-center gap-2 ${
+                isLoading ? "opacity-70 cursor-not-allowed" : ""
+              }`}
+            >
+              {isLoading ? (
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+              ) : (
+                "Confirm Join"
+              )}
+            </button>
 
-          <button onClick={handleClose} className="joinClassModalCancelButton">
-            Cancel
-          </button>
-        </div>
+            <button
+              onClick={handleClose}
+              className="joinClassModalCancelButton"
+            >
+              Cancel
+            </button>
+          </div>
+        )}
 
         {/* Message */}
         {message && (
