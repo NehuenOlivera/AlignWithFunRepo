@@ -6,6 +6,8 @@ import UpcomingClasses from "./UpcomingClasses";
 import { createClient } from "@/utils/supabase/client";
 import { Event } from "@/types";
 import CancelBookingModal from "./CancelBookingModal";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
 
 export default function ClassesContent() {
   const [events, setEvents] = useState<Event[]>([]);
@@ -14,8 +16,13 @@ export default function ClassesContent() {
   const [eventToCancel, setEventToCancel] = useState<Event | null>(null);
   const [message, setMessage] = useState("");
   const [isLogged, setIsLogged] = useState(false);
+  const [filterBookedClasses, setFilterBookedClasses] = useState(false);
 
   const supabase = createClient();
+
+  const filteredEvents = filterBookedClasses
+    ? events.filter((event) => event.user_status === "booked")
+    : events;
 
   const loadEvents = useCallback(async () => {
     const {
@@ -98,26 +105,40 @@ export default function ClassesContent() {
 
   return (
     <main className="min-h-screen bg-linear-to-b from-[#0a1f12] to-[#101010]">
-      <section className="py-8 px-6 mx-auto">
+      <section className="py-4 px-6 mx-auto">
         <div className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#f5ece5] mb-4! justify-center flex">
+          <h1 className="text-3xl md:text-4xl font-bold text-[#f5ece5] justify-center flex">
             Upcoming Classes
           </h1>
+        </div>
+
+        {/* Filter */}
+        <div className="flex items-center gap-2 mb-6 justify-end">
+          <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
+            My bookings
+          </Label>
+          <Switch
+            id="show-past"
+            checked={filterBookedClasses}
+            onCheckedChange={setFilterBookedClasses}
+          />
         </div>
 
         {loading ? (
           <div className="text-center py-12">
             <div className="text-[#f5ece5]/70">Loading your classes...</div>
           </div>
-        ) : events.length === 0 ? (
+        ) : filteredEvents.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-[#f5ece5]/70">
-              No upcoming classes available at the moment.
+              {filterBookedClasses
+                ? "You have no booked classes."
+                : "No upcoming classes available at the moment."}
             </p>
           </div>
         ) : (
           <UpcomingClasses
-            events={events}
+            events={filteredEvents}
             loading={loading}
             onJoin={setEventToJoin}
             onCancelBooking={setEventToCancel}
