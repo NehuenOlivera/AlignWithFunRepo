@@ -182,7 +182,7 @@ export default function UserData() {
               className={`text-sm p-4 rounded-xl mb-6 border backdrop-blur-sm ${
                 message.includes("Error")
                   ? "bg-red-500/10 text-red-200 border-red-400/30"
-                  : "bg-green-500/10 text-green-200 border-green-400/30"
+                  : "bg-green-500/10 text-(--color-dark-green) border-green-400/30"
               }`}
             >
               {message}
@@ -190,14 +190,14 @@ export default function UserData() {
           )}
 
           {/* Main Card */}
-          <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10">
+          <div className="bg-(--color-light-green) border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10">
             <form className="space-y-8">
               <div>
                 <div className="flex justify-between mb-2 items-center flex-nowrap">
                   {/* A div that contains one div and one h2, should be one next to the other */}
                   <div className="flex items-center gap-3">
-                    <div className="w-1 h-6 bg-(--color-yellow)"></div>
-                    <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5] whitespace-nowrap">
+                    <div className="w-1 h-6 bg-(--color-terracota)"></div>
+                    <h2 className="text-xl sm:text-2xl font-bold text-(--color-dark-green) whitespace-nowrap">
                       Personal Info
                     </h2>
                   </div>
@@ -206,7 +206,7 @@ export default function UserData() {
                       <button
                         type="button"
                         onClick={() => setIsEditing(true)}
-                        className="px-4 py-3 bg-[#022e14] rounded-lg font-semibold border border-white/10 whitespace-nowrap flex items-center justify-center"
+                        className="px-4 py-3 bg-(--color-dark-green) rounded-lg font-semibold border border-white/10 whitespace-nowrap flex items-center justify-center"
                       >
                         <Pen className="inline-block h-4 w-4" />
                       </button>
@@ -216,7 +216,7 @@ export default function UserData() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <label className="block text-sm font-medium text-amber-20 mb-1!">
+                    <label className="block text-sm font-medium text-(--color-dark-green) mb-1">
                       First Name
                     </label>
                     <input
@@ -225,12 +225,12 @@ export default function UserData() {
                       value={formData.first_name || ""}
                       onChange={handleInputChange}
                       disabled={!isEditing}
-                      className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                      className="w-full px-4 py-2 rounded-lg bg-(--color-beige) text-(--color-dark-green) placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-amber-20 mb-1!">
+                    <label className="block text-sm font-medium text-(--color-dark-green) mb-1!">
                       Last Name
                     </label>
                     <input
@@ -239,27 +239,27 @@ export default function UserData() {
                       value={formData.last_name || ""}
                       onChange={handleInputChange}
                       disabled={!isEditing}
-                      className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                      className="w-full px-4 py-2! rounded-lg bg-(--color-beige) text-(--color-dark-green) placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                     />
                   </div>
 
                   <div className="space-y-2 sm:col-span-2">
-                    <label className="block text-sm font-medium text-amber-20 mb-1!">
+                    <label className="block text-sm font-medium text-(--color-dark-green) mb-1!">
                       Email
                     </label>
                     <input
                       type="email"
                       value={formData.email || ""}
                       disabled
-                      className="w-full px-4 py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5]/50! cursor-not-allowed"
+                      className="w-full px-4 py-2! rounded-lg bg-(--color-beige) text-(--color-dark-green)/50 disabled:opacity-60 cursor-not-allowed"
                     />
-                    <p className="text-xs text-[#f5ece5]/50">
+                    <p className="text-xs text-(--color-terracota)">
                       Email cannot be changed
                     </p>
                   </div>
 
                   <div className="space-y-2 sm:col-span-2">
-                    <label className="block text-sm font-medium text-amber-20 mb-1!">
+                    <label className="block text-sm font-medium text-(--color-dark-green) mb-1!">
                       Phone
                     </label>
                     <input
@@ -269,7 +269,7 @@ export default function UserData() {
                       onChange={handleInputChange}
                       disabled={!isEditing}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full px-4! py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                      className="w-full px-4! py-2! rounded-lg bg-(--color-beige) text-(--color-dark-green) placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                     />
                   </div>
                 </div>
@@ -277,15 +277,15 @@ export default function UserData() {
 
               <div>
                 <div className="flex items-center gap-3 mb-6! mt-7!">
-                  <div className="w-1 h-6 bg-(--color-yellow)"></div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
+                  <div className="w-1 h-6 bg-(--color-terracota)"></div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-(--color-dark-green)">
                     Emergency Contact
                   </h2>
                 </div>
 
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-amber-20 mb-1!">
+                    <label className="block text-sm font-medium text-(--color-dark-green) mb-1!">
                       Contact Name
                     </label>
                     <input
@@ -294,12 +294,12 @@ export default function UserData() {
                       value={formData.emergency_contact_name || ""}
                       onChange={handleInputChange}
                       disabled={!isEditing}
-                      className="w-full px-4 py-2! mb-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                      className="w-full px-4 py-2! mb-2! rounded-lg bg-(--color-beige) text-(--color-dark-green) placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-amber-20 mb-1!">
+                    <label className="block text-sm font-medium text-(--color-dark-green) mb-1!">
                       Relationship
                     </label>
                     <input
@@ -309,12 +309,12 @@ export default function UserData() {
                       onChange={handleInputChange}
                       disabled={!isEditing}
                       placeholder="e.g. Mother, Father, Spouse"
-                      className="w-full px-4 py-2! mb-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                      className="w-full px-4 py-2! mb-2! rounded-lg bg-(--color-beige) text-(--color-dark-green) placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                     />
                   </div>
 
                   <div className="space-y-2">
-                    <label className="block text-sm font-medium text-amber-20 mb-1!">
+                    <label className="block text-sm font-medium text-(--color-dark-green) mb-1!">
                       Contact Phone
                     </label>
                     <input
@@ -324,7 +324,7 @@ export default function UserData() {
                       onChange={handleInputChange}
                       disabled={!isEditing}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full px-4! py-2! rounded-lg bg-white/5 border border-white/10 text-[#f5ece5] placeholder-[#f5ece5]/40 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
+                      className="w-full px-4! py-2! rounded-lg bg-(--color-beige) text-(--color-dark-green) placeholder-gray-400 disabled:opacity-60 disabled:cursor-not-allowed transition-all focus:outline-none focus:border-[#022e14] focus:bg-white/10"
                     />
                   </div>
                 </div>
@@ -332,8 +332,8 @@ export default function UserData() {
 
               <div>
                 <div className="flex items-center gap-3 mb-6! mt-7!">
-                  <div className="w-1 h-6 bg-(--color-yellow)"></div>
-                  <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
+                  <div className="w-1 h-6 bg-(--color-terracota)"></div>
+                  <h2 className="text-xl sm:text-2xl font-bold text-(--color-dark-green)">
                     Release of Liability Agreement
                   </h2>
                 </div>
@@ -347,12 +347,12 @@ export default function UserData() {
                       disabled={!isEditing || initialWaiverSigned}
                       className="h-5 w-5 text-[#f5ece5] disabled:opacity-60 disabled:cursor-not-allowed mx-4"
                     />
-                    <label className="text-sm">
+                    <label className="text-sm text-(--color-dark-green)">
                       I have read and agree to the{" "}
                       <button
                         type="button"
                         onClick={() => setModalOpen(true)}
-                        className="underline text-(--color-yellow) hover:text-yellow-300 transition"
+                        className="underline text-(--color-terracota) hover:text-(--color-dark-green) font-bold transition"
                       >
                         Waiver & Release of Liability
                       </button>
@@ -367,7 +367,7 @@ export default function UserData() {
                     <button
                       type="button"
                       onClick={handleCancel}
-                      className="px-6! py-2! bg-white/10 rounded-lg font-semibold"
+                      className="px-6! py-2! bg-(--color-beige) text-(--color-dark-green) rounded-lg font-semibold"
                     >
                       Cancel
                     </button>
@@ -375,7 +375,7 @@ export default function UserData() {
                       type="button"
                       onClick={handleSave}
                       disabled={saving}
-                      className="px-6! py-2! bg-[#022e14] rounded-lg font-semibold active:scale-95 disabled:opacity-50 border border-white/10"
+                      className="px-6! py-2! bg-(--color-dark-green) rounded-lg font-semibold active:scale-95 disabled:opacity-50 border border-white/10"
                     >
                       {saving ? "Saving..." : "Save Changes"}
                     </button>

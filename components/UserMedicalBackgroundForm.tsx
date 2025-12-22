@@ -21,8 +21,8 @@ export function UserMedicalBackgroundForm({
     <>
       <div className="flex justify-between mt-10 mb-2 items-center">
         <div className="flex items-center gap-3">
-          <div className="w-1 h-6 bg-(--color-yellow)" />
-          <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
+          <div className="w-1 h-6 bg-(--color-terracota)" />
+          <h2 className="text-xl sm:text-2xl font-bold text-(--color-dark-green)">
             Medical Background
           </h2>
         </div>
@@ -36,7 +36,7 @@ export function UserMedicalBackgroundForm({
           disabled={!isEditing}
           onChange={() => onToggle("none_apply")}
         />
-        <label>None apply</label>
+        <label className="text-(--color-dark-green)">None apply</label>
       </div>
 
       <Collapse isOpened={!medicalBackground.none_apply}>
@@ -52,7 +52,7 @@ export function UserMedicalBackgroundForm({
                 disabled={!isEditing}
                 onChange={() => onToggle(key)}
               />
-              <label>{label}</label>
+              <label className="text-(--color-dark-green)">{label}</label>
             </div>
           ))}
 
@@ -64,11 +64,11 @@ export function UserMedicalBackgroundForm({
               disabled={!isEditing}
               onChange={() => onToggle("other_diagnosed_condition")}
             />
-            <label>Other condition</label>
+            <label className="text-(--color-dark-green)">Other condition</label>
 
             <input
               type="text"
-              className="border-b bg-transparent flex-1"
+              className="border-b bg-transparent flex-1 text-(--color-dark-green)"
               disabled={
                 !isEditing || !medicalBackground.other_diagnosed_condition
               }

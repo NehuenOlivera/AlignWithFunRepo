@@ -18,8 +18,8 @@ export function UserAcknowledgementOfResponsabilityForm({
     <>
       <div className="flex justify-between mt-10 mb-2 items-center">
         <div className="flex items-center gap-3">
-          <div className="w-1 h-6 bg-(--color-yellow)" />
-          <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
+          <div className="w-1 h-6 bg-(--color-terracota)" />
+          <h2 className="text-xl sm:text-2xl font-bold text-(--color-dark-green)">
             Acknowledgement of Responsibility
           </h2>
         </div>
@@ -37,7 +37,9 @@ export function UserAcknowledgementOfResponsabilityForm({
                 onChange={() => onToggle(key)}
               />
             </div>
-            <label className="text-sm leading-relaxed">{label}</label>
+            <label className="text-sm text-(--color-dark-green) leading-relaxed">
+              {label}
+            </label>
           </div>
         ))}
       </div>

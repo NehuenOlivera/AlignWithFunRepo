@@ -21,8 +21,8 @@ export function UserInjuriesForm({
     <>
       <div className="flex justify-between mb-2 items-center">
         <div className="flex items-center gap-3">
-          <div className="w-1 h-6 bg-(--color-yellow)" />
-          <h2 className="text-xl sm:text-2xl font-bold text-[#f5ece5]">
+          <div className="w-1 h-6 bg-(--color-terracota)" />
+          <h2 className="text-xl sm:text-2xl font-bold text-(--color-dark-green)">
             Current Injuries or Conditions
           </h2>
         </div>
@@ -36,7 +36,9 @@ export function UserInjuriesForm({
           disabled={!isEditing}
           onChange={() => onToggle("no_injuries")}
         />
-        <label>I currently have no injuries or conditions.</label>
+        <label className="text-(--color-dark-green)">
+          I currently have no injuries or conditions.
+        </label>
       </div>
 
       <Collapse isOpened={!currentInjuries.no_injuries}>
@@ -52,7 +54,7 @@ export function UserInjuriesForm({
                 disabled={!isEditing}
                 onChange={() => onToggle(key)}
               />
-              <label>{label}</label>
+              <label className="text-(--color-dark-green)">{label}</label>
             </div>
           ))}
 
@@ -64,11 +66,11 @@ export function UserInjuriesForm({
               disabled={!isEditing}
               onChange={() => onToggle("other_injury")}
             />
-            <label>Other injury</label>
+            <label className="text-(--color-dark-green)">Other injury</label>
 
             <input
               type="text"
-              className="border-b bg-transparent flex-1"
+              className="border-b bg-transparent flex-1 text-(--color-dark-green)"
               disabled={!isEditing || !currentInjuries.other_injury}
               value={currentInjuries.other_injury_text}
               onChange={(e) => onOtherInjuryTextChange(e.target.value)}

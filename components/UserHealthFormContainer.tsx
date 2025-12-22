@@ -254,13 +254,13 @@ export function UserHealthFormContainer() {
       />
 
       <Collapse isOpened={isHealthFormOpen}>
-        <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 sm:p-8 md:p-10 mt-4">
+        <div className="bg-(--color-light-green) rounded-2xl p-6 sm:p-8 md:p-10 mt-4">
           {!isEditing && (
             <div className="flex justify-end mb-4">
               <button
                 type="button"
                 onClick={() => setIsEditing(true)}
-                className="px-4 py-3 bg-[#022e14] rounded-lg font-semibold border border-white/10"
+                className="px-4 py-3 bg-(--color-dark-green) rounded-lg font-semibold border border-white/10"
               >
                 <Pen className="h-4 w-4" />
               </button>
@@ -299,7 +299,7 @@ export function UserHealthFormContainer() {
         ${
           !canSave
             ? "bg-gray-500 cursor-not-allowed opacity-60"
-            : "bg-(--color-yellow) text-black hover:opacity-90"
+            : "bg-(--color-terracota) text-(--color-beige) hover:opacity-90"
         }
       `}
                 >
