@@ -16,6 +16,8 @@
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-playfair: var(--font-playfair);
+  --font-bebas-neue: var(--font-bebas-neue);
 
   --glass-shadow: rgba(2, 46, 20, 0.15);
   --glass-blur: 8px;
@@ -28,9 +30,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
-    Arial, sans-serif;
+  font-family: var(--font-playfair), var(--font-bebas-neue);
   line-height: 1.6;
   letter-spacing: -0.3px;
   overflow-x: hidden;
