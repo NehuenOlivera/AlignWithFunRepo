@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { getUserWithRole } from "@/utils/supabase/getUserWithRole";
+import Image from "next/image";
 
 export default async function Header() {
   const supabase = await createClient();
@@ -18,7 +19,14 @@ export default async function Header() {
       <div className="header-container">
         <div className="header-left">
           <a href="/" className="header-logo">
-            AWF
+            <Image
+              className="size-16"
+              width={10}
+              height={10}
+              src="./Design_Favicon.svg"
+              alt="Pilates logo"
+              loading="eager"
+            />
           </a>
           <a href="/classes" className="header-admin-link">
             Classes

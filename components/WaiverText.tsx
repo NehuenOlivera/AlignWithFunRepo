@@ -62,7 +62,7 @@ export default function WaiverText() {
         </p>
 
         <p>
-          <strong>Participant Responsibility</strong>
+          <strong>6. Participant Responsibility</strong>
           <br />I agree to:
           <ul className="list-disc ml-6 space-y-1">
             <li>

@@ -14,7 +14,7 @@ export default function EventCard({ event, onJoin, onCancelBooking }: Props) {
   const userStatus = event.user_status;
 
   return (
-    <li className="eventCard md:w-full max-w-md group">
+    <li className="eventCard md:w-full max-w-md group bg-(--color-light-green)">
       <div className="flex flex-col justify-between h-full">
         <div>
           <div className="flex justify-between items-start">

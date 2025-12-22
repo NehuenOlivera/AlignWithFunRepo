@@ -3,8 +3,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
-export interface SwitchProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SwitchProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
 }
@@ -22,7 +21,7 @@ export function Switch({
       onClick={() => onCheckedChange?.(!checked)}
       className={cn(
         "relative inline-flex h-7 w-14 shrink-0 cursor-pointer items-center rounded-full transition-colors duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
-        checked ? "bg-emerald-700" : "bg-gray-300",
+        checked ? "bg-(--color-dark-green)" : "bg-gray-300",
         "shadow-inner",
         className
       )}

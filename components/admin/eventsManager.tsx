@@ -55,11 +55,11 @@ export default function EventsManager({
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
-  const [duration, setDuration] = useState("");
-  const [maxParticipants, setMaxParticipants] = useState("");
+  const [duration, setDuration] = useState("45");
+  const [maxParticipants, setMaxParticipants] = useState("10");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("");
-  const [suggestedPrice, setSuggestedPrice] = useState("");
+  const [location, setLocation] = useState("Cairns Marina - Finger D");
+  const [suggestedPrice, setSuggestedPrice] = useState("20");
 
   const now = new Date();
   const filteredEvents = showPastEvents
@@ -254,6 +254,9 @@ export default function EventsManager({
               resetForm();
               setIsCreateDialogOpen(true);
               setDuration("45");
+              setMaxParticipants("10");
+              setLocation("Cairns Marina - Finger D");
+              setSuggestedPrice("20");
             }}
           >
             <Plus className="h-4 w-4" />

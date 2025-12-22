@@ -58,7 +58,8 @@ export default function JoinModal({
             {format(new Date(event.start_at), "PP p")}
           </p>
           <p>
-            <span className="font-semibold">Location:</span> {event.location}
+            <span className="font-semibold">Location:</span>{" "}
+            {event.location || "Cairns Marina - Finger D"}
           </p>
           <p>
             <span className="font-semibold">Duration:</span>{" "}
@@ -66,7 +67,7 @@ export default function JoinModal({
           </p>
           <p>
             <span className="font-semibold">Price:</span>{" "}
-            {event.suggested_price ? `$${event.suggested_price}` : "Free"}
+            {event.suggested_price ? `$${event.suggested_price}` : "20"}
           </p>
         </div>
 

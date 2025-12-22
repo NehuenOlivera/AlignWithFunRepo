@@ -80,11 +80,14 @@ export function JoinClassEmailTemplate({ event, user }: JoinClassEmailProps) {
           ⏰ <strong>Time:</strong> {formattedTime}
         </p>
         <p>
-          📍 <strong>Location:</strong> Cairns Marina - Finger D
+          📍 <strong>Location:</strong> Cairns Marina - Finger D (on top of{" "}
+          <a href="https://maps.app.goo.gl/xo72ynMaYEp7z7a98">
+            Pure snorkelling office
+          </a>
+          )
         </p>
         <p>
-          ⏳ <strong>Duration:</strong>{" "}
-          {event.duration_minutes || "45–60 minutes"}
+          ⏳ <strong>Duration:</strong> {event.duration_minutes || "60 minutes"}
         </p>
 
         {/* What to Bring */}
@@ -112,6 +115,9 @@ export function JoinClassEmailTemplate({ event, user }: JoinClassEmailProps) {
 
         {/* Payment Note */}
         <p style={{ marginTop: "24px" }}>
+          If you&apos;re coming by car there&apos;s a 2 hour parking under the
+          pier.
+          <br />
           Feel free to pay by transfer or bring cash.
           <br />
           Arrive about 10 minutes early to ground yourself, breathe in the

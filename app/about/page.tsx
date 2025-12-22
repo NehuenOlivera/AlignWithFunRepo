@@ -1,33 +1,23 @@
 import Header from "@/components/header";
 import { Card } from "@/components/ui/card";
 import { Heart, Mountain, Users, Waves } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-linear-to-b from-[#0a1f12] to-[#101010] text-center">
+      <main className="min-h-screen bg-[#FAF4EB] text-center">
         <section className="relative overflow-hidden">
-          <Image
-            src={
-              "https://xtprzolahofaihkihtby.supabase.co/storage/v1/object/public/Public%20images/Pilates%20studio.png"
-            }
-            alt="Align With Fun Pilates Studio"
-            fill={true}
-            className="inset-0 object-cover opacity-10"
-            loading="eager"
-          />
           <div className="relative z-20 container mx-auto px-4 py-24 md:py-32">
             <div className="max-w-4xl mx-auto text-center">
-              <h1 className="text-6xl font-bold mt-8 mb-6 text-(--color-beige)">
+              <h1 className="text-6xl font-bold mt-8 mb-6 text-(--color-dark-green)">
                 Movement for{" "}
-                <span className="text-(--color-yellow)">Everyone</span>
+                <span className="text-(--color-terracota)">Everyone</span>
               </h1>
-              <div className="h-1 w-24 bg-(--color-yellow) mx-auto mb-8 rounded-full" />
+              <div className="h-1 w-24 bg-(--color-terracota) mx-auto mb-8 rounded-full" />
 
-              <p className="text-xl md:text-2xl leading-relaxed">
+              <p className="text-xl md:text-2xl leading-relaxed text-(--color-dark-green)">
                 Pilates that feels fun, welcoming, and totally accessible — no
                 matter your fitness level.
               </p>
@@ -37,20 +27,20 @@ export default function AboutPage() {
 
         <section className="py-20 px-4">
           <div className="container mx-auto max-w-4xl">
-            <Card className="p-12">
-              <h2 className="text-3xl md:text-4xl text-(--color-yellow) font-bold text-center mb-8">
+            <Card className="p-12 bg-(--color-light-green)">
+              <h2 className="text-3xl md:text-4xl text-(--color-dark-green) font-bold text-center mb-8">
                 Our Philosophy
               </h2>
-              <p className="text-lg text-center leading-relaxed mb-6">
+              <p className="text-lg text-center leading-relaxed mb-6 text-(--color-dark-green)">
                 At Align with Fun, the whole vibe is simple:{" "}
-                <span className="text-(--color-yellow) font-semibold block">
+                <span className="text-(--color-dark-green) font-semibold block">
                   Movement is for everyone.
                 </span>
                 Every class is designed so anyone can jump in, find their flow,
                 and move in a way that feels good. Pilates shouldn&apos;t feel
                 exclusive — it should feel fun and welcoming.
               </p>
-              <p className="text-lg text-center leading-relaxed">
+              <p className="text-lg text-center leading-relaxed text-(--color-dark-green)">
                 We&apos;re all about creating a space where movement feels
                 light, inclusive, and connected — to yourself, to others, and to
                 the stunning place we get to move in.
@@ -61,16 +51,18 @@ export default function AboutPage() {
 
         <section className="py-20 px-10">
           <div className="container mx-auto max-w-6xl">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-(--color-dark-green)">
               What Makes Us Special
             </h2>
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="p-8 backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
+              <Card className="p-8 bg-(--color-light-green) transition-all duration-300 hover:transform hover:scale-105">
                 <div className="mb-4 inline-flex p-3">
-                  <Waves className="w-8 h-8 text-(--color-yellow)" />
+                  <Waves className="w-8 h-8 text-[#FAF4EB]" />
                 </div>
-                <h3 className="text-2xl font-semibold mb-3">The Location</h3>
-                <p className="">
+                <h3 className="text-2xl font-semibold mb-3 text-(--color-dark-green)">
+                  The Location
+                </h3>
+                <p className="text-(--color-dark-green)">
                   We practice right by the marina, overlooking the boats and the
                   open ocean, with the mountains sitting in the background.
                   It&apos;s the kind of view that instantly slows you down,
@@ -78,12 +70,14 @@ export default function AboutPage() {
                 </p>
               </Card>
 
-              <Card className="p-8 backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
+              <Card className="p-8 bg-(--color-light-green) transition-all duration-300 hover:transform hover:scale-105">
                 <div className="mb-4 inline-flex p-3">
-                  <Users className="w-8 h-8 text-(--color-yellow)" />
+                  <Users className="w-8 h-8 text-[#FAF4EB]" />
                 </div>
-                <h3 className="text-2xl font-semibold mb-3">The Community</h3>
-                <p className="">
+                <h3 className="text-2xl font-semibold mb-3 text-(--color-dark-green)">
+                  The Community
+                </h3>
+                <p className="text-(--color-dark-green)">
                   There&apos;s something special about moving together — the
                   shared energy, the good chats, the little boosts of
                   encouragement. That exchange is part of our vibe and shapes
@@ -91,12 +85,14 @@ export default function AboutPage() {
                 </p>
               </Card>
 
-              <Card className="p-8 backdrop-blur-sm transition-all duration-300 hover:transform hover:scale-105">
+              <Card className="p-8 bg-(--color-light-green) transition-all duration-300 hover:transform hover:scale-105">
                 <div className="mb-4 inline-flex p-3">
-                  <Heart className="w-8 h-8 text-(--color-yellow)" />
+                  <Heart className="w-8 h-8 text-[#FAF4EB]" />
                 </div>
-                <h3 className="text-2xl font-semibold mb-3">The Experience</h3>
-                <p className="">
+                <h3 className="text-2xl font-semibold mb-3 text-(--color-dark-green)">
+                  The Experience
+                </h3>
+                <p className="text-(--color-dark-green)">
                   Every class is designed to be inclusive and accessible.
                   Whether you&apos;re brand new to Pilates or a seasoned
                   practitioner, you&apos;ll find your place here and move at a
@@ -107,11 +103,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        <section className="py-20 px-4 bg-linear-to-b from-[#0a1f12] to-[#101010]">
+        <section className="py-20 px-4 bg-(--color-light-green)">
           <div className="container mx-auto max-w-5xl">
             <div className="text-center">
-              <Mountain className="w-16 h-16 mx-auto mb-6 text-(--color-yellow)" />
-              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6">
+              <Mountain className="w-16 h-16 mx-auto mb-6" />
+              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-6 text-(--color-dark-green)">
                 Where Nature Meets Movement
               </h2>
               <p className="text-xl leading-relaxed max-w-3xl mx-auto">
@@ -127,16 +123,16 @@ export default function AboutPage() {
 
         <section className="py-20 px-4">
           <div className="container mx-auto max-w-3xl text-center">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-(--color-dark-green)">
               Ready to Join Us?
             </h2>
-            <p className="text-xl mb-10">
+            <p className="text-xl mb-10 text-(--color-dark-green)">
               Come experience Pilates in a way that feels welcoming, connected,
               and uniquely yours.
             </p>
             <Link
               href="/classes"
-              className="text-(--color-dark-green) text-2xl bg-(--color-yellow) px-4.5 py-2.5 rounded-4xl
+              className="text-[#FAF4EB] text-2xl bg-(--color-terracota) px-4.5 py-2.5 rounded-4xl
              font-semibold shadow-lg transition-all duration-300"
             >
               Book Your First Class

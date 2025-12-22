@@ -54,7 +54,8 @@ export default function CancelBookingModal({
             {format(new Date(event.start_at), "PP p")}
           </p>
           <p>
-            <span className="font-semibold">Location:</span> {event.location}
+            <span className="font-semibold">Location:</span>{" "}
+            {event.location || "Cairns Marina - Finger D"}
           </p>
           <p>
             <span className="font-semibold">Duration:</span>{" "}
@@ -66,7 +67,7 @@ export default function CancelBookingModal({
           </p>
         </div>
         <div>
-          <p className="text-red-500 mb-2">
+          <p className="text-(--color-terracota) mb-2">
             We can&apos;t guarantee a place in this class after you&apos;ve
             cancelled.
           </p>

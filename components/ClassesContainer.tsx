@@ -104,17 +104,20 @@ export default function ClassesContent() {
   };
 
   return (
-    <main className="min-h-screen bg-linear-to-b from-[#0a1f12] to-[#101010]">
+    <main className="min-h-screen bg-[#FAF4EB]">
       <section className="py-4 px-6 mx-auto">
         <div className="mb-10">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#f5ece5] justify-center flex">
+          <h1 className="text-3xl md:text-4xl font-bold text-(--color-dark-green) justify-center flex">
             Upcoming Classes
           </h1>
         </div>
 
         {/* Filter */}
         <div className="flex items-center gap-2 mb-6 justify-end">
-          <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
+          <Label
+            htmlFor="show-past"
+            className="text-(--color-dark-green) cursor-pointer"
+          >
             My bookings
           </Label>
           <Switch
