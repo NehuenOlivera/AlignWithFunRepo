@@ -240,7 +240,7 @@ export function UserHealthFormContainer() {
   if (loading) {
     return (
       <div className="min-h-60 flex items-center justify-center">
-        <p className="text-[#f5ece5]">Loading health info...</p>
+        <p className="text-(--color-dark-green)">Loading health info...</p>
       </div>
     );
   }

@@ -32,21 +32,21 @@ export default async function Login({
     <>
       <Header />
 
-      <section className="min-h-[calc(100vh-70px)] flex items-center justify-center px-4 py-10 bg-linear-to-br from-[#0a1f12] to-[#101010]">
+      <section className="min-h-[calc(100vh-70px)] flex items-center justify-center px-4 py-10 bg-linear-to-br from-(--color-dark-green) to-[#101010]">
         <Card
           className="
         w-full max-w-md
         rounded-2xl
-        bg-[#f5ece5]
+        bg-(--color-beige)
         shadow-xl
         p-6
       "
         >
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-3xl font-bold text-[#022e14]">
+            <CardTitle className="text-3xl font-bold text-(--color-dark-green)">
               Welcome Back
             </CardTitle>
-            <p className="text-sm text-[#022e14]/70">
+            <p className="text-sm text-(--color-dark-green)/70">
               Sign in to continue your journey
             </p>
           </CardHeader>
@@ -56,10 +56,10 @@ export default async function Login({
             {/* Divider */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-[#022e14]/10"></div>
+                <div className="w-full border-t border-(--color-dark-green)/10"></div>
               </div>
               <div className="relative flex justify-center text-sm">
-                <span className="px-3 bg-white/70 text-[#022e14]/60">
+                <span className="px-3 bg-white/70 text-(--color-dark-green)/60">
                   Or continue with email
                 </span>
               </div>
@@ -68,7 +68,10 @@ export default async function Login({
             {/* Login Form */}
             <form id="login-form" className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-[#022e14] font-medium">
+                <Label
+                  htmlFor="email"
+                  className="text-(--color-dark-green) font-medium"
+                >
                   Email
                 </Label>
                 <Input
@@ -91,7 +94,7 @@ export default async function Login({
               <div className="space-y-2">
                 <Label
                   htmlFor="password"
-                  className="text-[#022e14] font-medium"
+                  className="text-(--color-dark-green) font-medium"
                 >
                   Password
                 </Label>
@@ -106,9 +109,9 @@ export default async function Login({
                 bg-white/60 backdrop-blur-sm
                 border border-(--color-dark-green)
                 text-(--color-dark-green)
-                placeholder-[#022e14]/40
+                placeholder-(--color-dark-green)/40
                 rounded-xl h-11
-                focus:ring-2 focus:ring-[#022e14]/30
+                focus:ring-2 focus:ring-(--color-dark-green)/30
               "
                 />
               </div>
@@ -124,7 +127,7 @@ export default async function Login({
                 className="
               w-full h-11
               rounded-xl
-              bg-[#022e14] text-white font-semibold
+              bg-(--color-dark-green) text-white font-semibold
               hover:bg-[#023619]
               transition-all
               shadow-md hover:shadow-lg active:scale-[0.98]
@@ -133,11 +136,11 @@ export default async function Login({
                 Sign In
               </Button>
             </form>
-            <p className="text-center text-sm text-[#022e14]/70">
+            <p className="text-center text-sm text-(--color-dark-green)/70">
               Don&apos;t have an account?{" "}
               <Link
                 href={"/signup"}
-                className="text-[#022e14] font-semibold hover:underline"
+                className="text-(--color-dark-green) font-semibold hover:underline"
               >
                 Create one
               </Link>

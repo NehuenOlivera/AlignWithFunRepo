@@ -27,15 +27,15 @@ export default async function Signup({
     <>
       <Header />
 
-      <section className="min-h-[calc(100vh-70px)] flex items-center justify-center px-4 py-4 bg-linear-to-br from-[#0a1f12] to-[#101010]">
+      <section className="min-h-[calc(100vh-70px)] flex items-center justify-center px-4 py-4 bg-linear-to-br from-(--color-dark-green) to-[#101010]">
         <Card className="w-full max-w-md rounded-2xl bg-[#f5ece5] shadow-xl px-5 py-3">
           <CardHeader className="text-center">
-            <CardTitle className="text-3xl font-bold text-[#022e14]">
+            <CardTitle className="text-3xl font-bold text-(--color-dark-green)">
               {resolvedParams.message === "success"
                 ? "Almost done!"
                 : "Create an Account"}
             </CardTitle>
-            <p className="text-sm text-[#022e14]/70">
+            <p className="text-sm text-(--color-dark-green)/70">
               {resolvedParams.message === "success"
                 ? "Just need to verify your email"
                 : "Start your pilates journey with us"}
@@ -45,7 +45,7 @@ export default async function Signup({
           <CardContent className="space-y-4 mt-2">
             {/* SUCCESS MESSAGE */}
             {resolvedParams.message === "success" ? (
-              <div className="p-4 rounded-xl bg-green-50 border border-green-200 text-green-800 text-center space-y-2">
+              <div className="p-4 rounded-xl bg-green-50 border border-green-200 text-(--color-dark-green) text-center space-y-2">
                 <p className="font-semibold">Check your inbox 📩</p>
                 <p className="text-sm">
                   We&apos;ve sent a confirmation email to activate your account.

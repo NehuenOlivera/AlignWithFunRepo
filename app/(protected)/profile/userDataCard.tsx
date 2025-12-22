@@ -150,7 +150,7 @@ export default function UserData() {
   if (loading) {
     return (
       <div className="min-h-60 flex items-center justify-center">
-        <p className="text-[#f5ece5]">Loading profile...</p>
+        <p className="text-(--color-dark-green)">Loading profile...</p>
       </div>
     );
   }
@@ -158,7 +158,7 @@ export default function UserData() {
   if (!profile) {
     return (
       <div className="min-h-60 flex items-center justify-center">
-        <p className="text-[#f5ece5]">Profile not found</p>
+        <p className="text-(--color-dark-green)">Profile not found</p>
       </div>
     );
   }

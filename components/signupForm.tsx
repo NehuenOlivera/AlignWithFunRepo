@@ -46,7 +46,10 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
     >
       {/* Name */}
       <div>
-        <Label htmlFor="firstname" className="text-[#022e14] font-medium">
+        <Label
+          htmlFor="firstname"
+          className="text-(--color-dark-green) font-medium"
+        >
           Name
         </Label>
         <Input
@@ -54,14 +57,17 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
           name="firstname"
           required
           placeholder="First name"
-          className="bg-white/60 border border-[#022e14]/20 text-[#022e14] placeholder-[#022e14]/40 rounded-xl h-11"
+          className="bg-white/60 border border-(--color-dark-green)/20 text-(--color-dark-green) placeholder-(--color-dark-green)/40 rounded-xl h-11"
           onChange={(e) => setFirstName(e.target.value)}
         />
       </div>
 
       {/* Lastname */}
       <div>
-        <Label htmlFor="lastname" className="text-[#022e14] font-medium">
+        <Label
+          htmlFor="lastname"
+          className="text-(--color-dark-green) font-medium"
+        >
           Lastname
         </Label>
         <Input
@@ -69,14 +75,17 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
           name="lastname"
           required
           placeholder="Last name"
-          className="bg-white/60 border border-[#022e14]/20 text-[#022e14] placeholder-[#022e14]/40 rounded-xl h-11"
+          className="bg-white/60 border border-(--color-dark-green)/20 text-(--color-dark-green) placeholder-(--color-dark-green)/40 rounded-xl h-11"
           onChange={(e) => setLastName(e.target.value)}
         />
       </div>
 
       {/* Email */}
       <div>
-        <Label htmlFor="email" className="text-[#022e14] font-medium">
+        <Label
+          htmlFor="email"
+          className="text-(--color-dark-green) font-medium"
+        >
           Email
         </Label>
         <Input
@@ -90,13 +99,16 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
             validateEmails(e.target.value, confirmEmail);
           }}
           placeholder="you@example.com"
-          className="bg-white/60 border border-[#022e14]/20 text-[#022e14] placeholder-[#022e14]/40 rounded-xl h-11"
+          className="bg-white/60 border border-(--color-dark-green)/20 text-(--color-dark-green) placeholder-(--color-dark-green)/40 rounded-xl h-11"
         />
       </div>
 
       {/* Confirm Email */}
       <div>
-        <Label htmlFor="confirmEmail" className="text-[#022e14] font-medium">
+        <Label
+          htmlFor="confirmEmail"
+          className="text-(--color-dark-green) font-medium"
+        >
           Confirm Email
         </Label>
         <Input
@@ -110,7 +122,7 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
             validateEmails(email, e.target.value);
           }}
           placeholder="you@example.com"
-          className="bg-white/60 border border-[#022e14]/20 text-[#022e14] placeholder-[#022e14]/40 rounded-xl h-11"
+          className="bg-white/60 border border-(--color-dark-green)/20 text-(--color-dark-green) placeholder-(--color-dark-green)/40 rounded-xl h-11"
         />
 
         {emailError && (
@@ -120,7 +132,10 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
 
       {/* Password w/ strength meter */}
       <div>
-        <Label htmlFor="password" className="text-[#022e14] font-medium">
+        <Label
+          htmlFor="password"
+          className="text-(--color-dark-green) font-medium"
+        >
           Password
         </Label>
 
@@ -147,7 +162,7 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
       <Button
         disabled={!isFormValid}
         formAction={signup}
-        className="w-full h-11 rounded-xl bg-[#022e14] text-white font-semibold hover:bg-[#023619] transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
+        className="w-full h-11 rounded-xl bg-(--color-dark-green) text-white font-semibold hover:bg-[#023619] transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
       >
         Register
       </Button>
