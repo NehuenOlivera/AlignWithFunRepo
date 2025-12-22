@@ -10,12 +10,12 @@ export default function UserRow({ user }: { user: User }) {
 
   return (
     <>
-      <div className="flex items-center justify-between border-b px-3 py-3 border-green-600">
+      <div className="flex items-center justify-between border-b px-3 py-3 border-(--color-dark-green)">
         <div>
-          <h1 className="font-semibold">
+          <h1 className="font-semibold text-(--color-dark-green)">
             {user.first_name} {user.last_name}
           </h1>
-          <p>{user.email}</p>
+          <p className="text-(--color-dark-green)">{user.email}</p>
         </div>
         <div className="flex justify-center">
           {!user.waiver_signed ? (
@@ -27,7 +27,7 @@ export default function UserRow({ user }: { user: User }) {
             className="justify-center rounded-full"
             onClick={() => setIsUserDetailsOpen(true)}
           >
-            <Eye className="w-7 h-7 text-(--color-yellow)" />
+            <Eye className="w-7 h-7 text-(--color-terracota)" />
           </button>
         </div>
         <UserDetailsCard

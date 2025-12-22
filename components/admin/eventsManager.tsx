@@ -245,11 +245,13 @@ export default function EventsManager({
       <Collapse isOpened={isEventManagementOpen}>
         <div className="flex items-center justify-between my-5">
           <div>
-            <p className="text-[#f5ece5] pl-2 text-2xl">Manage your classes</p>
+            <p className="text-(--color-dark-green) pl-2 text-2xl">
+              Manage your classes
+            </p>
           </div>
 
           <Button
-            className="gap-2 border-2 pr-3 pl-2"
+            className="gap-2 border-2 pr-3 pl-2 text-(--color-dark-green)"
             onClick={() => {
               resetForm();
               setIsCreateDialogOpen(true);
@@ -266,7 +268,10 @@ export default function EventsManager({
 
         {/* Filter */}
         <div className="flex items-center gap-2 mb-6 justify-end">
-          <Label htmlFor="show-past" className="text-[#f5ece5] cursor-pointer">
+          <Label
+            htmlFor="show-past"
+            className="text-(--color-dark-green) cursor-pointer"
+          >
             Show past events
           </Label>
           <Switch
@@ -339,7 +344,7 @@ export default function EventsManager({
             </button>
             <button
               type="submit"
-              className="modalSubmitButton"
+              className="modalSubmitButton bg-(--color-dark-green)"
               disabled={loading}
             >
               {loading ? "Creating..." : "Create Event"}
@@ -384,7 +389,7 @@ export default function EventsManager({
             </button>
             <button
               type="submit"
-              className="modalSubmitButton"
+              className="modalSubmitButton bg-(--color-dark-green)"
               disabled={loading}
             >
               {loading ? "Saving..." : "Save Changes"}
@@ -423,7 +428,7 @@ export default function EventsManager({
             </button>
             <button
               type="submit"
-              className="modalSubmitButton"
+              className="modalSubmitButton bg-(--color-terracota)"
               disabled={loading}
             >
               {loading ? "Deleting..." : "Delete"}

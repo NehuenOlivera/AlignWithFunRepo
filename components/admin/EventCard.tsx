@@ -38,7 +38,7 @@ export default function EventCard({
   onDelete: () => void;
 }) {
   return (
-    <Card className="eventCard">
+    <Card className="eventCard border border-(--color-dark-green)">
       {/* Edit button */}
       <button
         className="absolute top-7 right-5 p-1 rounded-md hover:bg-white/10 transition text-green border border-green"
@@ -84,12 +84,15 @@ export default function EventCard({
         {ev.attendees_amount > 0 && (
           <div className="mt-2">
             <details>
-              <summary className="cursor-pointer text-sm text-black">
+              <summary className="cursor-pointer text-sm text-(--color-dark-green)">
                 View Attendees
               </summary>
               <ul className="mt-2 max-h-40 overflow-y-auto border border-[#f5ece5]/10 rounded-md p-2 space-y-2">
                 {ev.attendees.map((att) => (
-                  <li key={att.id} className="text-sm text-[#101010]">
+                  <li
+                    key={att.id}
+                    className="text-sm text-(--color-dark-green)"
+                  >
                     {att.first_name} {att.last_name} - {att.email}
                   </li>
                 ))}
