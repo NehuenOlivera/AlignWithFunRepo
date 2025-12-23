@@ -38,7 +38,7 @@ export default function EventCard({
   onDelete: () => void;
 }) {
   return (
-    <Card className="eventCard border border-(--color-dark-green)">
+    <Card className="eventCard bg-(--color-light-green) border border-(--color-dark-green)">
       {/* Edit button */}
       <button
         className="absolute top-7 right-5 p-1 rounded-md hover:bg-white/10 transition text-green border border-green"
@@ -56,7 +56,9 @@ export default function EventCard({
       </button>
 
       <CardHeader>
-        <CardTitle className="eventCard-title">{ev.name}</CardTitle>
+        <CardTitle className="eventCard-title text-(--color-dark-green)">
+          {ev.name}
+        </CardTitle>
 
         {ev.description && (
           <CardDescription className="eventCard-text">

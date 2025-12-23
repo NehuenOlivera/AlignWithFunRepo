@@ -6,6 +6,7 @@
   --color-terracota: #b37b64;
   --color-beige: #faf4eb;
   --color-black: #101010;
+  --color-black-pastel: #252525;
   --color-white: #ffffff;
   --color-grey: #808080;
   --color-orange: #ff7f50;
@@ -114,11 +115,6 @@ body {
   transition:
     background 0.2s ease,
     transform 0.15s ease;
-}
-
-.header-login-btn:hover,
-.header-signout-btn:hover {
-  background: #022e14e6;
 }
 
 .header-login-btn:active,
@@ -246,7 +242,6 @@ body {
 }
 
 .eventCard {
-  background: var(--color-light-green);
   border-radius: 20px;
   box-shadow: 0 8px 32px var(--glass-shadow);
   padding: 1.25rem;
@@ -262,7 +257,6 @@ body {
   font-size: 1.5rem; /* text-xl */
   font-weight: 600;
   margin-bottom: 0.2rem;
-  color: var(--color-dark-green);
 }
 
 /* ---------- Text row ---------- */
@@ -270,7 +264,6 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--color-dark-green);
   font-weight: 500;
 }
 
@@ -282,10 +275,7 @@ body {
   display: inline-flex;
   white-space: nowrap;
   align-items: center;
-  border-radius: 999px;
   background: #022e141a;
-  border: 1px solid rgba(2, 46, 20, 0.2);
-  color: var(--color-dark-green);
 }
 
 .eventCard-badge-joined {
@@ -296,9 +286,6 @@ body {
   align-items: center;
   white-space: nowrap;
   border-radius: 999px;
-  background: var(--color-dark-green);
-  border: 1px solid rgba(2, 46, 20, 0.2);
-  color: var(--color-white);
 }
 
 .eventCard-badge-full {
@@ -308,9 +295,6 @@ body {
   display: inline-flex;
   align-items: center;
   border-radius: 999px;
-  background: var(--color-black);
-  border: 1px solid rgba(2, 46, 20, 0.2);
-  color: var(--color-white);
 }
 
 /* ---------- Button ---------- */
@@ -322,8 +306,6 @@ body {
   border-radius: 12px;
   font-size: 1.1rem;
   transition: all 0.2s ease;
-  color: var(--color-beige);
-  border: none;
 }
 
 .eventCard-button-cancel-booking {
@@ -334,8 +316,6 @@ body {
   border-radius: 12px;
   font-size: 1.1rem;
   transition: all 0.2s ease;
-  border: none;
-  background: var(--color-terracota);
 }
 
 .eventCard-button:active {

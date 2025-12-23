@@ -23,7 +23,7 @@ function WaiverModal({
         <WaiverText />
         <button
           onClick={onClose}
-          className="mt-6 px-6 py-2 bg-[#022e14] rounded-lg border border-white/10 font-semibold w-full active:scale-95"
+          className="mt-6 px-6 py-2 bg-(--color-dark-green) rounded-lg border border-white/10 font-semibold w-full active:scale-95"
         >
           Close
         </button>

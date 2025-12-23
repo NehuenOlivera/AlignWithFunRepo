@@ -14,23 +14,27 @@ export default function EventCard({ event, onJoin, onCancelBooking }: Props) {
   const userStatus = event.user_status;
 
   return (
-    <li className="eventCard md:w-full max-w-md group bg-(--color-light-green) border border-(--color-dark-green)">
+    <li className="eventCard md:w-full max-w-md group bg-(--color-terracota)">
       <div className="flex flex-col justify-between h-full">
         <div>
           <div className="flex justify-between items-start">
             {/* Header */}
-            <h3 className="eventCard-title">{event.name}</h3>
+            <h3 className="eventCard-title text-(--color-beige)">
+              {event.name}
+            </h3>
 
             {/* Status Badge */}
             <div>
               {userStatus === "booked" ? (
-                <span className="eventCard-badge-joined">
+                <span className="eventCard-badge-joined bg-(--color-beige) border border-(--color-beige) text-(--color-terracota)">
                   ✓ You&apos;re in!
                 </span>
               ) : isFull ? (
-                <span className="eventCard-badge-full">Class Full</span>
+                <span className="eventCard-badge-full bg-(--color-black-pastel)">
+                  Class Full
+                </span>
               ) : (
-                <span className="eventCard-badge-available">
+                <span className="eventCard-badge-available border border-(--color-beige) text-(--color-beige) rounded-full">
                   {event.spots_left} {event.spots_left === 1 ? "spot" : "spots"}{" "}
                   left
                 </span>
@@ -40,24 +44,26 @@ export default function EventCard({ event, onJoin, onCancelBooking }: Props) {
 
           {/* Description */}
           {event.description && (
-            <p className="eventCard-text mb-2">{event.description}</p>
+            <p className="eventCard-text text-(--color-beige) mb-2">
+              {event.description}
+            </p>
           )}
 
           {/* Info Grid */}
           <div className="space-y-2 mb-4">
-            <div className="eventCard-text">
+            <div className="eventCard-text text-(--color-beige)">
               <Calendar className="h-4 w-4" />
               <span>
                 {format(new Date(event.start_at), "EEE, do LLLL yyyy")}
               </span>
             </div>
 
-            <div className="eventCard-text">
+            <div className="eventCard-text text-(--color-beige)">
               <Clock className="h-4 w-4" />
               <span>{format(new Date(event.start_at), "p")}</span>
             </div>
 
-            <div className="eventCard-text">
+            <div className="eventCard-text text-(--color-beige)">
               <BsStopwatch className="h-4 w-4" />
               <span>{event.duration_minutes} minutes</span>
             </div>
@@ -68,7 +74,7 @@ export default function EventCard({ event, onJoin, onCancelBooking }: Props) {
         {userStatus === "booked" ? (
           <button
             onClick={() => onCancelBooking(event)}
-            className="eventCard-button-cancel-booking"
+            className="eventCard-button-cancel-booking hover:bg-(--color-beige)/20 border border-(--color-beige)"
           >
             Cancel Booking
           </button>
@@ -78,8 +84,8 @@ export default function EventCard({ event, onJoin, onCancelBooking }: Props) {
             onClick={() => onJoin(event)}
             className={`eventCard-button-available ${
               isFull
-                ? "bg-[#101010] text-[#101010]/50 cursor-not-allowed"
-                : "bg-(--color-dark-green) text-[#f5ece5] hover:bg-[#022e14]/90 active:scale-95 cursor-pointer"
+                ? "bg-(--color-black-pastel) text-(--color-beige) cursor-not-allowed"
+                : "bg-(--color-beige) text-(--color-terracota) hover:bg-(--color-beige)/80 active:scale-95 cursor-pointer"
             }`}
           >
             {isFull ? "Class Full" : "Join Class"}
