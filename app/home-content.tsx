@@ -13,20 +13,20 @@ export default function HomeContent() {
       <div className="flex flex-col items-center space-y-4 mt-8 mb-16">
         <a
           href="/about"
-          className="homePageButton bg-(--color-terracota) hover:bg-(--color-beige)/80 transition text-[#FAF4EB]"
+          className="w-70 px-6 py-3 rounded-full text-center text-[1.2rem] font-semibold bg-(--color-terracota) text-(--color-beige) hover:bg-(--color-terracota)/90"
         >
           Learn About Us
         </a>
         <a
           href="/classes"
-          className="homePageButton bg-(--color-terracota) hover:bg-(--color-beige)/80 transition"
+          className="w-70 px-6 py-3 rounded-full text-center text-[1.2rem] font-semibold bg-(--color-terracota) text-(--color-beige) hover:bg-(--color-terracota)/90"
         >
           Book a Class
         </a>
         <button
           type="button"
           onClick={() => setModalOpen(true)}
-          className="homePageButton bg-(--color-terracota) hover:bg-(--color-beige)/80 transition"
+          className="w-70 px-6 py-3 rounded-full text-center text-[1.2rem] font-semibold bg-(--color-terracota) text-(--color-beige) hover:bg-(--color-terracota)/90"
         >
           Pricing
         </button>

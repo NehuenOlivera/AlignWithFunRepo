@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant hover (&:hover);
 
 :root {
   --color-dark-green: #344c3d;
@@ -35,10 +36,6 @@ body {
   line-height: 1.6;
   letter-spacing: -0.3px;
   overflow-x: hidden;
-}
-
-.text-green {
-  color: var(--color-dark-green);
 }
 
 /* Header */
@@ -405,17 +402,6 @@ body {
     background 0.2s ease,
     opacity 0.2s ease;
   cursor: pointer;
-}
-
-.homePageButton {
-  width: calc(var(--spacing) * 70);
-  padding-inline: 1.5rem;
-  padding-block: 0.75rem;
-  color: #faf4eb;
-  text-align: center;
-  font-size: 1.2rem;
-  font-weight: 600;
-  border-radius: 2rem;
 }
 
 .ReactCollapse--collapse {
