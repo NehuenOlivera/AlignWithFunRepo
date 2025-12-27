@@ -1,14 +1,17 @@
 "use client";
 
 import { Calendar, Clock } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { BsStopwatch } from "react-icons/bs";
 import { format } from "date-fns";
 import { ToggableHeader } from "./ui/ToggableHeader";
 import { Collapse } from "react-collapse";
 import { createClient } from "@/utils/supabase/client";
+import CancelBookingModal from "./CancelBookingModal";
+import { toast } from "react-toastify";
 
 type UserClass = {
+  id: string;
   name: string;
   description: string | null;
   start_at: string;
@@ -25,6 +28,8 @@ export function UserClassesContainer() {
   const [isLoading, setIsLoading] = useState(false);
   const [classes, setClasses] = useState<UserClass[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [classToCancel, setClassToCancel] = useState<UserClass | null>(null);
+  const [message, setMessage] = useState("");
 
   const supabase = createClient();
 
@@ -32,54 +37,115 @@ export function UserClassesContainer() {
     setIsOpen((prev) => !prev);
   }
 
+  const fetchClasses = useCallback(async () => {
+    setIsLoading(true);
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) {
+      setIsLoading(false);
+      return;
+    }
+
+    const { data, error } = await supabase
+      .from("attendees")
+      .select(
+        `
+      events!inner (
+        id,
+        name,
+        description,
+        start_at,
+        duration_minutes,
+        suggested_price,
+        location
+      )
+    `
+      )
+      .eq("user_id", user.id)
+      .eq("status", "booked");
+
+    if (error) {
+      console.error(error);
+      setIsLoading(false);
+      return;
+    }
+
+    const classesData = (data as unknown as AttendeeRow[])
+      .map((row) => row.events)
+      .filter((e): e is UserClass => Boolean(e));
+
+    setClasses(classesData);
+    setIsLoading(false);
+  }, [supabase]);
+
   useEffect(() => {
-    const fetchClasses = async () => {
+    let cancelled = false;
+
+    (async () => {
       setIsLoading(true);
 
       const {
         data: { user },
       } = await supabase.auth.getUser();
 
-      if (!user) {
-        setIsLoading(false);
-        return;
-      }
+      if (!user || cancelled) return;
 
       const { data, error } = await supabase
         .from("attendees")
         .select(
           `
-    events!inner (
-      name,
-      description,
-      start_at,
-      duration_minutes,
-      suggested_price,
-      location
-    )
-  `
+        events!inner (
+          id,
+          name,
+          description,
+          start_at,
+          duration_minutes,
+          suggested_price,
+          location
+        )
+      `
         )
         .eq("user_id", user.id)
         .eq("status", "booked");
 
-      if (error) {
-        console.error(error);
-        setIsLoading(false);
-        return;
-      }
-      console.log(data);
+      if (error || cancelled) return;
 
       const classesData = (data as unknown as AttendeeRow[])
         .map((row) => row.events)
         .filter((e): e is UserClass => Boolean(e));
 
-      console.log(classesData);
-      setClasses(classesData);
-      setIsLoading(false);
-    };
+      if (!cancelled) {
+        setClasses(classesData);
+        setIsLoading(false);
+      }
+    })();
 
-    fetchClasses();
+    return () => {
+      cancelled = true;
+    };
   }, [supabase]);
+
+  const handleCancelBooking = async () => {
+    if (!classToCancel) return;
+
+    const res = await fetch("/api/cancelBooking", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event_id: classToCancel.id }),
+    });
+
+    const data = await res.json();
+    setMessage(data.error ? "Error: " + data.error : data.message);
+    if (!data.error) {
+      fetchClasses();
+      setClassToCancel(null);
+      setMessage("");
+      toast.success(data.message);
+    }
+  };
 
   if (isLoading) {
     return (
@@ -139,10 +205,27 @@ export function UserClassesContainer() {
                     </div>
                   </div>
                 </div>
+                <button
+                  onClick={() => setClassToCancel(event)}
+                  className="eventCard-button-cancel-booking hover:bg-(--color-beige)/20 border border-(--color-beige)"
+                >
+                  Cancel Booking
+                </button>
               </div>
             </li>
           ))}
         </ul>
+        {classToCancel && (
+          <CancelBookingModal
+            event={classToCancel}
+            message={message}
+            handleSubmit={handleCancelBooking}
+            handleClose={() => {
+              setClassToCancel(null);
+              setMessage("");
+            }}
+          />
+        )}
       </Collapse>
     </>
   );

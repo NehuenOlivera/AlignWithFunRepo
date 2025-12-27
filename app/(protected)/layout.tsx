@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/utils/supabase/client";
+import { ToastContainer } from "react-toastify";
 
 export default function ProtectedLayout({
   children,
@@ -40,5 +41,10 @@ export default function ProtectedLayout({
   }, [router, adminOnly]);
 
   if (loading) return <p>Loading...</p>;
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <ToastContainer position="top-right" autoClose={2000} />;
+    </>
+  );
 }

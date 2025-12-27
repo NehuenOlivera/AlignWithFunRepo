@@ -3,7 +3,10 @@ import { format } from "date-fns";
 import { useState } from "react";
 
 type Props = {
-  event: Event;
+  event: Omit<
+    Event,
+    "max_participants" | "spots_left" | "user_status" | "post_schedule_message"
+  >;
   message: string;
   handleSubmit: () => Promise<void> | void;
   handleClose: () => void;
