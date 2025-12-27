@@ -129,11 +129,13 @@ export default function ClassesContent() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="text-[#f5ece5]/70">Loading your classes...</div>
+            <div className="text-(--color-dark-green)">
+              Loading your classes...
+            </div>
           </div>
         ) : filteredEvents.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-[#f5ece5]/70">
+            <p className="text-(--color-dark-green)">
               {filterBookedClasses
                 ? "You have no booked classes."
                 : "No upcoming classes available at the moment."}

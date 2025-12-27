@@ -15,10 +15,14 @@ export default function UpcomingClasses({
   onCancelBooking,
 }: Props) {
   if (loading)
-    return <div className="text-center py-8 text-[#f5ece5]/70">Loading...</div>;
+    return (
+      <div className="text-center py-8 text-(--color-dark-green)">
+        Loading...
+      </div>
+    );
   if (!events.length)
     return (
-      <div className="text-center py-8 text-[#f5ece5]/70">
+      <div className="text-center py-8 text-(--color-dark-green)">
         No upcoming classes available.
       </div>
     );
