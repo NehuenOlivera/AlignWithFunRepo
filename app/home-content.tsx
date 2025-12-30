@@ -6,11 +6,11 @@ import PricingModal from "@/components/PricingModal";
 import Footer from "@/components/Footer";
 
 export default function HomeContent() {
-  const [modalOpen, setModalOpen] = useState(false);
+  const [pricingModalOpen, setPricingModalOpen] = useState(false);
 
   return (
     <>
-      <main className="min-h-screen bg-[#FAF4EB]">
+      <main className="min-h-screen bg-(--color-beige)">
         <Hero />
         <div className="flex flex-col items-center space-y-4 mt-8 mb-16">
           <a
@@ -27,13 +27,16 @@ export default function HomeContent() {
           </a>
           <button
             type="button"
-            onClick={() => setModalOpen(true)}
+            onClick={() => setPricingModalOpen(true)}
             className="w-70 px-6 py-3 rounded-full text-center text-[1.2rem] font-semibold bg-(--color-terracota) text-(--color-beige) hover:bg-(--color-terracota)/90"
           >
             Pricing
           </button>
         </div>
-        <PricingModal open={modalOpen} onClose={() => setModalOpen(false)} />
+        <PricingModal
+          open={pricingModalOpen}
+          onClose={() => setPricingModalOpen(false)}
+        />
       </main>
       <Footer />
     </>

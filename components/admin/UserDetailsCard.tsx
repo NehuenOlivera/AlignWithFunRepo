@@ -23,7 +23,7 @@ export default function UserDetailsCard({
       />
 
       {/* MODAL */}
-      <div className="relative z-50 w-[90%] max-w-md rounded-2xl shadow-xl p-7 bg-[#FAF4EB]">
+      <div className="relative z-50 w-[90%] max-w-md rounded-2xl shadow-xl p-7 bg-(--color-beige)">
         {/* Close button */}
         <button
           onClick={() => onOpenChange(false)}

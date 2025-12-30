@@ -104,7 +104,7 @@ export default function ClassesContent() {
   };
 
   return (
-    <main className="min-h-screen bg-[#FAF4EB]">
+    <main className="min-h-screen bg-(--color-beige)">
       <section className="py-4 px-6 mx-auto">
         <div className="mb-10">
           <h1 className="text-3xl md:text-4xl font-bold text-(--color-dark-green) justify-center flex">

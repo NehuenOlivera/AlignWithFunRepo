@@ -7,7 +7,7 @@ export default function AboutPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen bg-[#FAF4EB] text-center">
+      <main className="min-h-screen bg-(--color-beige) text-center">
         <section className="relative overflow-hidden">
           <div className="relative z-20 container mx-auto px-4 py-24 md:py-32">
             <div className="max-w-4xl mx-auto text-center">
@@ -57,7 +57,7 @@ export default function AboutPage() {
             <div className="grid md:grid-cols-3 gap-8">
               <Card className="p-8 bg-(--color-light-green) transition-all duration-300 hover:transform hover:scale-105">
                 <div className="mb-4 inline-flex p-3">
-                  <Waves className="w-8 h-8 text-[#FAF4EB]" />
+                  <Waves className="w-8 h-8 text-(--color-beige)" />
                 </div>
                 <h3 className="text-2xl font-semibold mb-3 text-(--color-dark-green)">
                   The Location
@@ -72,7 +72,7 @@ export default function AboutPage() {
 
               <Card className="p-8 bg-(--color-light-green) transition-all duration-300 hover:transform hover:scale-105">
                 <div className="mb-4 inline-flex p-3">
-                  <Users className="w-8 h-8 text-[#FAF4EB]" />
+                  <Users className="w-8 h-8 text-(--color-beige)" />
                 </div>
                 <h3 className="text-2xl font-semibold mb-3 text-(--color-dark-green)">
                   The Community
@@ -87,7 +87,7 @@ export default function AboutPage() {
 
               <Card className="p-8 bg-(--color-light-green) transition-all duration-300 hover:transform hover:scale-105">
                 <div className="mb-4 inline-flex p-3">
-                  <Heart className="w-8 h-8 text-[#FAF4EB]" />
+                  <Heart className="w-8 h-8 text-(--color-beige)" />
                 </div>
                 <h3 className="text-2xl font-semibold mb-3 text-(--color-dark-green)">
                   The Experience
@@ -132,7 +132,7 @@ export default function AboutPage() {
             </p>
             <Link
               href="/classes"
-              className="text-[#FAF4EB] text-2xl bg-(--color-terracota) px-4.5 py-2.5 rounded-4xl
+              className="text-(--color-beige) text-2xl bg-(--color-terracota) px-4.5 py-2.5 rounded-4xl
              font-semibold shadow-lg transition-all duration-300"
             >
               Book Your First Class

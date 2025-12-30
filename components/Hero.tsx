@@ -5,7 +5,7 @@ export default function Hero() {
         align with <span className="text-(--color-terracota)">fun</span>
       </h1>
       <p className="max-w-xl mx-auto text-(--color-dark-green)">
-        Transform Your Body, Elevate Your Spirit
+        Come As You Are. Move Well. Grow Stronger. Have Fun
       </p>
     </section>
   );
