@@ -101,7 +101,7 @@ export default function ContactUsForm() {
           <button
             type="submit"
             disabled={isPending}
-            className="text-(--color-beige) text-2xl bg-(--color-terracota) mt-2 rounded-2xl p-2"
+            className="text-(--color-beige) text-2xl bg-(--color-dark-green) mt-2 rounded-2xl p-2"
           >
             {isPending ? "Sending..." : "Send message"}
           </button>

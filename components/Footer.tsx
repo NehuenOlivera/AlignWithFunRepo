@@ -7,7 +7,7 @@ export default function Footer() {
 
   return (
     <>
-      <footer className="grid grid-cols-3 fixed inset-x-0 bottom-0 bg-(--color-dark-green) text-white p-4 md:px-20 items-center">
+      <footer className="grid grid-cols-3 fixed inset-x-0 bottom-0 bg-(--color-black-pastel) text-white p-4 md:px-20 items-center">
         <p
           className="text-center underline hover:cursor-pointer"
           onClick={() => setPrivacyPolicyModalOpen(true)}
