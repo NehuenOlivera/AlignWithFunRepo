@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { signup } from "@/app/signup/actions";
 import PasswordStrengthBar from "@/components/ui/passwordStrengthBar";
 import PasswordInput from "@/components/ui/passwordInput";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { SubmitButton } from "./SubmitButton";
 
 export default function SignupForm({ serverError }: { serverError?: string }) {
   const [firstname, setFirstName] = useState("");
@@ -38,6 +38,7 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
     <form
       id="signup-form"
       className="space-y-4"
+      action={signup}
       onSubmit={(e) => {
         if (!validateEmails()) {
           e.preventDefault();
@@ -159,13 +160,11 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
         </div>
       )}
 
-      <Button
+      <SubmitButton
         disabled={!isFormValid}
-        formAction={signup}
-        className="w-full h-11 rounded-xl bg-(--color-dark-green) text-white font-semibold hover:bg-[#023619] transition-all shadow-md hover:shadow-lg active:scale-[0.98]"
-      >
-        Register
-      </Button>
+        text="Register"
+        pendingText="Registering..."
+      />
     </form>
   );
 }
