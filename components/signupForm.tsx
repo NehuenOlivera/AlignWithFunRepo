@@ -47,15 +47,12 @@ export default function SignupForm({ serverError }: { serverError?: string }) {
     >
       {/* Name */}
       <div>
-        <Label
-          htmlFor="firstname"
-          className="text-(--color-dark-green) font-medium"
-        >
+        <Label htmlFor="name" className="text-(--color-dark-green) font-medium">
           Name
         </Label>
         <Input
-          id="firstname"
-          name="firstname"
+          id="name"
+          name="name"
           required
           placeholder="First name"
           className="bg-white/60 border border-(--color-dark-green)/20 text-(--color-dark-green) placeholder-(--color-dark-green)/40 rounded-xl h-11"
