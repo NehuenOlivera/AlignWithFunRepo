@@ -41,10 +41,10 @@ export default function EventCard({
     <Card className="eventCard bg-(--color-light-green) border border-(--color-dark-green)">
       {/* Edit button */}
       <button
-        className="absolute top-7 right-5 p-1 rounded-md hover:bg-white/10 transition text-green border border-green"
+        className="absolute top-7 right-5 p-1 rounded-md hover:bg-white/10 transition text-green border border-(--color-dark-green)"
         onClick={onEdit}
       >
-        <Pencil className="h-4 w-4" />
+        <Pencil className="h-4 w-4 text-(--color-dark-green)" />
       </button>
 
       {/* Delete button */}
@@ -61,24 +61,24 @@ export default function EventCard({
         </CardTitle>
 
         {ev.description && (
-          <CardDescription className="eventCard-text">
+          <CardDescription className="eventCard-text text-(--color-dark-green)">
             {ev.description}
           </CardDescription>
         )}
       </CardHeader>
 
       <CardContent className="space-y-3">
-        <div className="eventCard-text">
+        <div className="eventCard-text text-(--color-dark-green)">
           <Calendar className="h-4 w-4" />
           <span>{format(new Date(ev.start_at), "EEEE do, LLL - p")}</span>
         </div>
 
-        <div className="eventCard-text">
+        <div className="eventCard-text text-(--color-dark-green)">
           <Clock className="h-4 w-4" />
           <span>{ev.duration_minutes} minutes</span>
         </div>
 
-        <div className="eventCard-text">
+        <div className="eventCard-text text-(--color-dark-green)">
           <Users className="h-4 w-4" />
           <span>Attendees {ev.attendees_amount}</span>
         </div>
