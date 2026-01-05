@@ -17,7 +17,7 @@ export default function HomeContent() {
             href="/about"
             className="w-70 px-6 py-3 rounded-full text-center text-[1.2rem] font-semibold bg-(--color-terracota) text-(--color-beige) hover:bg-(--color-terracota)/90"
           >
-            Learn About Us
+            About Us
           </a>
           <a
             href="/classes"
