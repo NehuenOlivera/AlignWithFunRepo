@@ -1,4 +1,4 @@
-import { SupabaseClient } from "@supabase/supabase-js";
+import { SupabaseClient, User } from "@supabase/supabase-js";
 import {
   UserWithNameAndEmail,
   EventInfoForEmail,
@@ -9,13 +9,15 @@ type DB = SupabaseClient<Database>;
 
 async function getUserInfoForEmail(
   supabase: DB,
-  userId: string
+  user: User
 ): Promise<UserWithNameAndEmail | null> {
   const { data: userInfo } = await supabase
     .from("users")
     .select("first_name, email")
-    .eq("id", userId)
+    .eq("id", user.id)
     .single();
+
+  console.log(userInfo);
 
   return userInfo;
 }
@@ -35,13 +37,13 @@ async function getEventInfoForEmail(
 
 export async function getInfoForJoinClassEmail(
   supabase: DB,
-  userId: string,
+  user: User,
   eventId: string
 ): Promise<{
-  user: UserWithNameAndEmail | null;
+  userInfo: UserWithNameAndEmail | null;
   event: EventInfoForEmail | null;
 }> {
-  const user = await getUserInfoForEmail(supabase, userId);
+  const userInfo = await getUserInfoForEmail(supabase, user);
   const event = await getEventInfoForEmail(supabase, eventId);
-  return { user, event };
+  return { userInfo, event };
 }

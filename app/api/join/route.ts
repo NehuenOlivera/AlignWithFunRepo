@@ -120,13 +120,9 @@ export async function POST(req: Request) {
     });
 
     // get event data (name, start_at, duration_minutes, ) and user data (first_name, email) to send email
-    const emailInfo = await getInfoForJoinClassEmail(
-      supabase,
-      user.id,
-      event_id
-    );
+    const emailInfo = await getInfoForJoinClassEmail(supabase, user, event_id);
     console.log(emailInfo);
-    sendJoinClassEmail(emailInfo.event!, emailInfo.user!);
+    sendJoinClassEmail(emailInfo.event!, emailInfo.userInfo!);
 
     if (error) return NextResponse.json({ error: error.message });
 
