@@ -56,29 +56,29 @@ export default function EventCard({
       </button>
 
       <CardHeader>
-        <CardTitle className="eventCard-title text-(--color-dark-green)">
+        <CardTitle className="eventCard-title text-(--color-black-pastel)">
           {ev.name}
         </CardTitle>
 
         {ev.description && (
-          <CardDescription className="eventCard-text text-(--color-dark-green)">
+          <CardDescription className="eventCard-text text-(--color-black-pastel)">
             {ev.description}
           </CardDescription>
         )}
       </CardHeader>
 
       <CardContent className="space-y-3">
-        <div className="eventCard-text text-(--color-dark-green)">
+        <div className="eventCard-text text-(--color-black-pastel)">
           <Calendar className="h-4 w-4" />
           <span>{format(new Date(ev.start_at), "EEEE do, LLL - p")}</span>
         </div>
 
-        <div className="eventCard-text text-(--color-dark-green)">
+        <div className="eventCard-text text-(--color-black-pastel)">
           <Clock className="h-4 w-4" />
           <span>{ev.duration_minutes} minutes</span>
         </div>
 
-        <div className="eventCard-text text-(--color-dark-green)">
+        <div className="eventCard-text text-(--color-black-pastel)">
           <Users className="h-4 w-4" />
           <span>Attendees {ev.attendees_amount}</span>
         </div>

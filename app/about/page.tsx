@@ -63,10 +63,9 @@ export default function AboutPage() {
                   The Location
                 </h3>
                 <p className="text-(--color-dark-green)">
-                  We practice right by the marina, overlooking the boats and the
-                  open ocean, with the mountains sitting in the background.
-                  It&apos;s the kind of view that instantly slows you down,
-                  grounds you, and reminds you to breathe a little deeper.
+                  Our class locations change with the weather, but one thing
+                  stays the same — we always practice somewhere beautiful in
+                  nature around Cairns.
                 </p>
               </Card>
 
@@ -111,10 +110,8 @@ export default function AboutPage() {
                 Where Nature Meets Movement
               </h2>
               <p className="text-xl leading-relaxed max-w-3xl mx-auto">
-                Our studio&apos;s setting adds to the magic. With views of the
-                marina, boats gently swaying, the vast ocean stretching beyond,
-                and mountains framing it all — this is more than just a place to
-                exercise. It&apos;s a space that naturally invites calm,
+                Whereever we land, nature sets the tone. Each class unfolds in a
+                beautiful outdoor setting around Cairns, inviting calm,
                 presence, and connection.
               </p>
             </div>
