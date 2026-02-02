@@ -9,7 +9,7 @@ type DB = SupabaseClient<Database>;
 
 async function getUserInfoForEmail(
   supabase: DB,
-  user: User
+  user: User,
 ): Promise<UserWithNameAndEmail | null> {
   const { data: userInfo } = await supabase
     .from("users")
@@ -17,18 +17,16 @@ async function getUserInfoForEmail(
     .eq("id", user.id)
     .single();
 
-  console.log(userInfo);
-
   return userInfo;
 }
 
 async function getEventInfoForEmail(
   supabase: DB,
-  eventId: string
+  eventId: string,
 ): Promise<EventInfoForEmail | null> {
   const { data: eventInfo } = await supabase
     .from("events")
-    .select("name, start_at, duration_minutes")
+    .select("name, start_at, duration_minutes, location")
     .eq("id", eventId)
     .single();
 
@@ -38,7 +36,7 @@ async function getEventInfoForEmail(
 export async function getInfoForJoinClassEmail(
   supabase: DB,
   user: User,
-  eventId: string
+  eventId: string,
 ): Promise<{
   userInfo: UserWithNameAndEmail | null;
   event: EventInfoForEmail | null;

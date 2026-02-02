@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { Event } from "../types";
-import { Calendar, Clock } from "lucide-react";
+import { Calendar, Clock, MapPin } from "lucide-react";
 import { BsStopwatch } from "react-icons/bs";
 
 type Props = {
@@ -57,6 +57,13 @@ export default function EventCard({ event, onJoin, onCancelBooking }: Props) {
                 {format(new Date(event.start_at), "EEE, do LLLL yyyy")}
               </span>
             </div>
+
+            {/* {event.location && ( */}
+            <div className="eventCard-text text-(--color-beige)">
+              <MapPin className="h-4 w-4" />
+              <span>{event.location}</span>
+            </div>
+            {/* )} */}
 
             <div className="eventCard-text text-(--color-beige)">
               <Clock className="h-4 w-4" />

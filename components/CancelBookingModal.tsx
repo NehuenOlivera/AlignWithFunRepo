@@ -57,8 +57,7 @@ export default function CancelBookingModal({
             {format(new Date(event.start_at), "PP p")}
           </p>
           <p>
-            <span className="font-semibold">Location:</span>{" "}
-            {event.location || "Cairns Marina - Finger D"}
+            <span className="font-semibold">Location:</span> {event.location}
           </p>
           <p>
             <span className="font-semibold">Duration:</span>{" "}

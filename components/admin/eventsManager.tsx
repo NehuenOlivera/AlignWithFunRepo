@@ -27,7 +27,7 @@ export interface Event {
   start_at: string;
   duration_minutes: number;
   max_participants: number;
-  location?: string;
+  location: string;
   description?: string;
   suggested_price?: number;
   attendees_amount: number;
@@ -58,8 +58,8 @@ export default function EventsManager({
   const [duration, setDuration] = useState("45");
   const [maxParticipants, setMaxParticipants] = useState("10");
   const [description, setDescription] = useState("");
-  const [location, setLocation] = useState("Cairns Marina - Finger D");
-  const [suggestedPrice, setSuggestedPrice] = useState("20");
+  const [location, setLocation] = useState("");
+  const [suggestedPrice, setSuggestedPrice] = useState("");
 
   const now = new Date();
   const filteredEvents = showPastEvents
@@ -195,7 +195,7 @@ export default function EventsManager({
 
     // update list
     setEvents((prev) =>
-      prev.map((ev) => (ev.id === editingEvent.id ? data.event : ev))
+      prev.map((ev) => (ev.id === editingEvent.id ? data.event : ev)),
     );
 
     setIsEditDialogOpen(false);
@@ -257,8 +257,7 @@ export default function EventsManager({
               setIsCreateDialogOpen(true);
               setDuration("45");
               setMaxParticipants("10");
-              setLocation("Cairns Marina - Finger D");
-              setSuggestedPrice("20");
+              setSuggestedPrice("15");
             }}
           >
             <Plus className="h-4 w-4" />

@@ -9,6 +9,7 @@ export interface EventInfoForEmail {
   name: string;
   start_at: string;
   duration_minutes: number;
+  location: string | null;
 }
 
 interface JoinClassEmailProps {
@@ -80,11 +81,7 @@ export function JoinClassEmailTemplate({ event, user }: JoinClassEmailProps) {
           ⏰ <strong>Time:</strong> {formattedTime}
         </p>
         <p>
-          📍 <strong>Location:</strong> Cairns Marina - Finger D (on top of{" "}
-          <a href="https://maps.app.goo.gl/xo72ynMaYEp7z7a98">
-            Pure snorkelling office
-          </a>
-          )
+          📍 <strong>Location:</strong> {event.location}
         </p>
         <p>
           ⏳ <strong>Duration:</strong> {event.duration_minutes || "60 minutes"}
@@ -121,7 +118,7 @@ export function JoinClassEmailTemplate({ event, user }: JoinClassEmailProps) {
           Feel free to pay by transfer or bring cash.
           <br />
           Arrive about 10 minutes early to ground yourself, breathe in the
-          marina views, and take care of payment before we start.
+          views, and take care of payment before we start.
         </p>
 
         {/* Contact */}

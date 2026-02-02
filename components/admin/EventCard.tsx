@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardContent,
 } from "@/components/ui/card";
-import { Calendar, Clock, Users, Pencil, Trash2 } from "lucide-react";
+import { Calendar, Clock, Users, Pencil, Trash2, MapPin } from "lucide-react";
 import { format } from "date-fns";
 
 interface Attendee {
@@ -21,6 +21,7 @@ interface Event {
   id: string;
   name: string;
   start_at: string;
+  location: string;
   duration_minutes: number;
   max_participants: number;
   description?: string;
@@ -68,6 +69,10 @@ export default function EventCard({
       </CardHeader>
 
       <CardContent className="space-y-3">
+        <div className="eventCard-text text-(--color-black-pastel)">
+          <MapPin className="h-4 w-4" />
+          <span>{ev.location}</span>
+        </div>
         <div className="eventCard-text text-(--color-black-pastel)">
           <Calendar className="h-4 w-4" />
           <span>{format(new Date(ev.start_at), "EEEE do, LLL - p")}</span>
